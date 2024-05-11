@@ -1,1 +1,37 @@
-/*    Push - rompí todo
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.login-container {
+  margin-top: 0 auto;
+  margin-bottom: 0 auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+header img,
+footer img {
+  width: 75px;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer-flex-container {
+  display: flex;
+  flex-wrap: wrap !important;
+  flex-direction: row;
+  justify-content: space-between;
+}
