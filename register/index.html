@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" href="../css/styles.css" />
 
+    <script src="../js/register.js"></script>
     <title>Nike Uruguay</title>
   </head>
   <body class="bg-white text-dark">
@@ -52,24 +53,26 @@
         <label class="mt-2 mb-2" for="register-username"
           >Nombre de usuario:
         </label>
-        <input type="text" id="register-username" size="38" required />
+        <input type="text" id="register-username" size="38"  />
         <br />
         <!-- Contraseña -->
         <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
-        <input type="password" id="register-password" size="45" required />
+        <input type="password" id="register-password" size="45"  />
         <br />
         <!-- Tarjeta de credito -->
         <label class="mt-2 mb-2" for="register-card"
           >Tarjeta de crédito:
         </label>
-        <input type="text" id="register-card" size="30" required />
+        <input type="text" id="register-card" size="30"  />
         <!-- CVC -->
         <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-        <input type="text" id="register-cvc" size="2" maxlength="3" required />
+        <input type="text" id="register-cvc" size="2" maxlength="3"  />
         <br />
-        <button type="submit" class="mt-2 mb-2">Crear usuario</button>
-        <input type="checkbox" name="TOS" id="register-tos" required />
+        <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario"/>
+        <input type="checkbox" name="TOS" id="register-tos"  />
         <label for="register-tos">Acepto los términos y condiciones</label>
+        <p id="register-errorMessage"></p>
+        <p id="register-success"></p>
       </form>
     </div>
 
