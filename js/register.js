@@ -20,6 +20,7 @@ function registerFunction() {
   let passwordLowercaseCount = 0;
   let passwordNumberCount = 0;
 
+  // Verificación contraseña
   for (let i = 0; i < password.length; i++) {
     if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
       passwordUppercaseCount++;
