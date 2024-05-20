@@ -7,25 +7,45 @@ body {
   font-optical-sizing: auto;
 }
 
-.login-container {
+.login-container,
+.register-container {
   margin-top: 0 auto;
   margin-bottom: 0 auto;
 }
 
+.register-container {
+  display: none;
+}
+
 header {
+  height: 10vh;
+  width: 100%;
   position: absolute;
   top: 0;
-  width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
 }
+
+header .arrow-container,
+header .logo-container {
+  display: none;
+}
+
 header img,
 footer img {
   width: 75px;
 }
 
+main {
+  width: 100%;
+  text-align: center;
+}
+
 footer {
   width: 100%;
   position: absolute;
+  align-items: center;
   bottom: 0;
 }
 

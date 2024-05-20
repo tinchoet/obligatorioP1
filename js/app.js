@@ -1,8 +1,23 @@
 window.addEventListener("load", register);
+
 function register() {
-  document
-    .querySelector("#register-button")
-    .addEventListener("click", registerFunction);
+  document.querySelector("#hideLogin").addEventListener("click", showRegister); // función para esconder login al hacer click en 'registrarse'
+  document.querySelector("#register-button").addEventListener("click", registerFunction); // función para validar registro
+  document.querySelector("#arrow-container").addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
+}
+
+function showRegister() {
+  document.querySelector("#login-container").style.display = "none";
+  document.querySelector("#register-container").style.display = "block";
+  document.querySelector("#arrow-container").style.display = "block"; // flecha para ir hacia atrás
+  document.querySelector("#logo-container").style.display = "block"; // logo de la tienda
+}
+
+function showLogin() {
+  document.querySelector("#login-container").style.display = "block";
+  document.querySelector("#register-container").style.display = "none";
+  document.querySelector("#arrow-container").style.display = "none"; // flecha para ir hacia atrás
+  document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
 
 function registerFunction() {
