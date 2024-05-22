@@ -40,7 +40,7 @@ function registerFunction() {
   let lastName = document.querySelector("#register-surname").value;
   let username = document.querySelector("#register-username").value;
   let password = document.querySelector("#register-password").value;
-  let creditCard = document.querySelector("#register-card").value;
+  let creditCard = Number(document.querySelector("#register-card").value);
   let cvc = Number(document.querySelector("#register-cvc").value);
 
   let errorMessage = "";
@@ -49,6 +49,13 @@ function registerFunction() {
   let passwordUppercaseCount = 0;
   let passwordLowercaseCount = 0;
   let passwordNumberCount = 0;
+
+  //verificación del nombre
+  //Si el Nombre y el apellido no comienza con mayuscula devuelve el mensaje de error
+  if (firstName.charAt(0) != firstName.charAt(0).toLowerCase() || lastName.charAt(0) != lastName.charAt(0).toLowerCase()) {
+    errorMessage = 'El Nombre y Apellido deben comenzar en mayúsculas <br>';
+  }
+
 
   // Verificación contraseña
   for (let i = 0; i < password.length; i++) {
@@ -89,9 +96,19 @@ function registerFunction() {
     successMessage = `El registro fue un exito. Tu contraseña es: ${password}`
   }
 
-  //verificación del nombre
 
-  
+
+
+
+
+  if (firstName == '' || lastName == '' || username == '' || password == '' || creditCard == '' || cvc == '') {
+    alert('Complete todos los campos');
+  }
+
   document.querySelector("#register-errorMessage").innerHTML = errorMessage;
   document.querySelector("#register-success").innerHTML = successMessage;
 }
+
+
+//Funcion para agregar a arrayUsers los usuarios creados
+
