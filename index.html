@@ -1,121 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-    <meta
-      name="description"
-      content="Tienda online oficial de Nike en Uruguay"
-    />
 
-    <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
-      integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+<head>
+  <!-- Meta tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Tienda online oficial de Nike en Uruguay" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap"
-      rel="stylesheet"
-    />
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="./css/styles.css" />
-    <script src="./js/app.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet" />
 
-    <title>Nike Uruguay</title>
-  </head>
-  <body class="bg-white text-dark">
-    <header>
-      <div class="arrow-container" id="arrow-container">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" class="mt-5 mx-4" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-      </div>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/app.js"></script>
 
-      <div class="logo-container" id="logo-container">
-        <a href="#"
-          ><img src="./img/nike-black-logo.png" alt="Logo de Nike" class="mt-5 mx-4"
-        /></a>
-      </div>
-    </header>
+  <title>Nike Uruguay</title>
+</head>
 
-    <main>
-      <div class="login-container" id="login-container">
-        <form action="#" method="get">
-          <label class="mt-2 mb-2" for="login-username"
-            >Nombre de usuario:
-          </label>
-          <input type="text" id="login-username" size="24" />
-          <br />
-          <label class="mt-2 mb-2" for="login-password">Contraseña: </label>
-          <input type="password" id="login-password" size="30" />
-          <br />
-          <button type="submit" class="mt-2 mb-2">Iniciar sesión</button>
-          <span class="mx-2">No tenés un usuario?</span>
-          <a href="#" id="hideLogin">Registrate</a>
-        </form>
-      </div>
+<body class="bg-white text-dark">
+  <header>
+    <div class="arrow-container" id="arrow-container">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" class="mt-5 mx-4"
+        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <path
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+      </svg>
+    </div>
 
-      <div class="register-container" id="register-container">
-        <form action="#" method="get">
-          <!-- Nombre -->
-          <label class="mt-2 mb-2" for="register-name">Nombre: </label>
-          <input type="text" id="register-name" size="18" required />
-          <!-- Apellido -->
-          <label class="mt-2 mb-2" for="register-surname">Apellido: </label>
-          <input type="text" id="register-surname" size="19" required />
-          <br />
-          <!-- Username -->
-          <label class="mt-2 mb-2" for="register-username"
-            >Nombre de usuario:
-          </label>
-          <input type="text" id="register-username" size="38" />
-          <br />
-          <!-- Contraseña -->
-          <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
-          <input type="password" id="register-password" size="45" />
-          <br />
-          <!-- Tarjeta de credito -->
-          <label class="mt-2 mb-2" for="register-card"
-            >Tarjeta de crédito:
-          </label>
-          <input type="text" id="register-card" size="30" />
-          <!-- CVC -->
-          <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-          <input type="text" id="register-cvc" size="2" maxlength="3" />
-          <br />
-          <input type="checkbox" name="TOS" id="register-tos" />
-          <label for="register-tos">Acepto los términos y condiciones</label>
-          <input
-          type="button"
-          class="mt-2 mb-2"
-          id="register-button"
-          value="Crear usuario"
-        />
-          <p id="register-errorMessage"></p>
-          <p id="register-success"></p>
-        </form>
-      </div>
-    </main>
+    <div class="logo-container" id="logo-container">
+      <a href="#"><img src="./img/nike-black-logo.png" alt="Logo de Nike" class="mt-5 mx-4"></a>
+    </div>
+  </header>
 
-    <footer class="bg-dark text-white">
-      <div class="footer-flex-container">
-        <img
-          src="./img/nike-white-logo.png"
-          alt="Logo de Nike"
-          class="mt-3 mb-3 mx-3"
-        />
-        <p class="mt-3 mb-3 mx-3">
-          &copy; 2024 Nike Uruguay - Todos los derechos reservados
-        </p>
-      </div>
-    </footer>
-  </body>
+  <main>
+
+    <!-- LOGIN -->
+    <div class="login-container" id="login-container">
+      <form action="#" method="get">
+        <label class="mt-2 mb-2" for="login-username">Nombre de usuario:
+        </label>
+        <input type="text" id="login-username" size="24">
+        <br>
+        <label class="mt-2 mb-2" for="login-password">Contraseña: </label>
+        <input type="password" id="login-password" size="30">
+        <br>
+        <button type="submit" class="mt-2 mb-2">Iniciar sesión</button>
+        <span class="mx-2">No tenés un usuario?</span>
+        <a href="#" id="hideLogin">Registrate</a>
+      </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="register-container" id="register-container">
+      <form action="#" method="get">
+        <!-- Nombre -->
+        <label class="mt-2 mb-2" for="register-name">Nombre: </label>
+        <input type="text" id="register-name" size="18" required>
+        <!-- Apellido -->
+        <label class="mt-2 mb-2" for="register-surname">Apellido: </label>
+        <input type="text" id="register-surname" size="19" required>
+        <br />
+        <!-- Username -->
+        <label class="mt-2 mb-2" for="register-username">Nombre de usuario:
+        </label>
+        <input type="text" id="register-username" size="38">
+        <br />
+        <!-- Contraseña -->
+        <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
+        <input type="password" id="register-password" size="45">
+        <br />
+        <!-- Tarjeta de credito -->
+        <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito:
+        </label>
+        <input type="text" id="register-card" size="30">
+        <!-- CVC -->
+        <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
+        <input type="text" id="register-cvc" size="2" maxlength="3">
+        <br />
+        <input type="checkbox" name="TOS" id="register-tos">
+        <label for="register-tos">Acepto los términos y condiciones</label>
+        <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" />
+        <p id="register-errorMessage"></p>
+        <p id="register-success"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white">
+    <div class="footer-flex-container">
+      <img src="./img/nike-white-logo.png" alt="Logo de Nike" class="mt-3 mb-3 mx-3" />
+      <p class="mt-3 mb-3 mx-3">
+        &copy; 2024 Nike Uruguay - Todos los derechos reservados
+      </p>
+    </div>
+  </footer>
+</body>
+
 </html>
