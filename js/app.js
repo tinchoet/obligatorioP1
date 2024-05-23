@@ -102,7 +102,7 @@ function registerFunction() {
 
 
   if (firstName == '' || lastName == '' || username == '' || password == '' || creditCard == '' || cvc == '') {
-    alert('Complete todos los campos');
+    alert('Completa todos los campos');
   }
 
   document.querySelector("#register-errorMessage").innerHTML = errorMessage;
