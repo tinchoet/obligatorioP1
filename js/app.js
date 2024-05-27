@@ -1,22 +1,14 @@
 window.addEventListener("load", init);
 
-function init() { //CAMBIE EL NOMBRE DE LA FUNCION PARA METER TODOS LOS BOTONES ACA Y OTRAS FUNCIONES QUE TENGAMOS QUE CARGAR ENSEGUIDA QUE CARGUE LA PAGINA
-
+function init() {
   document.querySelector("#hideLogin").addEventListener("click", showRegister); // función para esconder login al hacer click en 'registrarse'
-  document.querySelector("#register-button").addEventListener("click", registerFunction); // función para validar registro
-  document.querySelector("#arrow-container").addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
+  document
+    .querySelector("#register-button")
+    .addEventListener("click", registerFunction); // función para validar registro
+  document
+    .querySelector("#arrow-container")
+    .addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
 }
-
-//Listas que necesitamos para almacenar los datos de los objetos.
-//Agregar mas a medida que las necesitemos.
-const arrayAdmins = [{
-  username: 'admin',
-  password: 'admin'
-}];
-
-const arrayProducts = [];
-let arrayUsers = [];
-let arrayShopping = [];
 
 function showRegister() {
   document.querySelector("#login-container").style.display = "none";
@@ -33,7 +25,6 @@ function showLogin() {
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
 
-
 // Funcion para validar el registro del usuario
 function registerFunction() {
   let firstName = document.querySelector("#register-name").value;
@@ -43,21 +34,42 @@ function registerFunction() {
   let creditCard = Number(document.querySelector("#register-card").value);
   let cvc = Number(document.querySelector("#register-cvc").value);
 
-  let errorMessage = "";
-  let successMessage = "";
+  validateName(firstName, lastName);
+  validatePassword(password);
+  // validateCard(creditCard);
 
+  if (
+    firstName == "" ||
+    lastName == "" ||
+    username == "" ||
+    password == "" ||
+    creditCard == "" ||
+    cvc == ""
+  ) {
+    alert("Completa todos los campos");
+  }
+}
+
+function validateName(firstName, lastName) {
+  let nameValidated = false;
+
+  if (
+    firstName.charAt(0) != firstName.charAt(0).toLowerCase() ||
+    lastName.charAt(0) != lastName.charAt(0).toLowerCase()
+  ) {
+    errorMessage = "El Nombre y Apellido deben comenzar en mayúsculas <br>";
+  } else {
+    nameValidated = true;
+  }
+
+  return nameValidated;
+}
+function validatePassword(password) {
+  let passwordValidated = false;
   let passwordUppercaseCount = 0;
   let passwordLowercaseCount = 0;
   let passwordNumberCount = 0;
 
-  //verificación del nombre
-  //Si el Nombre y el apellido no comienza con mayuscula devuelve el mensaje de error
-  if (firstName.charAt(0) != firstName.charAt(0).toLowerCase() || lastName.charAt(0) != lastName.charAt(0).toLowerCase()) {
-    errorMessage = 'El Nombre y Apellido deben comenzar en mayúsculas <br>';
-  }
-
-
-  // Verificación contraseña
   for (let i = 0; i < password.length; i++) {
     if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
       passwordUppercaseCount++;
@@ -77,8 +89,7 @@ function registerFunction() {
     passwordNumberCount === 0
   ) {
     if (password.length < 5) {
-      errorMessage +=
-        "La contraseña debe contener al menos 5 caracteres. <br>";
+      errorMessage += "La contraseña debe contener al menos 5 caracteres. <br>";
     }
     if (passwordUppercaseCount === 0) {
       errorMessage +=
@@ -93,22 +104,16 @@ function registerFunction() {
     }
   } else {
     errorMessage = "";
-    successMessage = `El registro fue un exito. Tu contraseña es: ${password}`
-  }
-
-
-
-
-
-
-  if (firstName == '' || lastName == '' || username == '' || password == '' || creditCard == '' || cvc == '') {
-    alert('Completa todos los campos');
+    successMessage = "";
+    let passwordValidated = true;
   }
 
   document.querySelector("#register-errorMessage").innerHTML = errorMessage;
   document.querySelector("#register-success").innerHTML = successMessage;
+  return passwordValidated;
 }
-
-
-//Funcion para agregar a arrayUsers los usuarios creados
-
+// function validateCard(creditCard) {
+//   for (let i = creditCard.length; i <= 0; i--) {
+//     // tengo que convertir el string a un array AY DIO MIO
+//   }
+// }
