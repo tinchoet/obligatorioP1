@@ -31,12 +31,12 @@ function registerFunction() {
   let lastName = document.querySelector("#register-surname").value;
   let username = document.querySelector("#register-username").value;
   let password = document.querySelector("#register-password").value;
-  let creditCard = Number(document.querySelector("#register-card").value);
+  let creditCard = document.querySelector("#register-card").value;
   let cvc = Number(document.querySelector("#register-cvc").value);
 
   validateName(firstName, lastName);
   validatePassword(password);
-  // validateCard(creditCard);
+  validateCard(creditCard);
 
   if (
     firstName == "" ||
@@ -54,8 +54,8 @@ function validateName(firstName, lastName) {
   let nameValidated = false;
 
   if (
-    firstName.charAt(0) != firstName.charAt(0).toLowerCase() ||
-    lastName.charAt(0) != lastName.charAt(0).toLowerCase()
+    firstName.charAt(0) === firstName.charAt(0).toLowerCase() ||
+    lastName.charAt(0) === lastName.charAt(0).toLowerCase()
   ) {
     errorMessage = "El Nombre y Apellido deben comenzar en mayúsculas <br>";
   } else {
@@ -64,6 +64,7 @@ function validateName(firstName, lastName) {
 
   return nameValidated;
 }
+
 function validatePassword(password) {
   let passwordValidated = false;
   let passwordUppercaseCount = 0;
@@ -105,15 +106,36 @@ function validatePassword(password) {
   } else {
     errorMessage = "";
     successMessage = "";
-    let passwordValidated = true;
+    passwordValidated = true;
   }
 
   document.querySelector("#register-errorMessage").innerHTML = errorMessage;
   document.querySelector("#register-success").innerHTML = successMessage;
   return passwordValidated;
 }
-// function validateCard(creditCard) {
-//   for (let i = creditCard.length; i <= 0; i--) {
-//     // tengo que convertir el string a un array AY DIO MIO
-//   }
-// }
+
+function validateCard(creditCard) {
+  let addedUpNumber = 0;
+  let cardValidated = false;
+
+  for (let pos = creditCard.length; pos >= 0; pos -= 2) {
+    let digit = Number(creditCard.charAt(pos)) * 2;
+    if (digit >= 10) {
+      addedUpNumber += digit - 9;
+    } else {
+      addedUpNumber += digit;
+    }
+  }
+
+  for (let pos = creditCard.length - 1; pos >= 0; pos -= 2) { 
+    addedUpNumber += Number(creditCard.charAt(pos));
+  }
+
+  if (addedUpNumber % 10 === 0) {
+    cardValidated = true;
+  } else {
+    cardValidated = false;
+  }
+
+  return cardValidated;
+} 
