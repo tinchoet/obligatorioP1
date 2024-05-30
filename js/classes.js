@@ -1,7 +1,7 @@
-class System {
+class App {
   constructor() {
-    let arrayUserbase = [];
-    let arrayProducts = [];
+    this.userList = new Array();
+    this.productList = new Array()
   }
 }
 

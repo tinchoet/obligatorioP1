@@ -25,6 +25,9 @@ function showLogin() {
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
 
+let runApp = new App();
+// sin terminar
+
 // Funcion para validar el registro del usuario
 function registerFunction() {
   let firstName = document.querySelector("#register-name").value;
@@ -35,19 +38,21 @@ function registerFunction() {
   let cvc = Number(document.querySelector("#register-cvc").value);
 
   validateName(firstName, lastName);
+  validateUsername(username);
   validatePassword(password);
   validateCard(creditCard);
 
-  if (
-    firstName == "" ||
-    lastName == "" ||
-    username == "" ||
-    password == "" ||
-    creditCard == "" ||
-    cvc == ""
-  ) {
-    alert("Completa todos los campos");
-  }
+  // if (
+  //   firstName == "" ||
+  //   lastName == "" ||
+  //   username == "" ||
+  //   password == "" ||
+  //   creditCard == "" ||
+  //   cvc == ""
+  // ) { alert("Completa todos los campos"); }
+  // Esta verificación ya está hecha en HTML.
+
+  // if (nameValidated === true && passwordValidated === true && cardValidated === true && username)
 }
 
 function validateName(firstName, lastName) {
@@ -118,7 +123,7 @@ function validateCard(creditCard) {
   let addedUpNumber = 0;
   let cardValidated = false;
 
-  for (let pos = creditCard.length; pos >= 0; pos -= 2) {
+  for (let pos = creditCard.length - 1; pos >= 0; pos -= 2) {
     let digit = Number(creditCard.charAt(pos)) * 2;
     if (digit >= 10) {
       addedUpNumber += digit - 9;
@@ -127,7 +132,7 @@ function validateCard(creditCard) {
     }
   }
 
-  for (let pos = creditCard.length - 1; pos >= 0; pos -= 2) { 
+  for (let pos = creditCard.length - 2; pos >= 0; pos -= 2) { 
     addedUpNumber += Number(creditCard.charAt(pos));
   }
 
@@ -139,3 +144,14 @@ function validateCard(creditCard) {
 
   return cardValidated;
 } 
+
+function validateUsername(username) {
+  let usernameValidated = false;
+  // sin terminar
+}
+
+
+function createNewUser(firstName, lastName, password, username, creditCard, cvc) {
+  let newUser = new User (firstName, lastName, password, username, creditCard, cvc, "user");
+  // sin terminar
+}
