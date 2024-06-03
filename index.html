@@ -63,7 +63,7 @@
 
     <!-- REGISTER -->
     <div class="register-container" id="register-container">
-      <form action="#" method="get">
+      <form action="#" method="get" autocomplete="on">
         <!-- Nombre -->
         <label class="mt-2 mb-2" for="register-name">Nombre: </label>
         <input type="text" id="register-name" size="18" required>
@@ -86,12 +86,12 @@
         <input type="text" id="register-card" size="30">
         <!-- CVC -->
         <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-        <input type="text" id="register-cvc" size="2" maxlength="3">
+        <input type="number" id="register-cvc" size="2" maxlength="3">
         <br />
         <input type="checkbox" name="TOS" id="register-tos">
         <label for="register-tos">Acepto los términos y condiciones</label>
         <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" />
-        <p id="register-errorMessage"></p>
+        <p id="register-error"></p>
         <p id="register-success"></p>
       </form>
     </div>
