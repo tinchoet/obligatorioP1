@@ -65,7 +65,7 @@ function registerFunction() {
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
         "Iniciar sesión";
-      console.log('Usuario creado:' + mainApp.userList[length-1]);
+      console.log('Usuario creado:' + mainApp.userList[length - 1]);
     }
   } else {
     document.querySelector("#register-messages").innerHTML =
@@ -91,9 +91,12 @@ function loginFunction() {
     }
   }
 
-  if (!foundUser) {
-    document.querySelector("#login-messages").innerHTML =
-      "Credenciales incorrectas, intenta otra vez";
+  if (foundUser) {
+    document.querySelector("#login-container").style.display = 'none';
+
+    productsTable();
+  } else {
+    document.querySelector('#login-messages').innerHTML = 'Credenciales incorrectas, intenta otra vez.';
   }
 }
 
@@ -349,4 +352,56 @@ function createNewUser(
     "user"
   );
   mainApp.userList.push(newUser);
+}
+
+
+function preloadProducts() {
+  let id = mainApp.productList[mainApp.productList.length - 1].id;
+  let preloadedProduct = new Product(
+    id + 1,
+    "Producto de prueba",
+    100,
+    "Descripción del producto",
+    "image.jpg",
+    10,
+    true
+  );
+
+ 
+  mainApp.productList.push(preloadedProduct);
+}
+preloadProducts();
+productsTable();
+
+function productsTable() {
+  let productsSection = document.querySelector('#products-list');
+
+  let table = "<table border='1'>";
+  table += `<tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+                <th>Estado</th>
+                <th>Operacion</th>
+            </tr>`;
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let prodObj = mainApp.productList[i];
+    let prodStatus = 'Activo';
+    if (!prodObj.status) {
+      prodStatus = 'Pausado';
+    }
+    table += `<tr>
+                  <td>${prodObj.name}</td>
+                  <td>${prodObj.price}</td>
+                  <td>${prodObj.description}</td>
+                  <td><img src="img/${prodObj.image}"></td>
+                  <td>${prodStatus}</td>
+                  <td>${prodObj.stock}</td>    
+              </tr>`
+  }
+  table += '</table>'
+  productsSection.innerHTML = table;
+  productsSection.style.display = 'block';
 }

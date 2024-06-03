@@ -18,14 +18,15 @@ class User {
     // tipo de usuario. sudo o user
   }
 }
-
-class Products {
-    constructor(pName, pPrice, pDescription, pImage, pStock) {
-      this.name = pName;
-      this.price = pPrice;
-      this.description = pDescription;
-      this.image = pImage;
-      this.stock = pStock;
-    }
+let productCounter = 1;
+class Product {
+  constructor(pName, pPrice, pDescription, pImage, pStock) {
+    this.name = pName;
+    this.price = pPrice;
+    this.description = pDescription;
+    this.image = pImage;
+    this.stock = pStock;
+    this.status = true;
+    this.id = 'PROD_ID_' + productCounter;
   }
-  
+}
