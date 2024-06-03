@@ -8,6 +8,7 @@ function init() {
   document
     .querySelector("#arrow-container")
     .addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
+  preloadUsers();
 }
 
 function showRegister() {
@@ -25,8 +26,7 @@ function showLogin() {
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
 
-let runApp = new App();
-// sin terminar
+let mainApp = new App();
 
 // Funcion para validar el registro del usuario
 function registerFunction() {
@@ -41,16 +41,11 @@ function registerFunction() {
   validateUsername(username);
   validatePassword(password);
   validateCard(creditCard);
-
-  // if (
-  //   firstName == "" ||
-  //   lastName == "" ||
-  //   username == "" ||
-  //   password == "" ||
-  //   creditCard == "" ||
-  //   cvc == ""
-  // ) { alert("Completa todos los campos"); }
-  // Esta verificación ya está hecha en HTML.
+  checkVoidInputs(firstName, lastName, username, password, creditCard, cvc);
+  
+  if (checkVoidInputs === true) {
+    alert("Completa todos los campos");
+  }
 
   // if (nameValidated === true && passwordValidated === true && cardValidated === true && username)
 }
@@ -147,9 +142,43 @@ function validateCard(creditCard) {
 
 function validateUsername(username) {
   let usernameValidated = false;
-  // sin terminar
+
+  for (let i = 0; i < mainApp.userList.length; i++) {
+    if (username === mainApp.userList[i].username) {
+      usernameValidated = false;
+    } else {
+      usernameValidated = true;
+    }
+  } 
+
+  return usernameValidated;
 }
 
+function preloadUsers() {
+  let preloadedUser = new User("Martin", "Leib", "mleib", "1234", "4111111111111111", "999", "root");
+  mainApp.userList.push(preloadedUser);
+  preloadedUser = new User("Martin", "Etchebarne", "tinchoet", "1234", "4111111111111111", "999", "root");
+  mainApp.userList.push(preloadedUser);
+  preloadedUser = new User("Juan", "Perez", "jperez", "1234", "4111111111111111", "999", "user");
+  mainApp.userList.push(preloadedUser);
+  preloadedUser = new User("Carlos", "Rodriguez", "crodriguez", "1234", "4111111111111111", "999", "user");
+  mainApp.userList.push(preloadedUser);
+  preloadedUser = new User("Marcos", "Gonzales", "mgonzales", "1234", "4111111111111111", "999", "user");
+  mainApp.userList.push(preloadedUser);
+
+  console.log(`Cantidad de usuarios en la base de datos: ${mainApp.userList.length}.`);
+  console.log(mainApp.userList);
+}
+
+function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
+  let voidInputs = false;
+
+  if (input1 === "" || input2 === "" || input3 === "" || input4 === "" || input5 === "" || input6 === "") {
+    voidInputs = true;
+  }
+
+  return voidInputs;
+}  
 
 function createNewUser(firstName, lastName, password, username, creditCard, cvc) {
   let newUser = new User (firstName, lastName, password, username, creditCard, cvc, "user");

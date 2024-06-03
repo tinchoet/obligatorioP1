@@ -13,7 +13,7 @@ class User {
     this.password = pPassword;
     this.creditCard = pCreditCard;
     this.cvc = pCvc;
-    this.power = pPower // tipo de usuario. root o user
+    this.power = pPower; // tipo de usuario. root o user
   }
 }
 
