@@ -47,7 +47,9 @@ function registerFunction() {
     alert("Completa todos los campos");
   }
 
-  // if (nameValidated === true && passwordValidated === true && cardValidated === true && username)
+  if (nameValidated === true && passwordValidated === true && cardValidated === true && usernameValidated === true && checkVoidInputs === false) {
+    createNewUser(firstName, lastName, password, username, creditCard, cvc);
+  }
 }
 
 function validateName(firstName, lastName) {
@@ -141,13 +143,11 @@ function validateCard(creditCard) {
 } 
 
 function validateUsername(username) {
-  let usernameValidated = false;
+  let usernameValidated = true;
 
   for (let i = 0; i < mainApp.userList.length; i++) {
     if (username === mainApp.userList[i].username) {
       usernameValidated = false;
-    } else {
-      usernameValidated = true;
     }
   } 
 
@@ -182,5 +182,5 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
 
 function createNewUser(firstName, lastName, password, username, creditCard, cvc) {
   let newUser = new User (firstName, lastName, password, username, creditCard, cvc, "user");
-  // sin terminar
+  mainApp.userList.push(newUser);
 }
