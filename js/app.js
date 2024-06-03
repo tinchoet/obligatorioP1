@@ -34,37 +34,63 @@ function registerFunction() {
   let password = document.querySelector("#register-password").value;
   let creditCard = document.querySelector("#register-card").value;
   let cvc = Number(document.querySelector("#register-cvc").value);
-  
-  document.querySelector("#register-error").innerHTML = "";
+
+  validateName(firstName, lastName);
+  validateUsername(username);
+  validatePassword(password);
+  validateCard(creditCard);
+  validateCVC(cvc);
+  checkVoidInputs(firstName, lastName, username, password, creditCard, cvc);
 
   if (
-    validateName(firstName, lastName) === true &&
-    validateUsername(username) === true &&
-    validatePassword(password) === true &&
-    validateCard(creditCard) === true &&
-    validateCVC(cvc) === true &&
-    checkVoidInputs === false
+    nameValidated === true &&
+    usernameExists === false &&
+    passwordValidated === true &&
+    cardValidated === true &&
+    cvcValidated === true &&
+    voidInputs === false
   ) {
     createNewUser(firstName, lastName, password, username, creditCard, cvc);
     document.querySelector("#register-success").innerHTML =
       "Usuario registrado con éxito";
+  } else {
+    document.querySelector("#register-success").innerHTML = "Hubo un problema con el registro del usuario. <br> Por favor, intente nuevamente.";
   }
 }
 
 function validateName(firstName, lastName) {
   let nameValidated = false;
+  document.querySelector("#register-error-fullName").innerHTML = "";
 
   if (
-    firstName.charAt(0) === firstName.charAt(0).toLowerCase() ||
-    lastName.charAt(0) === lastName.charAt(0).toLowerCase()
+    firstName.charAt(0) === firstName.charAt(0).toUpperCase() ||
+    lastName.charAt(0) === lastName.charAt(0).toUpperCase()
   ) {
-    document.querySelector("#register-error").innerHTML =
-      "El Nombre y Apellido deben comenzar en mayúsculas <br>";
-  } else {
     nameValidated = true;
+  } else if (firstName === "" || lastName === "") {
+    document.querySelector("#register-error-fullName").innerHTML =
+      "";
+  } else {
+    document.querySelector("#register-error-fullName").innerHTML =
+    "El Nombre y Apellido deben comenzar en mayúsculas <br>";
   }
 
   return nameValidated;
+}
+
+function validateUsername(username) {
+  let usernameExists = false;
+  document.querySelector("#register-error-username").innerHTML = "";
+
+  for (let i = 0; i < mainApp.userList.length; i++) {
+    if (username === mainApp.userList[i].username) {
+      usernameValidated = true;
+      document.querySelector("#register-error-username").innerHTML =
+      "El nombre de usuario ya existe. <br>";
+    }
+  }
+
+  return usernameExists;
 }
 
 function validatePassword(password) {
@@ -72,6 +98,7 @@ function validatePassword(password) {
   let passwordUppercaseCount = 0;
   let passwordLowercaseCount = 0;
   let passwordNumberCount = 0;
+  document.querySelector("#register-error-password").innerHTML = "";
 
   for (let i = 0; i < password.length; i++) {
     if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
@@ -92,19 +119,19 @@ function validatePassword(password) {
     passwordNumberCount === 0
   ) {
     if (password.length < 5) {
-      document.querySelector("#register-error").innerHTML +=
+      document.querySelector("#register-error-password").innerHTML +=
         "La contraseña debe contener al menos 5 caracteres. <br>";
     }
     if (passwordUppercaseCount === 0) {
-      document.querySelector("#register-error").innerHTML +=
+      document.querySelector("#register-error-password").innerHTML +=
         "La contraseña debe contener al menos una mayúscula. <br>";
     }
     if (passwordLowercaseCount === 0) {
-      document.querySelector("#register-error").innerHTML +=
+      document.querySelector("#register-error-password").innerHTML +=
         "La contraseña debe contener al menos una minúscula. <br>";
     }
     if (passwordNumberCount === 0) {
-      document.querySelector("#register-error").innerHTML +=
+      document.querySelector("#register-error-password").innerHTML +=
         "La contraseña debe contener al menos un número.";
     }
   } else {
@@ -117,7 +144,8 @@ function validatePassword(password) {
 function validateCard(creditCard) {
   let addedUpNumber = 0;
   let cardValidated = false;
-
+  document.querySelector("#register-error-card").innerHTML = "";
+  
   for (let pos = creditCard.length - 1; pos >= 0; pos -= 2) {
     let digit = Number(creditCard.charAt(pos)) * 2;
     if (digit >= 10) {
@@ -135,37 +163,24 @@ function validateCard(creditCard) {
     cardValidated = true;
   } else {
     cardValidated = false;
-    document.querySelector("#register-error").innerHTML +=
-    "La tarjeta ingresada es incorrecta. <br>"
+    document.querySelector("#register-error-card").innerHTML =
+      "La tarjeta ingresada es incorrecta. <br>";
   }
 
   return cardValidated;
 }
 
-function validateUsername(username) {
-  let usernameValidated = true;
-
-  for (let i = 0; i < mainApp.userList.length; i++) {
-    if (username === mainApp.userList[i].username) {
-      usernameValidated = false;
-    } else {
-      document.querySelector("#register-error").innerHTML +=
-      "El nombre de usuario ya existe. <br>";
-    }
-  }
-
-  return usernameValidated;
-}
-
 function validateCVC(cvc) {
   let cvcValidated = false;
-  
-  for (let i = 0; i < cvc.length; i++) {
-    if (cvc.length === 3) {
+  let stringCVC = cvc.toString();
+  document.querySelector("#register-error-cvc").innerHTML = "";
+
+  for (let i = 0; i < stringCVC.length; i++) {
+    if (stringCVC.length === 3) {
       cvcValidated = true;
     } else {
-      document.querySelector("#register-error").innerHTML +=
-      "El CVC solamente puede tener 3 digitos"
+      document.querySelector("#register-error-cvc").innerHTML =
+        "El CVC solamente puede tener 3 digitos";
     }
   }
 
@@ -232,6 +247,7 @@ function preloadUsers() {
 
 function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
   let voidInputs = false;
+  document.querySelector("#register-blank-inputs").innerHTML = "";
 
   if (
     input1 === "" ||
@@ -242,7 +258,13 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
     input6 === ""
   ) {
     voidInputs = true;
-    document.querySelector("#register-error").innerHTML += "No pueden haber campos vacios. <br>";
+    document.querySelector("#register-error-fullName").innerHTML = "";
+    document.querySelector("#register-error-username").innerHTML = "";
+    document.querySelector("#register-error-password").innerHTML = "";
+    document.querySelector("#register-error-card").innerHTML = "";
+    document.querySelector("#register-error-cvc").innerHTML = "";
+    document.querySelector("#register-success").innerHTML = "";
+    document.querySelector("#register-blank-inputs").innerHTML = "No pueden haber espacios vacios";
   }
 
   return voidInputs;
