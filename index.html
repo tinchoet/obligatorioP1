@@ -48,37 +48,55 @@
     <!-- LOGIN -->
     <div class="login-container" id="login-container">
       <form action="#" method="get">
-        <label class="mt-2 mb-2" for="login-username">Nombre de usuario:
-        </label>
-        <input type="text" id="login-username" size="24"><br>
-        <label class="mt-2 mb-2" for="login-password">Contraseña: </label>
-        <input type="password" id="login-password" size="30"><br>
-        <input type="button" id="login-button" class="mt-2 mb-2" value="Iniciar sesión">
-        <span class="mx-2">No tenés un usuario?</span>
-        <a href="#" id="hideLogin">Registrate</a>
+        <div class="login-flex-container">
+          <div class="form-group">
+            <label for="login-username">Nombre de usuario</label>
+            <input type="text" id="login-username">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password">
+          </div>
+          <input type="button" id="login-button" value="Iniciar sesión">
+        </div>
+        <span class="me-2">No tenés un usuario?</span><a href="#" id="hideLogin" class="ms-2">Registrate</a>
         <p id="login-messages"></p>
       </form>
     </div>
 
+
     <!-- REGISTER -->
-    <div class="register-container" id="register-container">
+    <div class="register-container" id="register-container" style="display: none;">
       <form action="#" method="get">
-        <label class="mt-2 mb-2" for="register-name">Nombre: </label>
-        <input type="text" id="register-name" size="18" required>
-        <label class="mt-2 mb-2" for="register-surname">Apellido: </label>
-        <input type="text" id="register-surname" size="19" required><br>
-        <label class="mt-2 mb-2" for="register-username">Nombre de usuario: </label>
-        <input type="text" id="register-username" size="38" required><br>
-        <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
-        <input type="password" id="register-password" size="45" required><br>
-        <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito: </label>
-        <input type="number" id="register-card" size="30" required>
-        <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-        <input type="number" id="register-cvc" size="2" maxlength="3" required><br>
-        <input type="checkbox" name="TOS" id="register-tos">
-        <label for="register-tos">Acepto los términos y condiciones</label>
-        <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" required>
-        <!-- <span class="mx-2">Ya tenés un usuario?</span> -->
+        <div class="register-flex-container">
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-name">Nombre <span>*</span></label>
+            <input type="text" id="register-name" required>
+          </div>
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-surname">Apellido <span>*</span></label>
+            <input type="text" id="register-surname" required>
+          </div>
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-username">Nombre de usuario <span>*</span></label>
+            <input type="text" id="register-username" required>
+          </div>
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-password">Contraseña <span>*</span></label>
+            <input type="password" id="register-password" required>
+          </div>
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito <span>*</span></label>
+            <input type="number" id="register-card" required>
+          </div>
+          <div class="form-group">
+            <label class="mt-2 mb-2" for="register-cvc">CVC <span>*</span></label>
+            <input type="number" id="register-cvc" maxlength="3" required>
+          </div>
+          <div class="form-group">
+            <input type="button" id="register-button" value="Crear usuario" required>
+          </div>
+        </div>
         <div class="register-text">
           <p id="register-error-fullName"></p>
           <p id="register-error-username"></p>

@@ -15,7 +15,7 @@ class User {
     this.creditCard = pCreditCard;
     this.cvc = pCvc;
     this.power = pPower;
-    // tipo de usuario. root o user
+    // tipo de usuario. sudo o user
   }
 }
 

@@ -20,13 +20,13 @@ function init() {
 
 function showRegister() {
   document.querySelector("#login-container").style.display = "none"; // esconde login
-  document.querySelector("#register-container").style.display = "block"; // muestra registro
+  document.querySelector("#register-container").style.display = "flex"; // muestra registro
   document.querySelector("#arrow-container").style.display = "block"; // flecha para ir hacia atrás
   document.querySelector("#logo-container").style.display = "block"; // logo de la tienda
 }
 
 function showLogin() {
-  document.querySelector("#login-container").style.display = "block"; // muestra login
+  document.querySelector("#login-container").style.display = "flex"; // muestra login
   document.querySelector("#register-container").style.display = "none"; // esconde registro
   document.querySelector("#arrow-container").style.display = "none"; // flecha para ir hacia atrás
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
@@ -60,7 +60,7 @@ function registerFunction() {
       validateCard(creditCard) &&
       validateCVC(cvc)
     ) {
-      createNewUser(firstName, lastName, password, username, creditCard, cvc);
+      createNewUser(firstName, lastName, username, password, creditCard, cvc);
       document.querySelector("#register-messages").innerHTML =
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
@@ -265,32 +265,42 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
 
 function preloadUsers() {
   let preloadedUser = new User(
-    "Martin",
-    "Leib",
-    "mleib",
-    "1234",
-    "4111111111111111",
-    "999",
-    "root"
+    "Usuario administrador",
+    "",
+    "admin",
+    "admin",
+    "",
+    "",
+    "sudo"
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
     "Martin",
+    "Leib",
+    "mleib",
+    "Password1!",
+    "3566002020360505",
+    "821",
+    "user"
+  );
+  mainApp.userList.push(preloadedUser);
+  preloadedUser = new User(
+    "Martín",
     "Etchebarne",
     "tinchoet",
-    "1234",
-    "4111111111111111",
-    "999",
-    "root"
+    "Password1!",
+    "4012888888881881",
+    "652",
+    "user"
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
     "Juan",
     "Perez",
     "jperez",
-    "1234",
-    "4111111111111111",
-    "999",
+    "Password1!",
+    "6011000990139424",
+    "362",
     "user"
   );
   mainApp.userList.push(preloadedUser);
@@ -298,9 +308,9 @@ function preloadUsers() {
     "Carlos",
     "Rodriguez",
     "crodriguez",
-    "1234",
-    "4111111111111111",
-    "999",
+    "Password1!",
+    "38520000023237",
+    "990",
     "user"
   );
   mainApp.userList.push(preloadedUser);
@@ -308,9 +318,9 @@ function preloadUsers() {
     "Marcos",
     "Gonzales",
     "mgonzales",
-    "1234",
-    "4111111111111111",
-    "999",
+    "Password1!",
+    "378734493671000",
+    "119",
     "user"
   );
   mainApp.userList.push(preloadedUser);
@@ -324,16 +334,16 @@ function preloadUsers() {
 function createNewUser(
   firstName,
   lastName,
-  password,
   username,
+  password,
   creditCard,
   cvc
 ) {
   let newUser = new User(
     firstName,
     lastName,
-    password,
     username,
+    password,
     creditCard,
     cvc,
     "user"
