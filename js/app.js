@@ -1,7 +1,8 @@
 window.addEventListener("load", init);
 
 function init() {
-  document.querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
+  document
+    .querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
   document
     .querySelector("#register-button")
     .addEventListener("click", registerFunction); // función registro
@@ -43,6 +44,8 @@ function registerFunction() {
 
   if (
     !checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
+    // SOLAMENTE si no hay espacios en blanco -> inicio la validación del registro
+    // en caso de que todo se valide -> creo el usuario 
   ) {
     validateName(firstName, lastName);
     validateUsername(username);
@@ -62,6 +65,7 @@ function registerFunction() {
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
         "Iniciar sesión";
+      console.log('Usuario creado:' + mainApp.userList[length-1]);
     }
   } else {
     document.querySelector("#register-messages").innerHTML =
@@ -78,6 +82,8 @@ function loginFunction() {
     if (
       username === mainApp.userList[i].username &&
       password === mainApp.userList[i].password
+      // busco si dentro de un mismo Objeto user hay un nombre y contraseña
+      // coincidente con la que acabo de ingresar
     ) {
       mainApp.loggedUser = mainApp.userList[i];
       document.querySelector("#login-messages").innerHTML = "Login con exito";
@@ -90,6 +96,7 @@ function loginFunction() {
       "Credenciales incorrectas, intenta otra vez";
   }
 }
+
 function validateName(firstName, lastName) {
   let nameValidated = false;
   document.querySelector("#register-error-fullName").innerHTML = "";
@@ -97,13 +104,14 @@ function validateName(firstName, lastName) {
   if (
     firstName.charAt(0) === firstName.charAt(0).toUpperCase() &&
     lastName.charAt(0) === lastName.charAt(0).toUpperCase()
+    // valido que el primer caracter de tanto el nombre como el apellido estén en mayúsculas
   ) {
     nameValidated = true;
   } else if (firstName === "" || lastName === "") {
     document.querySelector("#register-error-fullName").innerHTML = "";
   } else {
     document.querySelector("#register-error-fullName").innerHTML =
-      "El Nombre y Apellido deben comenzar en mayúsculas <br>";
+      "El Nombre y Apellido deben comenzar en mayúsculas";
   }
 
   return nameValidated;
@@ -116,8 +124,10 @@ function validateUsername(username) {
   for (let i = 0; i < mainApp.userList.length; i++) {
     if (username === mainApp.userList[i].username) {
       usernameExists = true;
+      // busco si el nombre que ingrese es coincidente con el nombre asignado a otro objeto
+      // si es coincidente, muestro mensaje de error y le doy a usernameExists valor true
       document.querySelector("#register-error-username").innerHTML =
-        "El nombre de usuario ya existe. <br>";
+        "El nombre de usuario ya existe";
     }
   }
 
@@ -133,12 +143,18 @@ function validatePassword(password) {
 
   for (let i = 0; i < password.length; i++) {
     if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
+      // checkeo si el caracter de la posición en la que estoy dentro del bucle
+      // corresponde a una letra mayúscula según la tabla ascii
       passwordUppercaseCount++;
     }
     if (password.charCodeAt(i) >= 97 && password.charCodeAt(i) <= 122) {
+      // checkeo si el caracter de la posición en la que estoy dentro del bucle
+      // corresponde a una letra minúscula según la tabla ascii
       passwordLowercaseCount++;
     }
     if (!isNaN(password.charAt(i))) {
+      // checkeo si el caracter de la posición en la que estoy dentro del bucle
+      // corresponde a un número
       passwordNumberCount++;
     }
   }
@@ -148,6 +164,7 @@ function validatePassword(password) {
     passwordLowercaseCount === 0 ||
     passwordUppercaseCount === 0 ||
     passwordNumberCount === 0
+    // muestro mensajes de error uno por uno
   ) {
     if (password.length < 5) {
       document.querySelector("#register-error-password").innerHTML +=
@@ -180,18 +197,27 @@ function validateCard(creditCard) {
 
   document.querySelector("#register-error-card").innerHTML = "";
 
+  // recorrer string de derecha a izquierda
   for (let pos = creditCard.length - 1; pos >= 0; pos--) {
     let digit = Number(creditCard.charAt(pos));
+
+    // verificar si la posición actual (contando desde la derecha) es par
     if ((creditCard.length - pos) % 2 === 0) {
       digit *= 2;
+
+      // si la posición actual es mayor a 10, le resto 9, que es lo mismo que sumar cada uno de sus digitos individualmente
+      // por ejemplo: 12. 1+2 = 3. 12-9 = 3. restarle 9 es una forma más sencilla de implementar la funcionalidad
       if (digit >= 10) {
         digit -= 9;
       }
     }
+
+    // le sumo el digito actual al total, independientemente de si fue multiplicado por 2 o no
     addedUpNumber += digit;
   }
 
   if (addedUpNumber % 10 === 0) {
+    // si el resultado total es divisible entre 10, la tarjeta es válida
     cardValidated = true;
   } else {
     cardValidated = false;
@@ -209,6 +235,7 @@ function validateCVC(cvc) {
 
   for (let i = 0; i < stringCVC.length; i++) {
     if (stringCVC.length === 3) {
+      // checkeo que el CVC tenga tres digitos
       cvcValidated = true;
     } else {
       document.querySelector("#register-error-cvc").innerHTML =
