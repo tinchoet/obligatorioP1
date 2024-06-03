@@ -32,7 +32,7 @@ function registerFunction() {
   let lastName = document.querySelector("#register-surname").value;
   let username = document.querySelector("#register-username").value;
   let password = document.querySelector("#register-password").value;
-  let creditCard = document.querySelector("#register-card").value;
+  let creditCard = Number(document.querySelector("#register-card").value);
   let cvc = Number(document.querySelector("#register-cvc").value);
 
   validateName(firstName, lastName);
@@ -43,12 +43,12 @@ function registerFunction() {
   checkVoidInputs(firstName, lastName, username, password, creditCard, cvc);
 
   if (
-    nameValidated === true &&
-    usernameExists === false &&
-    passwordValidated === true &&
-    cardValidated === true &&
-    cvcValidated === true &&
-    voidInputs === false
+    validateName(firstName, lastName) &&
+    !validateUsername(username) &&
+    validatePassword(password) &&
+    validateCard(creditCard) &&
+    validateCVC(cvc) &&
+    !checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
   ) {
     createNewUser(firstName, lastName, password, username, creditCard, cvc);
     document.querySelector("#register-success").innerHTML =
@@ -63,7 +63,7 @@ function validateName(firstName, lastName) {
   document.querySelector("#register-error-fullName").innerHTML = "";
 
   if (
-    firstName.charAt(0) === firstName.charAt(0).toUpperCase() ||
+    firstName.charAt(0) === firstName.charAt(0).toUpperCase() &&
     lastName.charAt(0) === lastName.charAt(0).toUpperCase()
   ) {
     nameValidated = true;
@@ -84,7 +84,7 @@ function validateUsername(username) {
 
   for (let i = 0; i < mainApp.userList.length; i++) {
     if (username === mainApp.userList[i].username) {
-      usernameValidated = true;
+      usernameExists = true;
       document.querySelector("#register-error-username").innerHTML =
       "El nombre de usuario ya existe. <br>";
     }
@@ -144,9 +144,10 @@ function validatePassword(password) {
 function validateCard(creditCard) {
   let addedUpNumber = 0;
   let cardValidated = false;
+
   document.querySelector("#register-error-card").innerHTML = "";
   
-  for (let pos = creditCard.length - 1; pos >= 0; pos -= 2) {
+  for (let pos = Number(creditCard.length) - 1; pos >= 0; pos -= 2) {
     let digit = Number(creditCard.charAt(pos)) * 2;
     if (digit >= 10) {
       addedUpNumber += digit - 9;
@@ -155,7 +156,7 @@ function validateCard(creditCard) {
     }
   }
 
-  for (let pos = creditCard.length - 2; pos >= 0; pos -= 2) {
+  for (let pos = Number(creditCard.length) - 2; pos >= 0; pos -= 2) {
     addedUpNumber += Number(creditCard.charAt(pos));
   }
 
