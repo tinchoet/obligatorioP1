@@ -2,6 +2,7 @@ class App {
   constructor() {
     this.userList = new Array();
     this.productList = new Array()
+    this.loggedUser = null;
   }
 }
 

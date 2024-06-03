@@ -4,7 +4,10 @@ function init() {
   document.querySelector("#hideLogin").addEventListener("click", showRegister); // función para esconder login al hacer click en 'registrarse'
   document
     .querySelector("#register-button")
-    .addEventListener("click", registerFunction); // función para validar registro
+    .addEventListener("click", registerFunction); // función de registro
+  document
+    .querySelector("#login-button")
+    .addEventListener("click", loginFunction); // función de login
   document
     .querySelector("#arrow-container")
     .addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
@@ -61,6 +64,23 @@ function registerFunction() {
   }
 }
 
+function loginFunction() {
+  let username = document.querySelector("#login-username").value;
+  let password = document.querySelector("#login-password").value;
+  let foundUser = false;
+
+  for (let i = 0; i < mainApp.userList.length; i++){
+    if (username === mainApp.userList[i].username && password === mainApp.userList[i].password) {
+      mainApp.loggedUser = mainApp.userList[i];
+      document.querySelector("#login-messages").innerHTML = 'Login con exito';
+      foundUser = true;
+    }
+  }
+
+  if (!foundUser) {
+    document.querySelector("#login-messages").innerHTML = 'Credenciales incorrectas, intenta otra vez';
+  }
+}
 function validateName(firstName, lastName) {
   let nameValidated = false;
   document.querySelector("#register-error-fullName").innerHTML = "";
@@ -190,6 +210,23 @@ function validateCVC(cvc) {
   return cvcValidated;
 }
 
+function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
+  let voidInputs = false;
+
+  if (
+    input1 === "" ||
+    input2 === "" ||
+    input3 === "" ||
+    input4 === "" ||
+    input5 === "" ||
+    input6 === ""
+  ) {
+    voidInputs = true;
+  }
+
+  return voidInputs;
+}
+
 function preloadUsers() {
   let preloadedUser = new User(
     "Martin",
@@ -246,23 +283,6 @@ function preloadUsers() {
     `Cantidad de usuarios en la base de datos: ${mainApp.userList.length}.`
   );
   console.log(mainApp.userList);
-}
-
-function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
-  let voidInputs = false;
-
-  if (
-    input1 === "" ||
-    input2 === "" ||
-    input3 === "" ||
-    input4 === "" ||
-    input5 === "" ||
-    input6 === ""
-  ) {
-    voidInputs = true;
-  }
-
-  return voidInputs;
 }
 
 function createNewUser(
