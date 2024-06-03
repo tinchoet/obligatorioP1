@@ -50,11 +50,9 @@
       <form action="#" method="get">
         <label class="mt-2 mb-2" for="login-username">Nombre de usuario:
         </label>
-        <input type="text" id="login-username" size="24">
-        <br>
+        <input type="text" id="login-username" size="24"><br>
         <label class="mt-2 mb-2" for="login-password">Contraseña: </label>
-        <input type="password" id="login-password" size="30">
-        <br>
+        <input type="password" id="login-password" size="30"><br>
         <input type="button" id="login-button" class="mt-2 mb-2" value="Iniciar sesión">
         <span class="mx-2">No tenés un usuario?</span>
         <a href="#" id="hideLogin">Registrate</a>
@@ -65,40 +63,31 @@
     <!-- REGISTER -->
     <div class="register-container" id="register-container">
       <form action="#" method="get">
-        <!-- Nombre -->
         <label class="mt-2 mb-2" for="register-name">Nombre: </label>
         <input type="text" id="register-name" size="18" required>
-        <!-- Apellido -->
         <label class="mt-2 mb-2" for="register-surname">Apellido: </label>
-        <input type="text" id="register-surname" size="19" required>
-        <br />
-        <!-- Username -->
-        <label class="mt-2 mb-2" for="register-username">Nombre de usuario:
-        </label>
-        <input type="text" id="register-username" size="38" required>
-        <br />
-        <!-- Contraseña -->
+        <input type="text" id="register-surname" size="19" required><br>
+        <label class="mt-2 mb-2" for="register-username">Nombre de usuario: </label>
+        <input type="text" id="register-username" size="38" required><br>
         <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
-        <input type="password" id="register-password" size="45" required>
-        <br />
-        <!-- Tarjeta de credito -->
-        <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito:
-        </label>
+        <input type="password" id="register-password" size="45" required><br>
+        <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito: </label>
         <input type="number" id="register-card" size="30" required>
-        <!-- CVC -->
         <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-        <input type="number" id="register-cvc" size="2" maxlength="3" required>
-        <br />
+        <input type="number" id="register-cvc" size="2" maxlength="3" required><br>
         <input type="checkbox" name="TOS" id="register-tos">
         <label for="register-tos">Acepto los términos y condiciones</label>
         <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" required>
-        <p id="register-error-fullName"></p>
-        <p id="register-error-username"></p>
-        <p id="register-error-password"></p>
-        <p id="register-error-card"></p>
-        <p id="register-error-cvc"></p>
-        <p id="register-messages"></p>
-        <a href="#" id="register-success-login"></a>
+        <!-- <span class="mx-2">Ya tenés un usuario?</span> -->
+        <div class="register-text">
+          <p id="register-error-fullName"></p>
+          <p id="register-error-username"></p>
+          <p id="register-error-password"></p>
+          <p id="register-error-card"></p>
+          <p id="register-error-cvc"></p>
+          <p id="register-messages"></p>
+          <a href="#" id="register-success-login"></a>
+        </div>
       </form>
     </div>
   </main>
