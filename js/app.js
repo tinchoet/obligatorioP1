@@ -1,29 +1,32 @@
 window.addEventListener("load", init);
 
 function init() {
-  document.querySelector("#hideLogin").addEventListener("click", showRegister); // función para esconder login al hacer click en 'registrarse'
+  document.querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
   document
     .querySelector("#register-button")
-    .addEventListener("click", registerFunction); // función de registro
+    .addEventListener("click", registerFunction); // función registro
   document
     .querySelector("#login-button")
-    .addEventListener("click", loginFunction); // función de login
+    .addEventListener("click", loginFunction); // función login
   document
     .querySelector("#arrow-container")
-    .addEventListener("click", showLogin); // función para mostrar login al clickear en la flecha para ir hacia atrás en el registro
+    .addEventListener("click", showLogin); // mostrar login al clickear en la flecha para ir hacia atrás en el registro
+  document
+    .querySelector("#register-success-login")
+    .addEventListener("click", showLogin); // mostrar login al hacer click en 'iniciar sesión' post-registro
   preloadUsers();
 }
 
 function showRegister() {
-  document.querySelector("#login-container").style.display = "none";
-  document.querySelector("#register-container").style.display = "block";
+  document.querySelector("#login-container").style.display = "none"; // esconde login
+  document.querySelector("#register-container").style.display = "block"; // muestra registro
   document.querySelector("#arrow-container").style.display = "block"; // flecha para ir hacia atrás
   document.querySelector("#logo-container").style.display = "block"; // logo de la tienda
 }
 
 function showLogin() {
-  document.querySelector("#login-container").style.display = "block";
-  document.querySelector("#register-container").style.display = "none";
+  document.querySelector("#login-container").style.display = "block"; // muestra login
+  document.querySelector("#register-container").style.display = "none"; // esconde registro
   document.querySelector("#arrow-container").style.display = "none"; // flecha para ir hacia atrás
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
@@ -57,6 +60,8 @@ function registerFunction() {
       createNewUser(firstName, lastName, password, username, creditCard, cvc);
       document.querySelector("#register-messages").innerHTML =
         "Usuario registrado con éxito";
+      document.querySelector("#register-success-login").innerHTML =
+        "Iniciar sesión";
     }
   } else {
     document.querySelector("#register-messages").innerHTML =
@@ -69,16 +74,20 @@ function loginFunction() {
   let password = document.querySelector("#login-password").value;
   let foundUser = false;
 
-  for (let i = 0; i < mainApp.userList.length; i++){
-    if (username === mainApp.userList[i].username && password === mainApp.userList[i].password) {
+  for (let i = 0; i < mainApp.userList.length; i++) {
+    if (
+      username === mainApp.userList[i].username &&
+      password === mainApp.userList[i].password
+    ) {
       mainApp.loggedUser = mainApp.userList[i];
-      document.querySelector("#login-messages").innerHTML = 'Login con exito';
+      document.querySelector("#login-messages").innerHTML = "Login con exito";
       foundUser = true;
     }
   }
 
   if (!foundUser) {
-    document.querySelector("#login-messages").innerHTML = 'Credenciales incorrectas, intenta otra vez';
+    document.querySelector("#login-messages").innerHTML =
+      "Credenciales incorrectas, intenta otra vez";
   }
 }
 function validateName(firstName, lastName) {
