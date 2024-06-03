@@ -63,7 +63,7 @@
 
     <!-- REGISTER -->
     <div class="register-container" id="register-container">
-      <form action="#" method="get" autocomplete="on">
+      <form action="#" method="get">
         <!-- Nombre -->
         <label class="mt-2 mb-2" for="register-name">Nombre: </label>
         <input type="text" id="register-name" size="18" required>
@@ -74,30 +74,29 @@
         <!-- Username -->
         <label class="mt-2 mb-2" for="register-username">Nombre de usuario:
         </label>
-        <input type="text" id="register-username" size="38">
+        <input type="text" id="register-username" size="38" required>
         <br />
         <!-- Contraseña -->
         <label class="mt-2 mb-2" for="register-password">Contraseña: </label>
-        <input type="password" id="register-password" size="45">
+        <input type="password" id="register-password" size="45" required>
         <br />
         <!-- Tarjeta de credito -->
         <label class="mt-2 mb-2" for="register-card">Tarjeta de crédito:
         </label>
-        <input type="number" id="register-card" size="30">
+        <input type="number" id="register-card" size="30" required>
         <!-- CVC -->
         <label class="mt-2 mb-2" for="register-cvc">CVC: </label>
-        <input type="number" id="register-cvc" size="2" maxlength="3">
+        <input type="number" id="register-cvc" size="2" maxlength="3" required>
         <br />
         <input type="checkbox" name="TOS" id="register-tos">
         <label for="register-tos">Acepto los términos y condiciones</label>
-        <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" />
+        <input type="button" class="mt-2 mb-2" id="register-button" value="Crear usuario" required>
         <p id="register-error-fullName"></p>
         <p id="register-error-username"></p>
         <p id="register-error-password"></p>
         <p id="register-error-card"></p>
         <p id="register-error-cvc"></p>
-        <p id="register-blank-inputs"></p>
-        <p id="register-success"></p>
+        <p id="register-messages"></p>
       </form>
     </div>
   </main>
