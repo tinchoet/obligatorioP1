@@ -400,11 +400,29 @@ function preloadProducts() {
     true
   );
   mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Quest 5",
+    100,
+    "Descripción del producto",
+    "nike-quest-5.webp",
+    21,
+    true
+  );
+  mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Quest 5",
+    100,
+    "Descripción del producto",
+    "nike-quest-5.webp",
+    21,
+    true
+  );
+  mainApp.productList.push(preloadedProduct);
 }
 preloadProducts();
 
 function productsTable() {
-  let HTMLtable = "<table border='1'>";
+  let HTMLtable = "<table border='1' align='center'>";
 
   HTMLtable += `<tr>
                 <th>Nombre</th>
@@ -437,7 +455,7 @@ function productsTable() {
   HTMLtable += "</table>";
 
   document.querySelector("#products-list").innerHTML = HTMLtable;
-  document.querySelector("#products-list").style.display = "flex";
+  document.querySelector("#products-list").style.display = "block";
 
   for (let i = 0; i < mainApp.productList.length; i++) {
     let currentButton = document.querySelector("#p" + i);
