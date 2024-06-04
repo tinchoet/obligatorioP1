@@ -356,9 +356,8 @@ function createNewUser(
 
 
 function preloadProducts() {
-  let id = mainApp.productList[mainApp.productList.length - 1].id;
+  let id = mainApp.productList.id;
   let preloadedProduct = new Product(
-    id + 1,
     "Producto de prueba",
     100,
     "Descripción del producto",
@@ -383,7 +382,7 @@ function productsTable() {
                 <th>Descripcion</th>
                 <th>Imagen</th>
                 <th>Estado</th>
-                <th>Operacion</th>
+                <th>Stock</th>
             </tr>`;
 
   for (let i = 0; i < mainApp.productList.length; i++) {
@@ -399,6 +398,7 @@ function productsTable() {
                   <td><img src="img/${prodObj.image}"></td>
                   <td>${prodStatus}</td>
                   <td>${prodObj.stock}</td>    
+                  <td><input type='button' value='Cambiar' id='p"+pos+"'></td>
               </tr>`
   }
   table += '</table>'
