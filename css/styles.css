@@ -96,7 +96,7 @@ input[type="button"] {
 }
 footer {
   width: 100%;
-  position: absolute;
+  position: fixed;
   align-items: center;
   bottom: 0;
 }
@@ -106,4 +106,24 @@ footer {
   flex-wrap: wrap !important;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.products-list {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.products-list img {
+  width: 100px;
+}
+
+.products-list td {
+  padding: 2rem;
+  border-right: 1px solid black;
+}
+
+.products-list th {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 }

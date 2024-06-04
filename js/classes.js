@@ -20,13 +20,14 @@ class User {
 }
 let productCounter = 1;
 class Product {
-  constructor(pName, pPrice, pDescription, pImage, pStock) {
+  constructor(pName, pPrice, pDescription, pImage, pStock, pStatus) {
     this.name = pName;
     this.price = pPrice;
     this.description = pDescription;
     this.image = pImage;
     this.stock = pStock;
-    this.status = true;
+    this.status = pStatus;
     this.id = 'PROD_ID_' + productCounter;
+    productCounter++;
   }
 }

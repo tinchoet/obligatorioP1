@@ -1,8 +1,7 @@
 window.addEventListener("load", init);
 
 function init() {
-  document
-    .querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
+  document.querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
   document
     .querySelector("#register-button")
     .addEventListener("click", registerFunction); // función registro
@@ -45,7 +44,7 @@ function registerFunction() {
   if (
     !checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
     // SOLAMENTE si no hay espacios en blanco -> inicio la validación del registro
-    // en caso de que todo se valide -> creo el usuario 
+    // en caso de que todo se valide -> creo el usuario
   ) {
     validateName(firstName, lastName);
     validateUsername(username);
@@ -65,7 +64,7 @@ function registerFunction() {
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
         "Iniciar sesión";
-      console.log('Usuario creado:' + mainApp.userList[length - 1]);
+      console.log("Usuario creado:" + mainApp.userList[length - 1]);
     }
   } else {
     document.querySelector("#register-messages").innerHTML =
@@ -92,11 +91,11 @@ function loginFunction() {
   }
 
   if (foundUser) {
-    document.querySelector("#login-container").style.display = 'none';
-
+    document.querySelector("#login-container").style.display = "none";
     productsTable();
   } else {
-    document.querySelector('#login-messages').innerHTML = 'Credenciales incorrectas, intenta otra vez.';
+    document.querySelector("#login-messages").innerHTML =
+      "Credenciales incorrectas, intenta otra vez.";
   }
 }
 
@@ -354,54 +353,107 @@ function createNewUser(
   mainApp.userList.push(newUser);
 }
 
-
 function preloadProducts() {
   let id = mainApp.productList.id;
   let preloadedProduct = new Product(
-    "Producto de prueba",
+    "Air Zoom Pegasus",
     100,
     "Descripción del producto",
-    "image.jpg",
-    10,
+    "nike-air-zoom-pegasus.webp",
+    7,
     true
   );
-
- 
+  mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Air Zoom Pegasus Shield",
+    100, // precio
+    "Descripción del producto",
+    "nike-air-zoom-pegasus-shield.webp",
+    4, // stock
+    true // apagado o prendido
+  );
+  mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Air Zoom Structure",
+    100,
+    "Descripción del producto",
+    "nike-air-zoom-structure.webp",
+    8,
+    false
+  );
+  mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Legend Essential 3",
+    100,
+    "Descripción del producto",
+    "nike-legend-essential-3.webp",
+    11,
+    false
+  );
+  mainApp.productList.push(preloadedProduct);
+  preloadedProduct = new Product(
+    "Quest 5",
+    100,
+    "Descripción del producto",
+    "nike-quest-5.webp",
+    21,
+    true
+  );
   mainApp.productList.push(preloadedProduct);
 }
 preloadProducts();
-productsTable();
 
 function productsTable() {
-  let productsSection = document.querySelector('#products-list');
+  let HTMLtable = "<table border='1'>";
 
-  let table = "<table border='1'>";
-  table += `<tr>
+  HTMLtable += `<tr>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Descripcion</th>
                 <th>Imagen</th>
                 <th>Estado</th>
                 <th>Stock</th>
+                <th>Acción</th>
             </tr>`;
 
   for (let i = 0; i < mainApp.productList.length; i++) {
-    let prodObj = mainApp.productList[i];
-    let prodStatus = 'Activo';
-    if (!prodObj.status) {
-      prodStatus = 'Pausado';
+    let loadingItem = mainApp.productList[i];
+    let loadingItemStatus = "Activo";
+
+    if (!loadingItem.status) {
+      loadingItemStatus = "Pausado";
     }
-    table += `<tr>
-                  <td>${prodObj.name}</td>
-                  <td>${prodObj.price}</td>
-                  <td>${prodObj.description}</td>
-                  <td><img src="img/${prodObj.image}"></td>
-                  <td>${prodStatus}</td>
-                  <td>${prodObj.stock}</td>    
-                  <td><input type='button' value='Cambiar' id='p"+pos+"'></td>
-              </tr>`
+
+    HTMLtable += `<tr>
+                  <td>${loadingItem.name}</td>
+                  <td>${loadingItem.price}</td>
+                  <td>${loadingItem.description}</td>
+                  <td><img src="img/${loadingItem.image}"></td>
+                  <td>${loadingItemStatus}</td>
+                  <td>${loadingItem.stock}</td>    
+                  <td><input type='button' value='Cambiar' id='p${+i}'></td>
+              </tr>`;
   }
-  table += '</table>'
-  productsSection.innerHTML = table;
-  productsSection.style.display = 'block';
+  HTMLtable += "</table>";
+
+  document.querySelector("#products-list").innerHTML = HTMLtable;
+  document.querySelector("#products-list").style.display = "flex";
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let currentButton = document.querySelector("#p" + i);
+    currentButton.addEventListener("click", changeStatus);
+  }
+}
+
+function changeStatus() {
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let productPosition = Number(buttonID.substring(1));
+  let currentProduct = mainApp.productList[productPosition];
+  if (currentProduct.status) {
+    currentProduct.status = false;
+  } else {
+    currentProduct.status = true;
+  }
+  productsTable();
 }
