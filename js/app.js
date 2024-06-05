@@ -1,20 +1,29 @@
-window.addEventListener("load", init);
+// Globals
+let productTableVisible = false;
+let mainApp = new App();
 
-function init() {
+// Init
+window.addEventListener("load", () => {
   document.querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
-  document
-    .querySelector("#register-button")
-    .addEventListener("click", registerFunction); // función registro
-  document
-    .querySelector("#login-button")
-    .addEventListener("click", loginFunction); // función login
-  document
-    .querySelector("#arrow-container")
-    .addEventListener("click", showLogin); // mostrar login al clickear en la flecha para ir hacia atrás en el registro
-  document
-    .querySelector("#register-success-login")
-    .addEventListener("click", showLogin); // mostrar login al hacer click en 'iniciar sesión' post-registro
+  document.querySelector("#register-button").addEventListener("click", registerFunction); // función registro
+  document.querySelector("#login-button").addEventListener("click", loginFunction); // función login
+  document.querySelector("#arrow-container").addEventListener("click", showLogin); // mostrar login al clickear en la flecha para ir hacia atrás en el registro
+  document.querySelector("#register-success-login").addEventListener("click", showLogin); // mostrar login al hacer click en 'iniciar sesión' post-registro
+
+  showHeaderHiddenActions();
+  document.querySelector("#header-hidden-show-products-button").addEventListener("click", showAndHideProducts); 
+  document.querySelector("#header-hidden-logout-button").addEventListener("click", logout); // logout
+
   preloadUsers();
+})
+
+
+function showHeaderHiddenActions() { // se ejecuta al inicio y al logout
+  document.querySelector("#header-hidden-actions").style.display = "none";
+}
+
+function showAdminFunctions() { // se ejecuta al login
+  document.querySelector("#header-hidden-actions").style.display = "block";
 }
 
 function showRegister() {
@@ -31,7 +40,13 @@ function showLogin() {
   document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
 }
 
-let mainApp = new App();
+function logout() {
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#login-container").style.display = "flex";
+  document.querySelector("#register-container").style.display = "none";
+  showLogin();
+  showHeaderHiddenActions();
+}
 
 function registerFunction() {
   let firstName = document.querySelector("#register-name").value;
@@ -92,7 +107,7 @@ function loginFunction() {
 
   if (foundUser) {
     document.querySelector("#login-container").style.display = "none";
-    productsTable();
+    showAdminFunctions();
   } else {
     document.querySelector("#login-messages").innerHTML =
       "Credenciales incorrectas, intenta otra vez.";
@@ -460,6 +475,8 @@ function productsTable() {
   for (let i = 0; i < mainApp.productList.length; i++) {
     let currentButton = document.querySelector("#p" + i);
     currentButton.addEventListener("click", changeStatus);
+    // De Martin para Martín: no puedo convertir esto a una arrow function porque
+    // Arrow functions in JavaScript do not have their own this context. They inherit this from the parent scope.
   }
 }
 
@@ -474,4 +491,15 @@ function changeStatus() {
     currentProduct.status = true;
   }
   productsTable();
+}
+
+function showAndHideProducts() {
+  document.querySelector("#header-hidden-show-products-button").addEventListener("click", () => {
+    productTableVisible = !productTableVisible;
+    if (productTableVisible) {
+      productsTable();
+    } else {
+      document.querySelector("#products-list").style.display = "none";
+    }
+  });
 }
