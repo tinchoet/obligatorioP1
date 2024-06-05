@@ -100,7 +100,6 @@ function loginFunction() {
       // coincidente con la que acabo de ingresar
     ) {
       mainApp.loggedUser = mainApp.userList[i];
-      document.querySelector("#login-messages").innerHTML = "Login con exito";
       foundUser = true;
     }
   }
