@@ -25,6 +25,7 @@ header {
   display: flex;
   justify-content: space-between;
   z-index: 999;
+  margin-top: 2rem;
 }
 
 header .arrow-container,
@@ -150,4 +151,12 @@ table {
 .products-list th {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
+}
+
+.text-current-view {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
 }

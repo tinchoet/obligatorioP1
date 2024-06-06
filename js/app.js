@@ -1,6 +1,7 @@
 // Globals
 let productTableVisible = false;
 let productTableUserVisible = false;
+let showingAdminOrUsers = false; // la vista está como admin o como usuario?
 let createProductsVisible = false;
 let mainApp = new App();
 
@@ -37,6 +38,8 @@ window.addEventListener("load", () => {
     .querySelector("#header-hidden-logout-button")
     .addEventListener("click", logout); // logout
   preloadUsers();
+  document.querySelector("#text-current-view").style.display = "none";
+  document.querySelector("#text-view-as-user").addEventListener("click", viewAsUser);
 
   // Header: vista usuario
   hideUserHiddenActions();
@@ -66,6 +69,7 @@ function hideUserHiddenActions() {
 // Al hacer login se muestra el header de administrador
 function showAdminFunctions() {
   document.querySelector("#header-hidden-actions").style.display = "block";
+  document.querySelector("#text-current-view").style.display = "flex";
 }
 
 function showUserFunctions() {
@@ -94,6 +98,7 @@ function logout() {
   document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#login-container").style.display = "flex";
   document.querySelector("#register-container").style.display = "none";
+  document.querySelector("#text-current-view").style.display = "none";
 
   // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
@@ -680,4 +685,25 @@ function getFileName(filename) {
     }
   }
   return filename.substring(dashPosition + 1);
+}
+
+function viewAsUser() {
+  hideHeaderHiddenActions();
+  showUserFunctions();
+
+  document.querySelector("#text-view-as-user").addEventListener("click", () => {
+    showingAdminOrUsers = !showingAdminOrUsers;
+    if (showingAdminOrUsers) {
+      showAdminFunctions();
+      hideUserHiddenActions();
+      document.querySelector("#text-view-as-admin").innerHTML = "Viendo como administrador";
+      document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
+    } else {
+      hideHeaderHiddenActions();
+      showUserFunctions();
+      document.querySelector("#text-view-as-admin").innerHTML = "Viendo como usuario";
+      document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
+    }
+  });
+  
 }

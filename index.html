@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -30,14 +29,21 @@
 </head>
 
 <body class="bg-white text-dark">
+  <div class="text-current-view" id="text-current-view">
+    <p id="text-view-as-admin">Viendo como administrador</p>
+    <a href="#" id="text-view-as-user">Cambiar vista</a>
+  </div>
+
   <header>
     <div id="header-hidden-actions">
       <input type='button' id="header-hidden-logout-button" value="Cerrar Sesion" class="btn btn-primary lg-3">
-      <input type='button' id="header-hidden-create-products-button" value="Crear Producto" class="btn btn-primary lg-3">
+      <input type='button' id="header-hidden-create-products-button" value="Crear Producto"
+        class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-sales-button" value="Ver ventas" class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-primary lg-3">
     </div>
+
     <div id="header-hidden-actions-user">
       <input type='button' id="user-hidden-logout-button" value="Cerrar Sesion" class="btn btn-primary lg-3">
       <input type='button' id="user-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
@@ -135,7 +141,8 @@
       <input type="number" placeholder="Precio del producto" id="create-products-product-price">
       <input type="text" placeholder="Descripción del producto" id="create-products-product-description">
       <input type="number" placeholder="Stock del producto" id="create-products-product-stock">
-      <label for="create-products-product-image">Seleccionar imagen</label><input type="file" id="create-products-product-image">
+      <label for="create-products-product-image">Seleccionar imagen</label><input type="file"
+        id="create-products-product-image">
       <input type="button" value="Crear producto" id="create-products-button">
       <p id="create-products-message"></p>
     </div>
