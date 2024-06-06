@@ -2,6 +2,7 @@ class App {
   constructor() {
     this.userList = new Array();
     this.productList = new Array();
+    this.salesList = new Array();
     this.loggedUser = null;
   }
 
@@ -139,14 +140,7 @@ class App {
     this.productList.push(newProduct);
   }
 
-  createNewUser(
-    firstName,
-    lastName,
-    username,
-    password,
-    creditCard,
-    cvc
-  ) {
+  createNewUser(firstName, lastName, username, password, creditCard, cvc) {
     let newUser = new User(
       firstName,
       lastName,
@@ -157,6 +151,11 @@ class App {
       false
     );
     this.userList.push(newUser);
+  }
+
+  createSale(pBuyer, pProduct, pAmountPurchased) {
+    let newSale = new Sale(pBuyer, pProduct, pAmountPurchased, false);
+    this.salesList.push(newSale);
   }
 }
 
@@ -176,6 +175,7 @@ class User {
     this.password = pPassword;
     this.creditCard = pCreditCard;
     this.cvc = pCvc;
+    // Por defecto el balance es $3000
     this.balance = 3000;
     // Tipo de usuario. True es admin, false es user
     this.power = pPower;
@@ -192,5 +192,14 @@ class Product {
     this.status = pStatus;
     this.id = "PROD_ID_" + productCounter;
     productCounter++;
+  }
+}
+
+class Sale {
+  constructor(pBuyer, pProductName, pAmountPurchased, pVerified) {
+    this.buyer = pBuyer;
+    this.product = pProductName;
+    this.amountPurchased = pAmountPurchased;
+    this.verified = pVerified
   }
 }

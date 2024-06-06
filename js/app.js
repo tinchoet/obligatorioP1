@@ -135,7 +135,14 @@ function registerFunction() {
       validateCard(creditCard) &&
       validateCVC(cvc)
     ) {
-      mainApp.createNewUser(firstName, lastName, username, password, creditCard, cvc);
+      mainApp.createNewUser(
+        firstName,
+        lastName,
+        username,
+        password,
+        creditCard,
+        cvc
+      );
       document.querySelector("#register-messages").innerHTML =
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
@@ -375,7 +382,7 @@ function productsTableAdmin() {
                   <td>${loadingItem.name}</td>
                   <td>${loadingItem.price}</td>
                   <td>${loadingItem.description}</td>
-                  <td><img src="img/${loadingItem.image}"></td>
+                  <td><img src="../img/${loadingItem.image}"></td>
                   <td>${loadingItemStatus}</td>
                   <td>${loadingItem.stock}</td>    
                   <td><input type='button' value='Cambiar' id='p${+i}'></td>
@@ -416,6 +423,7 @@ function productsTableUser() {
                 <th>Descripcion</th>
                 <th>Imagen</th>
                 <th>Stock</th>
+                <th>Unidades</th>
                 <th>Comprar</th>
             </tr>`;
 
@@ -428,6 +436,7 @@ function productsTableUser() {
                   <td>${loadingItem.description}</td>
                   <td><img src="img/${loadingItem.image}"></td>
                   <td>${loadingItem.stock}</td>    
+                  <td><input type='number' id='products-list-stock${+i}' placeholder='Cantidad de unidades'></td>
                   <td><input type='button' value='Comprar' id='purchaseP${+i}'></td>
               </tr>`;
   }
@@ -438,22 +447,32 @@ function productsTableUser() {
 
   for (let i = 0; i < mainApp.productList.length; i++) {
     let purchaseButton = document.querySelector("#purchaseP" + i);
-    // currentButton.addEventListener("click", buyProduct);
+    purchaseButton.addEventListener("click", buyProduct);
   }
 }
 
-/* function buyProduct(productStock) {
+function buyProduct() {
   let clickedButton = this;
+
   let buttonID = clickedButton.id;
-  let productPosition = Number(buttonID.substring(1));
+
+  let productPosition = Number(buttonID.substring(9));
   let currentProduct = mainApp.productList[productPosition];
-  if (currentProduct.status) {
-    currentProduct.status = false;
+  let amountPurchased = Number(
+    document.querySelector("#products-list-stock" + productPosition).value
+  );
+
+  if (currentProduct.stock >= 1) {
+    mainApp.createSale(
+      mainApp.loggedUser,
+      currentProduct,
+      amountPurchased
+    );
   } else {
-    currentProduct.status = true;
+    alert("No hay suficientes unidades como para realizar este pedido");
   }
-  productsTableAdmin();
-} */
+  productsTableUser();
+}
 
 function showAndHideProducts() {
   productTableVisible = !productTableVisible;
@@ -512,7 +531,13 @@ function createProduct() {
       productImage
     )
   ) {
-    mainApp.productPush(productName, productPrice, productDescription, newFilePath, productStock);
+    mainApp.productPush(
+      productName,
+      productPrice,
+      productDescription,
+      newFilePath,
+      productStock
+    );
     document.querySelector("#create-products-message").innerHTML =
       "Producto creado con éxito";
   } else {
