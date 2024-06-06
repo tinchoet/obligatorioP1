@@ -7,6 +7,8 @@ let mainApp = new App();
 
 // Init
 window.addEventListener("load", () => {
+  mainApp.preloadUsers();
+  mainApp.preloadProducts();
   // Función de registro y display none al login al hacer click en el botón de registro
   document
     .querySelector("#register-button")
@@ -37,7 +39,6 @@ window.addEventListener("load", () => {
   document
     .querySelector("#header-hidden-logout-button")
     .addEventListener("click", logout); // logout
-  preloadUsers();
   document.querySelector("#text-current-view").style.display = "none";
   document
     .querySelector("#text-view-as-user")
@@ -348,74 +349,6 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
   return voidInputs;
 }
 
-function preloadUsers() {
-  let preloadedUser = new User(
-    "Usuario administrador",
-    "",
-    "admin",
-    "admin",
-    "",
-    "",
-    true
-  );
-  mainApp.userList.push(preloadedUser);
-  preloadedUser = new User(
-    "Martin",
-    "Leib",
-    "mleib",
-    "Password1!",
-    "3566002020360505",
-    "821",
-    false
-  );
-  mainApp.userList.push(preloadedUser);
-  preloadedUser = new User(
-    "Martín",
-    "Etchebarne",
-    "tinchoet",
-    "Password1!",
-    "4012888888881881",
-    "652",
-    false
-  );
-  mainApp.userList.push(preloadedUser);
-  preloadedUser = new User(
-    "Juan",
-    "Perez",
-    "jperez",
-    "Password1!",
-    "6011000990139424",
-    "362",
-    false
-  );
-  mainApp.userList.push(preloadedUser);
-  preloadedUser = new User(
-    "Carlos",
-    "Rodriguez",
-    "crodriguez",
-    "Password1!",
-    "38520000023237",
-    "990",
-    false
-  );
-  mainApp.userList.push(preloadedUser);
-  preloadedUser = new User(
-    "Marcos",
-    "Gonzales",
-    "mgonzales",
-    "Password1!",
-    "378734493671000",
-    "119",
-    false
-  );
-  mainApp.userList.push(preloadedUser);
-
-  console.log(
-    `Cantidad de usuarios en la base de datos: ${mainApp.userList.length}.`
-  );
-  console.log(mainApp.userList);
-}
-
 function createNewUser(
   firstName,
   lastName,
@@ -435,56 +368,6 @@ function createNewUser(
   );
   mainApp.userList.push(newUser);
 }
-
-function preloadProducts() {
-  let id = mainApp.productList.id;
-  let preloadedProduct = new Product(
-    "Air Zoom Pegasus",
-    100,
-    "Descripción del producto",
-    "nike-air-zoom-pegasus.webp",
-    7,
-    true
-  );
-  mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Air Zoom Pegasus Shield",
-    100, // precio
-    "Descripción del producto",
-    "nike-air-zoom-pegasus-shield.webp",
-    4, // stock
-    true // apagado o prendido
-  );
-  mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Air Zoom Structure",
-    100,
-    "Descripción del producto",
-    "nike-air-zoom-structure.webp",
-    8,
-    false
-  );
-  mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Legend Essential 3",
-    100,
-    "Descripción del producto",
-    "nike-legend-essential-3.webp",
-    11,
-    false
-  );
-  mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Quest 5",
-    100,
-    "Descripción del producto",
-    "nike-quest-5.webp",
-    21,
-    true
-  );
-  mainApp.productList.push(preloadedProduct);
-}
-preloadProducts();
 
 // Tabla de productos admin
 function productsTableAdmin() {
@@ -649,14 +532,7 @@ function createProduct() {
       productImage
     )
   ) {
-    let newProduct = new Product(
-      productName,
-      productPrice,
-      productDescription,
-      newFilePath,
-      productStock
-    );
-    mainApp.productList.push(newProduct);
+    mainApp.productPush(productName, productPrice, productDescription, newFilePath, productStock);
     document.querySelector("#create-products-message").innerHTML =
       "Producto creado con éxito";
   } else {
