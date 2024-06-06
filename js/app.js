@@ -39,7 +39,9 @@ window.addEventListener("load", () => {
     .addEventListener("click", logout); // logout
   preloadUsers();
   document.querySelector("#text-current-view").style.display = "none";
-  document.querySelector("#text-view-as-user").addEventListener("click", viewAsUser);
+  document
+    .querySelector("#text-view-as-user")
+    .addEventListener("click", viewAsUser);
 
   // Header: vista usuario
   hideUserHiddenActions();
@@ -591,47 +593,33 @@ function productsTableUser() {
 } */
 
 function showAndHideProducts() {
-  document
-    .querySelector("#header-hidden-show-products-button")
-    .addEventListener("click", () => {
-      productTableVisible = !productTableVisible;
-      if (productTableVisible) {
-        productsTableAdmin();
-      } else {
-        document.querySelector("#products-list").style.display = "none";
-      }
-      document.querySelector("#create-products-container").style.display =
-        "none";
-    });
+  productTableVisible = !productTableVisible;
+  if (productTableVisible) {
+    productsTableAdmin();
+  } else {
+    document.querySelector("#products-list").style.display = "none";
+  }
+  document.querySelector("#create-products-container").style.display = "none";
 }
 
 function showAndHideProductsUser() {
-  document
-    .querySelector("#user-hidden-show-products-button")
-    .addEventListener("click", () => {
-      productTableUserVisible = !productTableUserVisible;
-      if (productTableUserVisible) {
-        productsTableUser();
-      } else {
-        document.querySelector("#products-list-user").style.display = "none";
-      }
-    });
+  productTableUserVisible = !productTableUserVisible;
+  if (productTableUserVisible) {
+    productsTableUser();
+  } else {
+    document.querySelector("#products-list-user").style.display = "none";
+  }
 }
 
 function showAndHideCreateProducts() {
-  document
-    .querySelector("#header-hidden-create-products-button")
-    .addEventListener("click", () => {
-      createProductsVisible = !createProductsVisible;
-      if (createProductsVisible) {
-        document.querySelector("#create-products-container").style.display =
-          "block";
-      } else {
-        document.querySelector("#create-products-container").style.display =
-          "none";
-      }
-      document.querySelector("#products-list").style.display = "none";
-    });
+  createProductsVisible = !createProductsVisible;
+  if (createProductsVisible) {
+    document.querySelector("#create-products-container").style.display =
+      "block";
+  } else {
+    document.querySelector("#create-products-container").style.display = "none";
+  }
+  document.querySelector("#products-list").style.display = "none";
 }
 
 function createProduct() {
@@ -678,32 +666,31 @@ function createProduct() {
 }
 
 function getFileName(filename) {
-  let dashPosition = -1;
-  for (let i = filename.length - 1; i >= 0 && dashPosition == -1; i--) {
+  let backslashPosition = -1;
+  for (let i = filename.length - 1; i >= 0 && backslashPosition == -1; i--) {
     if (filename.charAt(i) == "\\") {
-      dashPosition = i;
+      backslashPosition = i;
     }
   }
-  return filename.substring(dashPosition + 1);
+  return filename.substring(backslashPosition + 1);
 }
 
 function viewAsUser() {
   hideHeaderHiddenActions();
   showUserFunctions();
 
-  document.querySelector("#text-view-as-user").addEventListener("click", () => {
-    showingAdminOrUsers = !showingAdminOrUsers;
-    if (showingAdminOrUsers) {
-      showAdminFunctions();
-      hideUserHiddenActions();
-      document.querySelector("#text-view-as-admin").innerHTML = "Viendo como administrador";
-      document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
-    } else {
-      hideHeaderHiddenActions();
-      showUserFunctions();
-      document.querySelector("#text-view-as-admin").innerHTML = "Viendo como usuario";
-      document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
-    }
-  });
-  
+  showingAdminOrUsers = !showingAdminOrUsers;
+  if (showingAdminOrUsers) {
+    showAdminFunctions();
+    hideUserHiddenActions();
+    document.querySelector("#text-view-as-admin").innerHTML =
+      "Viendo como administrador";
+    document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
+  } else {
+    hideHeaderHiddenActions();
+    showUserFunctions();
+    document.querySelector("#text-view-as-admin").innerHTML =
+      "Viendo como usuario";
+    document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
+  }
 }
