@@ -138,6 +138,26 @@ class App {
     );
     this.productList.push(newProduct);
   }
+
+  createNewUser(
+    firstName,
+    lastName,
+    username,
+    password,
+    creditCard,
+    cvc
+  ) {
+    let newUser = new User(
+      firstName,
+      lastName,
+      username,
+      password,
+      creditCard,
+      cvc,
+      false
+    );
+    this.userList.push(newUser);
+  }
 }
 
 class User {

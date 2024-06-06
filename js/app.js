@@ -135,7 +135,7 @@ function registerFunction() {
       validateCard(creditCard) &&
       validateCVC(cvc)
     ) {
-      createNewUser(firstName, lastName, username, password, creditCard, cvc);
+      mainApp.createNewUser(firstName, lastName, username, password, creditCard, cvc);
       document.querySelector("#register-messages").innerHTML =
         "Usuario registrado con éxito";
       document.querySelector("#register-success-login").innerHTML =
@@ -347,26 +347,6 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
   }
 
   return voidInputs;
-}
-
-function createNewUser(
-  firstName,
-  lastName,
-  username,
-  password,
-  creditCard,
-  cvc
-) {
-  let newUser = new User(
-    firstName,
-    lastName,
-    username,
-    password,
-    creditCard,
-    cvc,
-    false
-  );
-  mainApp.userList.push(newUser);
 }
 
 // Tabla de productos admin
