@@ -61,21 +61,35 @@ main {
   margin-bottom: 15px;
 }
 
-label {
+.login-flex-container label,
+.register-flex-container label {
   display: block;
   text-align: left;
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="number"] {
+
+.create-products-container label {
+  text-align: left;
+  margin-right: 2rem;
+}
+
+.login-flex-container input[type="text"],
+.login-flex-container input[type="password"],
+.login-flex-container input[type="number"],
+.register-flex-container input[type="text"],
+.register-flex-container input[type="password"],
+.register-flex-container input[type="number"],
+.create-products-container input[type="text"],
+.create-products-container input[type="number"] {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
 }
 
-input[type="button"] {
+.login-flex-container input[type="button"],
+.register-flex-container input[type="button"],
+.create-products-container input[type="button"] {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;

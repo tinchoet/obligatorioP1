@@ -14,8 +14,9 @@ class User {
     this.password = pPassword;
     this.creditCard = pCreditCard;
     this.cvc = pCvc;
+    this.balance = 3000;
+    // Tipo de usuario. True es admin, false es user
     this.power = pPower;
-    // tipo de usuario. sudo o user
   }
 }
 let productCounter = 1;

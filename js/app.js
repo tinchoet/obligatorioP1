@@ -1,51 +1,104 @@
 // Globals
 let productTableVisible = false;
+let productTableUserVisible = false;
+let createProductsVisible = false;
 let mainApp = new App();
 
 // Init
 window.addEventListener("load", () => {
-  document.querySelector("#hideLogin").addEventListener("click", showRegister); // esconder login al hacer click en 'registrarse'
-  document.querySelector("#register-button").addEventListener("click", registerFunction); // función registro
-  document.querySelector("#login-button").addEventListener("click", loginFunction); // función login
-  document.querySelector("#arrow-container").addEventListener("click", showLogin); // mostrar login al clickear en la flecha para ir hacia atrás en el registro
-  document.querySelector("#register-success-login").addEventListener("click", showLogin); // mostrar login al hacer click en 'iniciar sesión' post-registro
+  // Función de registro y display none al login al hacer click en el botón de registro
+  document
+    .querySelector("#register-button")
+    .addEventListener("click", registerFunction);
+  document.querySelector("#hideLogin").addEventListener("click", showRegister);
 
-  showHeaderHiddenActions();
-  document.querySelector("#header-hidden-show-products-button").addEventListener("click", showAndHideProducts); 
-  document.querySelector("#header-hidden-logout-button").addEventListener("click", logout); // logout
+  // Función de login y display none al registro al hacer click en el botón de login
+  document
+    .querySelector("#login-button")
+    .addEventListener("click", loginFunction);
+  document
+    .querySelector("#arrow-container")
+    .addEventListener("click", showLogin);
 
+  // Al finalizar el registro muestra un hipervinculo que te permite redirigirte para iniciar sesión con la cuenta recién registrada
+  document
+    .querySelector("#register-success-login")
+    .addEventListener("click", showLogin);
+
+  // Header: vista administrador
+  hideHeaderHiddenActions();
+  document
+    .querySelector("#header-hidden-show-products-button")
+    .addEventListener("click", showAndHideProducts);
+  document
+    .querySelector("#header-hidden-create-products-button")
+    .addEventListener("click", showAndHideCreateProducts);
+  document
+    .querySelector("#header-hidden-logout-button")
+    .addEventListener("click", logout); // logout
   preloadUsers();
-})
 
+  // Header: vista usuario
+  hideUserHiddenActions();
+  document
+    .querySelector("#user-hidden-show-products-button")
+    .addEventListener("click", showAndHideProductsUser);
+  document
+    .querySelector("#user-hidden-logout-button")
+    .addEventListener("click", logout); // logout
 
-function showHeaderHiddenActions() { // se ejecuta al inicio y al logout
+  // Crear producto
+  document
+    .querySelector("#create-products-button")
+    .addEventListener("click", createProduct);
+});
+
+// Se ejecuta al inicio y al logout. Esconde el header de vista administrador
+function hideHeaderHiddenActions() {
   document.querySelector("#header-hidden-actions").style.display = "none";
 }
 
-function showAdminFunctions() { // se ejecuta al login
+// Se ejecuta al inicio y al logout. Esconde el header de vista usuario
+function hideUserHiddenActions() {
+  document.querySelector("#header-hidden-actions-user").style.display = "none";
+}
+
+// Al hacer login se muestra el header de administrador
+function showAdminFunctions() {
   document.querySelector("#header-hidden-actions").style.display = "block";
 }
 
+function showUserFunctions() {
+  document.querySelector("#header-hidden-actions-user").style.display = "block";
+}
+
+// Función de registro
 function showRegister() {
-  document.querySelector("#login-container").style.display = "none"; // esconde login
-  document.querySelector("#register-container").style.display = "flex"; // muestra registro
-  document.querySelector("#arrow-container").style.display = "block"; // flecha para ir hacia atrás
-  document.querySelector("#logo-container").style.display = "block"; // logo de la tienda
+  document.querySelector("#login-container").style.display = "none"; // Display none al login
+  document.querySelector("#register-container").style.display = "flex"; // Muestra registro
+  document.querySelector("#arrow-container").style.display = "block"; // Muestra flecha para ir hacia atrás
+  document.querySelector("#logo-container").style.display = "block"; // Muestra logo de la tienda
 }
 
+// Función de login
 function showLogin() {
-  document.querySelector("#login-container").style.display = "flex"; // muestra login
-  document.querySelector("#register-container").style.display = "none"; // esconde registro
-  document.querySelector("#arrow-container").style.display = "none"; // flecha para ir hacia atrás
-  document.querySelector("#logo-container").style.display = "none"; // logo de la tienda
+  document.querySelector("#login-container").style.display = "flex"; // Muestra login
+  document.querySelector("#register-container").style.display = "none"; // Display none al registro
+  document.querySelector("#arrow-container").style.display = "none"; // Display none a la flecha para ir hacia atrás
+  document.querySelector("#logo-container").style.display = "none"; // Display none al logo de la tienda
 }
 
+// Función de logout
 function logout() {
   document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#login-container").style.display = "flex";
   document.querySelector("#register-container").style.display = "none";
+
+  // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
-  showHeaderHiddenActions();
+  hideHeaderHiddenActions();
+  hideUserHiddenActions();
 }
 
 function registerFunction() {
@@ -92,24 +145,33 @@ function loginFunction() {
   let password = document.querySelector("#login-password").value;
   let foundUser = false;
 
-  for (let i = 0; i < mainApp.userList.length; i++) {
-    if (
-      username === mainApp.userList[i].username &&
-      password === mainApp.userList[i].password
-      // busco si dentro de un mismo Objeto user hay un nombre y contraseña
-      // coincidente con la que acabo de ingresar
-    ) {
-      mainApp.loggedUser = mainApp.userList[i];
-      foundUser = true;
+  if (!checkVoidInputs(username, password)) {
+    for (let i = 0; i < mainApp.userList.length; i++) {
+      if (
+        username === mainApp.userList[i].username &&
+        password === mainApp.userList[i].password
+        // busco si dentro de un mismo Objeto user hay un nombre y contraseña
+        // coincidente con la que acabo de ingresar
+      ) {
+        mainApp.loggedUser = mainApp.userList[i];
+        foundUser = true;
+      }
     }
-  }
 
-  if (foundUser) {
-    document.querySelector("#login-container").style.display = "none";
-    showAdminFunctions();
+    if (foundUser) {
+      document.querySelector("#login-container").style.display = "none";
+      if (mainApp.loggedUser.power) {
+        showAdminFunctions();
+      } else {
+        showUserFunctions();
+      }
+    } else {
+      document.querySelector("#login-messages").innerHTML =
+        "Credenciales incorrectas, intenta otra vez.";
+    }
   } else {
     document.querySelector("#login-messages").innerHTML =
-      "Credenciales incorrectas, intenta otra vez.";
+      "No pueden haber espacios vacíos";
   }
 }
 
@@ -287,7 +349,7 @@ function preloadUsers() {
     "admin",
     "",
     "",
-    "sudo"
+    true
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
@@ -297,7 +359,7 @@ function preloadUsers() {
     "Password1!",
     "3566002020360505",
     "821",
-    "user"
+    false
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
@@ -307,7 +369,7 @@ function preloadUsers() {
     "Password1!",
     "4012888888881881",
     "652",
-    "user"
+    false
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
@@ -317,7 +379,7 @@ function preloadUsers() {
     "Password1!",
     "6011000990139424",
     "362",
-    "user"
+    false
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
@@ -327,7 +389,7 @@ function preloadUsers() {
     "Password1!",
     "38520000023237",
     "990",
-    "user"
+    false
   );
   mainApp.userList.push(preloadedUser);
   preloadedUser = new User(
@@ -337,7 +399,7 @@ function preloadUsers() {
     "Password1!",
     "378734493671000",
     "119",
-    "user"
+    false
   );
   mainApp.userList.push(preloadedUser);
 
@@ -362,7 +424,7 @@ function createNewUser(
     password,
     creditCard,
     cvc,
-    "user"
+    false
   );
   mainApp.userList.push(newUser);
 }
@@ -414,28 +476,11 @@ function preloadProducts() {
     true
   );
   mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Quest 5",
-    100,
-    "Descripción del producto",
-    "nike-quest-5.webp",
-    21,
-    true
-  );
-  mainApp.productList.push(preloadedProduct);
-  preloadedProduct = new Product(
-    "Quest 5",
-    100,
-    "Descripción del producto",
-    "nike-quest-5.webp",
-    21,
-    true
-  );
-  mainApp.productList.push(preloadedProduct);
 }
 preloadProducts();
 
-function productsTable() {
+// Tabla de productos admin
+function productsTableAdmin() {
   let HTMLtable = "<table border='1' align='center'>";
 
   HTMLtable += `<tr>
@@ -489,16 +534,150 @@ function changeStatus() {
   } else {
     currentProduct.status = true;
   }
-  productsTable();
+  productsTableAdmin();
 }
 
+function productsTableUser() {
+  let HTMLtable = "<table border='1' align='center'>";
+
+  HTMLtable += `<tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+                <th>Stock</th>
+                <th>Comprar</th>
+            </tr>`;
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let loadingItem = mainApp.productList[i];
+
+    HTMLtable += `<tr>
+                  <td>${loadingItem.name}</td>
+                  <td>${loadingItem.price}</td>
+                  <td>${loadingItem.description}</td>
+                  <td><img src="img/${loadingItem.image}"></td>
+                  <td>${loadingItem.stock}</td>    
+                  <td><input type='button' value='Comprar' id='purchaseP${+i}'></td>
+              </tr>`;
+  }
+  HTMLtable += "</table>";
+
+  document.querySelector("#products-list-user").innerHTML = HTMLtable;
+  document.querySelector("#products-list-user").style.display = "block";
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let purchaseButton = document.querySelector("#purchaseP" + i);
+    // currentButton.addEventListener("click", buyProduct);
+  }
+}
+
+/* function buyProduct(productStock) {
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let productPosition = Number(buttonID.substring(1));
+  let currentProduct = mainApp.productList[productPosition];
+  if (currentProduct.status) {
+    currentProduct.status = false;
+  } else {
+    currentProduct.status = true;
+  }
+  productsTableAdmin();
+} */
+
 function showAndHideProducts() {
-  document.querySelector("#header-hidden-show-products-button").addEventListener("click", () => {
-    productTableVisible = !productTableVisible;
-    if (productTableVisible) {
-      productsTable();
-    } else {
+  document
+    .querySelector("#header-hidden-show-products-button")
+    .addEventListener("click", () => {
+      productTableVisible = !productTableVisible;
+      if (productTableVisible) {
+        productsTableAdmin();
+      } else {
+        document.querySelector("#products-list").style.display = "none";
+      }
+      document.querySelector("#create-products-container").style.display =
+        "none";
+    });
+}
+
+function showAndHideProductsUser() {
+  document
+    .querySelector("#user-hidden-show-products-button")
+    .addEventListener("click", () => {
+      productTableUserVisible = !productTableUserVisible;
+      if (productTableUserVisible) {
+        productsTableUser();
+      } else {
+        document.querySelector("#products-list-user").style.display = "none";
+      }
+    });
+}
+
+function showAndHideCreateProducts() {
+  document
+    .querySelector("#header-hidden-create-products-button")
+    .addEventListener("click", () => {
+      createProductsVisible = !createProductsVisible;
+      if (createProductsVisible) {
+        document.querySelector("#create-products-container").style.display =
+          "block";
+      } else {
+        document.querySelector("#create-products-container").style.display =
+          "none";
+      }
       document.querySelector("#products-list").style.display = "none";
+    });
+}
+
+function createProduct() {
+  let productName = document.querySelector(
+    "#create-products-product-name"
+  ).value;
+  let productPrice = document.querySelector(
+    "#create-products-product-price"
+  ).value;
+  let productDescription = document.querySelector(
+    "#create-products-product-description"
+  ).value;
+  let productStock = document.querySelector(
+    "#create-products-product-stock"
+  ).value;
+  let productImage = document.querySelector(
+    "#create-products-product-image"
+  ).value;
+  let newFilePath = "../img/" + getFileName(productImage);
+
+  if (
+    !checkVoidInputs(
+      productName,
+      productPrice,
+      productDescription,
+      productStock,
+      productImage
+    )
+  ) {
+    let newProduct = new Product(
+      productName,
+      productPrice,
+      productDescription,
+      newFilePath,
+      productStock
+    );
+    mainApp.productList.push(newProduct);
+    document.querySelector("#create-products-message").innerHTML =
+      "Producto creado con éxito";
+  } else {
+    document.querySelector("#create-products-message").innerHTML =
+      "No pueden haber espacios vacíos";
+  }
+}
+
+function getFileName(filename) {
+  let dashPosition = -1;
+  for (let i = filename.length - 1; i >= 0 && dashPosition == -1; i--) {
+    if (filename.charAt(i) == "\\") {
+      dashPosition = i;
     }
-  });
+  }
+  return filename.substring(dashPosition + 1);
 }

@@ -35,7 +35,14 @@
       <input type='button' id="header-hidden-logout-button" value="Cerrar Sesion" class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-create-products-button" value="Crear Producto" class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
+      <input type='button' id="header-hidden-show-sales-button" value="Ver ventas" class="btn btn-primary lg-3">
+      <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-primary lg-3">
     </div>
+    <div id="header-hidden-actions-user">
+      <input type='button' id="user-hidden-logout-button" value="Cerrar Sesion" class="btn btn-primary lg-3">
+      <input type='button' id="user-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
+    </div>
+
     <div class="arrow-container" id="arrow-container">
       <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" class="mt-5 mx-4"
         viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -68,7 +75,6 @@
         <p id="login-messages"></p>
       </form>
     </div>
-
 
     <!-- REGISTER -->
     <div class="register-container" id="register-container" style="display: none;">
@@ -117,6 +123,21 @@
     <div class="table-container">
       <div class="products-list" id="products-list">
       </div>
+    </div>
+
+    <div class="table-container-user">
+      <div class="products-list" id="products-list-user">
+      </div>
+    </div>
+
+    <div class="create-products-container" id="create-products-container" style="display: none;">
+      <input type="text" placeholder="Nombre del producto" id="create-products-product-name">
+      <input type="number" placeholder="Precio del producto" id="create-products-product-price">
+      <input type="text" placeholder="Descripción del producto" id="create-products-product-description">
+      <input type="number" placeholder="Stock del producto" id="create-products-product-stock">
+      <label for="create-products-product-image">Seleccionar imagen</label><input type="file" id="create-products-product-image">
+      <input type="button" value="Crear producto" id="create-products-button">
+      <p id="create-products-message"></p>
     </div>
   </main>
 
