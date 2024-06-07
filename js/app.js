@@ -39,6 +39,11 @@ window.addEventListener("load", () => {
   document
     .querySelector("#header-hidden-logout-button")
     .addEventListener("click", logout); // logout
+  document
+    .querySelector("#header-hidden-show-sales-button")
+    .addEventListener("click", showSales);
+
+  // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
   document
     .querySelector("#text-view-as-user")
@@ -572,4 +577,61 @@ function viewAsUser() {
       "Viendo como usuario";
     document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
   }
+}
+
+function showSales() {
+  let HTMLtable = "<table border='1' align='center'>";
+
+  HTMLtable += `<tr>
+                  <th>Nombre comprador</th>
+                  <th>Balance comprador</th>
+                  <th>Unidades compra</th>
+                  <th>Nombre producto</th>
+                  <th>Stock disponible</th>
+                  <th>Estado compra</th>
+                  <th>Acción</th>
+              </tr>`;
+
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    let loadingItem = mainApp.salesList[i];
+
+    HTMLtable += `<tr>
+                    <td>${loadingItem.buyer.username}</td>
+                    <td>${loadingItem.buyer.balance} USD</td>
+                    <td>${loadingItem.amountPurchased}</td>
+                    <td>${loadingItem.product.name}</td>
+                    <td>${loadingItem.product.stock}</td>
+                    <td>${loadingItem.verified}</td>    
+                    <td><input type='button' value='Confirmar' id='confirmP${+i}'></td>
+                </tr>`;
+  }
+  HTMLtable += "</table>";
+
+  document.querySelector("#sales-list").innerHTML = HTMLtable;
+  document.querySelector("#sales-list").style.display = "block";
+
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    if (!mainApp.salesList[i].verified) {
+      let confirmButton = document.querySelector("#confirmP" + i);
+      confirmButton.addEventListener("click", confirmSale);
+    } else {
+      document.querySelector("#confirmP" + i).disabled = true;
+    }
+  }
+}
+
+function confirmSale() {
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let salePosition = Number(buttonID.substring(9));
+  let currentSale = mainApp.salesList[salePosition];
+
+  currentSale.buyer.balance -= currentSale.amountPurchased * currentSale.product.price;
+  currentSale.product.stock -= currentSale.amountPurchased;
+  currentSale.verified = !currentSale.verified
+  if (currentSale.product.stock <= 0 && currentSale.product.status) {
+    currentSale.product.status = !currentSale.product.status;
+  }
+
+  showSales();
 }

@@ -108,6 +108,7 @@ main {
 .register-flex-container span {
   color: red;
 }
+
 footer {
   width: 100%;
   position: fixed;
@@ -133,22 +134,22 @@ table {
   width: 100%;
 }
 
-.products-list img {
+.hidden-list img {
   width: 100px;
 }
 
-.products-list td {
+.hidden-list td {
   padding: 2rem;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   word-break: break-word;
 }
 
-.products-list tr:nth-child(odd) {
+.hidden-list tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.products-list th {
+.hidden-list th {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
 }
