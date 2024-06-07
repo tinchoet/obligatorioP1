@@ -43,6 +43,11 @@ window.addEventListener("load", () => {
     .querySelector("#header-hidden-show-sales-button")
     .addEventListener("click", showSales);
 
+  document
+    .getElementById('header-hidden-show-sales-button')
+    .addEventListener('click', toggleSalesListDisplay);
+
+
   // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
   document
@@ -455,6 +460,9 @@ function productsTableUser() {
   for (let i = 0; i < mainApp.productList.length; i++) {
     let purchaseButton = document.querySelector("#purchaseP" + i);
     purchaseButton.addEventListener("click", buyProduct);
+    if (purchaseButton) {
+      purchaseButton.addEventListener("click", buyProduct);
+    }
   }
 }
 
@@ -580,12 +588,14 @@ function viewAsUser() {
 }
 
 function showSales() {
-  let HTMLtable = "<table border='1' align='center'>";
 
+  let salesListContainer = document.querySelector("#sales-list");
+
+  let HTMLtable = "<table border='1' align='center'>";
   HTMLtable += `<tr>
                   <th>Nombre comprador</th>
                   <th>Balance comprador</th>
-                  <th>Unidades compra</th>
+                  <th>Unidades</th>
                   <th>Nombre producto</th>
                   <th>Stock disponible</th>
                   <th>Estado compra</th>
@@ -594,7 +604,6 @@ function showSales() {
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
-
     HTMLtable += `<tr>
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.buyer.balance} USD</td>
@@ -606,9 +615,7 @@ function showSales() {
                 </tr>`;
   }
   HTMLtable += "</table>";
-
-  document.querySelector("#sales-list").innerHTML = HTMLtable;
-  document.querySelector("#sales-list").style.display = "block";
+  salesListContainer.innerHTML = HTMLtable;
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
     if (!mainApp.salesList[i].verified) {
@@ -635,3 +642,13 @@ function confirmSale() {
 
   showSales();
 }
+
+function toggleSalesListDisplay() {
+  let salesContainer = document.getElementById('sales-list');
+  if (salesContainer.style.display === 'block') {
+    salesContainer.style.display = 'none';
+  } else {
+    salesContainer.style.display = 'block';
+  }
+}
+
