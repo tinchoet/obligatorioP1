@@ -430,7 +430,8 @@ function productsTableUser() {
   for (let i = 0; i < mainApp.productList.length; i++) {
     let loadingItem = mainApp.productList[i];
 
-    HTMLtable += `<tr>
+    if (mainApp.productList[i].status) {
+      HTMLtable += `<tr>
                   <td>${loadingItem.name}</td>
                   <td>${loadingItem.price}</td>
                   <td>${loadingItem.description}</td>
@@ -439,6 +440,7 @@ function productsTableUser() {
                   <td><input type='number' id='products-list-stock${+i}' placeholder='Cantidad de unidades'></td>
                   <td><input type='button' value='Comprar' id='purchaseP${+i}'></td>
               </tr>`;
+    }
   }
   HTMLtable += "</table>";
 
@@ -463,11 +465,7 @@ function buyProduct() {
   );
 
   if (currentProduct.stock >= 1) {
-    mainApp.createSale(
-      mainApp.loggedUser,
-      currentProduct,
-      amountPurchased
-    );
+    mainApp.createSale(mainApp.loggedUser, currentProduct, amountPurchased);
   } else {
     alert("No hay suficientes unidades como para realizar este pedido");
   }
