@@ -165,7 +165,7 @@ class App {
   }
 
   createSale(pBuyer, pProduct, pAmountPurchased) {
-    let newSale = new Sale(pBuyer, pProduct, pAmountPurchased, false);
+    let newSale = new Sale(pBuyer, pProduct, pAmountPurchased, "Pendiente");
     this.salesList.push(newSale);
   }
 }
