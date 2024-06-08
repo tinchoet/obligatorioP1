@@ -591,6 +591,7 @@ function viewAsUser() {
 function showSales() {
   let salesListContainer = document.querySelector("#sales-list");
 
+  // Crear tabla
   let HTMLtable = "<table border='1' align='center'>";
   HTMLtable += `<tr>
                   <th>Nombre comprador</th>
@@ -611,18 +612,26 @@ function showSales() {
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.product.stock}</td>
                     <td>${loadingItem.purchaseStatus}</td>    
-                    <td><input type='button' value='Confirmar' id='confirmP${+i}'></td>
+                    <td><input type='button' value='Aprobar' id='confirmP${+i}'><br><br><input type='button' value='Cancelar' id='cancelP${+i}'><br></td>
                 </tr>`;
   }
   HTMLtable += "</table>";
   salesListContainer.innerHTML = HTMLtable;
 
+  // Confirmar compras pendientes
   for (let i = 0; i < mainApp.salesList.length; i++) {
+    let confirmButton = document.querySelector("#confirmP" + i);
+    let cancelButton = document.querySelector("#cancelP" + i);
     if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
-      let confirmButton = document.querySelector("#confirmP" + i);
       confirmButton.addEventListener("click", confirmSale);
     } else {
-      document.querySelector("#confirmP" + i).disabled = true;
+      confirmButton.disabled = true;
+    }
+
+    if (mainApp.salesList[i].purchaseStatus === "Aprobada") {
+      cancelButton.addEventListener("click", cancelSale);
+    } else {
+      cancelButton.disabled = true;
     }
   }
 }
@@ -640,8 +649,23 @@ function confirmSale() {
     currentSale.purchaseStatus = "Aprobada";
     clickedButton.disabled = true;
   } else {
-    alert('No hay stock suficiente para procesar esta orden de compra')
+    alert("No hay stock suficiente para procesar esta orden de compra");
   }
+
+  showSales();
+}
+
+function cancelSale() {
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let salePosition = Number(buttonID.substring(7));
+  let currentSale = mainApp.salesList[salePosition];
+
+  currentSale.buyer.balance +=
+    currentSale.amountPurchased * currentSale.product.price;
+  currentSale.product.stock += currentSale.amountPurchased;
+  currentSale.purchaseStatus = "Cancelada";
+  clickedButton.disabled = true;
 
   showSales();
 }

@@ -126,8 +126,6 @@ class App {
   preloadSales() {
     let preloadedSale = new Sale(this.userList[4], this.productList[0], 5, "Aprobada");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[1], this.productList[1], 3, "Aprobada");
-    this.salesList.push(preloadedSale);
     preloadedSale = new Sale(this.userList[2], this.productList[2], 8, "Cancelada");
     this.salesList.push(preloadedSale);
     preloadedSale = new Sale(this.userList[1], this.productList[0], 2, "Pendiente");
