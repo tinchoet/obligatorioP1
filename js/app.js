@@ -9,6 +9,8 @@ let mainApp = new App();
 window.addEventListener("load", () => {
   mainApp.preloadUsers();
   mainApp.preloadProducts();
+  mainApp.preloadSales();
+
   // Función de registro y display none al login al hacer click en el botón de registro
   document
     .querySelector("#register-button")
@@ -44,9 +46,8 @@ window.addEventListener("load", () => {
     .addEventListener("click", showSales);
 
   document
-    .getElementById('header-hidden-show-sales-button')
-    .addEventListener('click', toggleSalesListDisplay);
-
+    .getElementById("header-hidden-show-sales-button")
+    .addEventListener("click", toggleSalesListDisplay);
 
   // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
@@ -588,7 +589,6 @@ function viewAsUser() {
 }
 
 function showSales() {
-
   let salesListContainer = document.querySelector("#sales-list");
 
   let HTMLtable = "<table border='1' align='center'>";
@@ -610,7 +610,7 @@ function showSales() {
                     <td>${loadingItem.amountPurchased}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.product.stock}</td>
-                    <td>${loadingItem.verified}</td>    
+                    <td>${loadingItem.purchaseStatus}</td>    
                     <td><input type='button' value='Confirmar' id='confirmP${+i}'></td>
                 </tr>`;
   }
@@ -618,7 +618,7 @@ function showSales() {
   salesListContainer.innerHTML = HTMLtable;
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
-    if (!mainApp.salesList[i].verified) {
+    if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
       let confirmButton = document.querySelector("#confirmP" + i);
       confirmButton.addEventListener("click", confirmSale);
     } else {
@@ -630,25 +630,27 @@ function showSales() {
 function confirmSale() {
   let clickedButton = this;
   let buttonID = clickedButton.id;
-  let salePosition = Number(buttonID.substring(9));
+  let salePosition = Number(buttonID.substring(8));
   let currentSale = mainApp.salesList[salePosition];
 
-  currentSale.buyer.balance -= currentSale.amountPurchased * currentSale.product.price;
-  currentSale.product.stock -= currentSale.amountPurchased;
-  currentSale.verified = !currentSale.verified
-  if (currentSale.product.stock <= 0 && currentSale.product.status) {
-    currentSale.product.status = !currentSale.product.status;
+  if (currentSale.product.stock - currentSale.amountPurchased >= 0) {
+    currentSale.buyer.balance -=
+      currentSale.amountPurchased * currentSale.product.price;
+    currentSale.product.stock -= currentSale.amountPurchased;
+    currentSale.purchaseStatus = "Aprobada";
+    clickedButton.disabled = true;
+  } else {
+    alert('No hay stock suficiente para procesar esta orden de compra')
   }
 
   showSales();
 }
 
 function toggleSalesListDisplay() {
-  let salesContainer = document.getElementById('sales-list');
-  if (salesContainer.style.display === 'block') {
-    salesContainer.style.display = 'none';
+  let salesContainer = document.getElementById("sales-list");
+  if (salesContainer.style.display === "block") {
+    salesContainer.style.display = "none";
   } else {
-    salesContainer.style.display = 'block';
+    salesContainer.style.display = "block";
   }
 }
-

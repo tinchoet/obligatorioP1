@@ -21,7 +21,7 @@ class App {
       "Martin",
       "Leib",
       "mleib",
-      "Password123",
+      "123",
       "3566002020360505",
       "821",
       false
@@ -31,7 +31,7 @@ class App {
       "Martín",
       "Etchebarne",
       "tinchoet",
-      "Password123",
+      "123",
       "4012888888881881",
       "652",
       false
@@ -41,7 +41,7 @@ class App {
       "Juan",
       "Perez",
       "jperez",
-      "Password123",
+      "123",
       "6011000990139424",
       "362",
       false
@@ -51,7 +51,7 @@ class App {
       "Carlos",
       "Rodriguez",
       "crodriguez",
-      "Password123",
+      "123",
       "38520000023237",
       "990",
       false
@@ -61,7 +61,7 @@ class App {
       "Marcos",
       "Gonzales",
       "mgonzales",
-      "Password123",
+      "123",
       "378734493671000",
       "119",
       false
@@ -121,6 +121,19 @@ class App {
       true
     );
     this.productList.push(preloadedProduct);
+  }
+
+  preloadSales() {
+    let preloadedSale = new Sale(this.userList[4], this.productList[0], 5, "Aprobada");
+    this.salesList.push(preloadedSale);
+    preloadedSale = new Sale(this.userList[1], this.productList[1], 3, "Aprobada");
+    this.salesList.push(preloadedSale);
+    preloadedSale = new Sale(this.userList[2], this.productList[2], 8, "Cancelada");
+    this.salesList.push(preloadedSale);
+    preloadedSale = new Sale(this.userList[1], this.productList[0], 2, "Pendiente");
+    this.salesList.push(preloadedSale);
+    preloadedSale = new Sale(this.userList[3], this.productList[1], 5, "Pendiente");
+    this.salesList.push(preloadedSale);
   }
 
   productPush(
@@ -196,10 +209,10 @@ class Product {
 }
 
 class Sale {
-  constructor(pBuyer, pProductName, pAmountPurchased, pVerified) {
+  constructor(pBuyer, pProductName, pAmountPurchased, pPurchaseStatus) {
     this.buyer = pBuyer;
     this.product = pProductName;
     this.amountPurchased = pAmountPurchased;
-    this.verified = pVerified
+    this.purchaseStatus = pPurchaseStatus;
   }
 }
