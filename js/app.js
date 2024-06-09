@@ -41,13 +41,17 @@ window.addEventListener("load", () => {
   document
     .querySelector("#header-hidden-logout-button")
     .addEventListener("click", logout); // logout
-  document
-    .querySelector("#header-hidden-show-sales-button")
-    .addEventListener("click", showSales);
 
-  document
-    .getElementById("header-hidden-show-sales-button")
-    .addEventListener("click", toggleSalesListDisplay);
+  // No se que tan buena idea sea llamar dos funciones con el mismo ID.
+  // ósea, funcionar funciona, pero no se si sea una buena práctica.
+  // Me da la impresión de que vamos a romper todo haciendo esto así  ---leib
+  document.querySelector("#header-hidden-show-sales-button").addEventListener("click", showSales);
+  document.querySelector("#header-hidden-show-sales-button").addEventListener("click", toggleSalesListDisplay);
+  document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", showEarnings);
+  document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", toggleEarningsDisplay);
+
+  // ACÁ ES CUANDO HACEMOS CAGADA. si vamos a romper todo hagamoslo bien 🫡
+  d
 
   // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
@@ -73,11 +77,13 @@ window.addEventListener("load", () => {
 // Se ejecuta al inicio y al logout. Esconde el header de vista administrador
 function hideHeaderHiddenActions() {
   document.querySelector("#header-hidden-actions").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 // Se ejecuta al inicio y al logout. Esconde el header de vista usuario
 function hideUserHiddenActions() {
   document.querySelector("#header-hidden-actions-user").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 // Al hacer login se muestra el header de administrador
@@ -113,7 +119,8 @@ function logout() {
   document.querySelector("#login-container").style.display = "flex";
   document.querySelector("#register-container").style.display = "none";
   document.querySelector("#text-current-view").style.display = "none";
-
+  document.querySelector("#header-sales-actions").style.display = "none";
+  
   // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
   hideHeaderHiddenActions();
@@ -494,6 +501,8 @@ function showAndHideProducts() {
     document.querySelector("#products-list").style.display = "none";
   }
   document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
 }
 
 function showAndHideProductsUser() {
@@ -514,6 +523,8 @@ function showAndHideCreateProducts() {
     document.querySelector("#create-products-container").style.display = "none";
   }
   document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
 }
 
 function createProduct() {
@@ -589,6 +600,7 @@ function viewAsUser() {
 }
 
 function showSales() {
+  document.querySelector("#header-sales-actions").style.display = "block";
   let salesListContainer = document.querySelector("#sales-list");
 
   // Crear tabla
@@ -672,9 +684,70 @@ function cancelSale() {
 
 function toggleSalesListDisplay() {
   let salesContainer = document.getElementById("sales-list");
+  let salesActions = document.getElementById("header-sales-actions");
+
   if (salesContainer.style.display === "block") {
+    salesActions.style.display = "none";
     salesContainer.style.display = "none";
   } else {
+    salesActions.style.display = "block";
     salesContainer.style.display = "block";
   }
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
+}
+
+function showEarnings() {
+  let earningsListContainer = document.querySelector("#earnings-list");
+
+  let HTMLtable = "<table border='1' align='center'>";
+  HTMLtable += `<tr>
+                  <th>Nombre comprador</th>
+                  <th>Nombre producto</th>
+                  <th>Unidades compradas</th>
+                  <th>Total</th>
+              </tr>`;
+
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    let loadingItem = mainApp.salesList[i];
+    if (loadingItem.purchaseStatus === "Aprobada") {
+      HTMLtable += `<tr>
+                    <td>${loadingItem.buyer.username}</td>
+                    <td>${loadingItem.product.name}</td>
+                    <td>${loadingItem.amountPurchased}</td>
+                    <td>${
+                      loadingItem.amountPurchased * loadingItem.product.price
+                    } USD</td>
+                </tr>`;
+    }
+  }
+  HTMLtable += "</table>";
+  earningsListContainer.innerHTML = HTMLtable;
+
+  let totalEarnings = 0;
+  // Calcular y mostrar ganancias totales --> SEPARAR EN OTRA FUNCIÓN
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    let loadingItem = mainApp.salesList[i];
+    if (loadingItem.purchaseStatus === "Aprobada") {
+      totalEarnings += loadingItem.amountPurchased * loadingItem.product.price;
+    }
+  }
+
+  document.querySelector("#total-earnings").textContent =
+    "Ganancias totales: " + totalEarnings + " USD";
+}
+
+function toggleEarningsDisplay() {
+  let earningsContainer = document.getElementById("earnings-list-and-text");
+
+  if (earningsContainer.style.display === "block") {
+    earningsContainer.style.display = "none";
+  } else {
+    earningsContainer.style.display = "block";
+  }
+
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
 }

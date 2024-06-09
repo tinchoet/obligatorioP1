@@ -41,8 +41,14 @@
         class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
       <input type='button' id="header-hidden-show-sales-button" value="Ver ventas" class="btn btn-primary lg-3">
-      <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-secondary lg-3"
-        disabled>
+      <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-primary lg-3">
+    </div>
+
+    <div id="header-sales-actions">
+      <input type='button' id="header-sales-approved-button" value="Ver compras aprobadas" class="btn btn-danger lg-3">
+      <input type='button' id="header-sales-pending-button" value="Ver compras pendientes" class="btn btn-danger lg-3">
+      <input type='button' id="header-sales-cancelled-button" value="Ver compras canceladas" class="btn btn-danger lg-3">
+      <input type='button' id="header-sales-all-button" value="Ver todo" class="btn btn-primary lg-3">
     </div>
 
     <div id="header-hidden-actions-user">
@@ -154,6 +160,11 @@
     <div class="table-container">
       <div class="hidden-list" id="sales-list">
       </div>
+    </div>
+
+    <div class="table-container" id="earnings-list-and-text">
+      <div class="hidden-list" id="earnings-list"></div>
+      <p id="total-earnings"></p>
     </div>
   </main>
 
