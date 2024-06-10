@@ -142,8 +142,7 @@ function registerFunction() {
   let creditCard = document.querySelector("#register-card").value;
   let cvc = Number(document.querySelector("#register-cvc").value);
 
-  if (
-    !checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
+  if (!checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
     // SOLAMENTE si no hay espacios en blanco -> inicio la validación del registro
     // en caso de que todo se valide -> creo el usuario
   ) {
@@ -308,7 +307,14 @@ function validatePassword(password) {
 }
 
 function validateCard(creditCard) {
-  creditCard = creditCard.toString(); // convierto a string para tratar el número de forma más consistente
+  let creditCardNoDashes = "";
+
+  for (let i = 0; i < creditCard.length; i++) {
+    if (creditCard.charAt(i) !== "-") {
+      creditCardNoDashes += creditCard.charAt(i);
+    }
+  }
+  creditCardNoDashes.toString();
 
   let addedUpNumber = 0;
   let cardValidated = false;
@@ -316,11 +322,11 @@ function validateCard(creditCard) {
   document.querySelector("#register-error-card").innerHTML = "";
 
   // recorrer string de derecha a izquierda
-  for (let pos = creditCard.length - 1; pos >= 0; pos--) {
-    let digit = Number(creditCard.charAt(pos));
+  for (let pos = creditCardNoDashes.length - 1; pos >= 0; pos--) {
+    let digit = Number(creditCardNoDashes.charAt(pos));
 
     // verificar si la posición actual (contando desde la derecha) es par
-    if ((creditCard.length - pos) % 2 === 0) {
+    if ((creditCardNoDashes.length - pos) % 2 === 0) {
       digit *= 2;
 
       // si la posición actual es mayor a 10, le resto 9, que es lo mismo que sumar cada uno de sus digitos individualmente
