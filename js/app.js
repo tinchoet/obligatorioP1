@@ -451,11 +451,24 @@ function editProduct() {
   let productPosition = Number(buttonID.substring(4));
   let currentProduct = mainApp.productList[productPosition];
 
+<<<<<<< HEAD
   document.querySelector("#editing-product-name").placeholder = currentProduct.name;
   document.querySelector("#editing-product-price").placeholder = currentProduct.price;
   document.querySelector("#editing-product-description").placeholder = currentProduct.description;
   document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
   document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; 
+=======
+  document.querySelector("#editing-product-name").placeholder =
+    currentProduct.name;
+  document.querySelector("#editing-product-price").placeholder =
+    currentProduct.price;
+  document.querySelector("#editing-product-description").placeholder =
+    currentProduct.description;
+  document.querySelector("#editing-product-stock").placeholder =
+    currentProduct.stock;
+  document.querySelector("#editing-product-name").checked =
+    currentProduct.onSale;
+>>>>>>> 91ac8d3e82e43da5cb0902926fa84136f396d83d
 
   document.querySelector("#editing-product-name").addEventListener("input", function() {
     if (!checkVoidInputs(this.value)) {
@@ -491,11 +504,13 @@ function editProduct() {
     currentProduct.onSale = this.checked;
   });
 
-  document.querySelector("#finished-editing").addEventListener("click", () => {
-    document.querySelector("#edit-product-options").style.display = "none";
-    document.querySelector("#products-list").innerHTML = "";
-    productsTableAdmin();
-  });
+  document
+    .querySelector("#finished-editing")
+    .addEventListener("click", () => {
+      document.querySelector("#edit-product-options").style.display = "none";
+      document.querySelector("#products-list").innerHTML = "";
+      productsTableAdmin();
+    });
 }
 
 function productsTableUser() {
