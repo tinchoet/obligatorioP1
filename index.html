@@ -45,10 +45,12 @@
     </div>
 
     <div id="header-sales-actions">
-      <input type='button' id="header-sales-approved-button" value="Ver compras aprobadas" class="btn btn-danger lg-3">
-      <input type='button' id="header-sales-pending-button" value="Ver compras pendientes" class="btn btn-danger lg-3">
-      <input type='button' id="header-sales-cancelled-button" value="Ver compras canceladas" class="btn btn-danger lg-3">
-      <input type='button' id="header-sales-all-button" value="Ver todo" class="btn btn-primary lg-3">
+      <select name="sales-actions" id="sales-actions">
+        <option value="Ver-Todo">Ver Todo</option>
+        <option value="Aprobadas">Aprobadas</option>
+        <option value="Canceladas">Canceladas</option>
+        <option value="Pendientes">Pendientes</option>
+      </select>
     </div>
 
     <div id="header-hidden-actions-user">
