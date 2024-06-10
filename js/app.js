@@ -50,9 +50,6 @@ window.addEventListener("load", () => {
   document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", showEarnings);
   document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", toggleEarningsDisplay);
 
-  // ACÁ ES CUANDO HACEMOS CAGADA. si vamos a romper todo hagamoslo bien 🫡
-  d
-
   // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
   document
