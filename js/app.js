@@ -42,13 +42,23 @@ window.addEventListener("load", () => {
     .querySelector("#header-hidden-logout-button")
     .addEventListener("click", logout); // logout
 
+  document
+    .querySelector("#header-hidden-show-sales-button")
+    .addEventListener("click", showSales);
+  document
+    .querySelector("#header-hidden-show-sales-button")
+    .addEventListener("click", toggleSalesListDisplay);
+  document
+    .querySelector("#header-hidden-show-earnings-button")
+    .addEventListener("click", showEarnings);
+  document
+    .querySelector("#header-hidden-show-earnings-button")
+    .addEventListener("click", toggleEarningsDisplay);
 
-  document.querySelector("#header-hidden-show-sales-button").addEventListener("click", showSales);
-  document.querySelector("#header-hidden-show-sales-button").addEventListener("click", toggleSalesListDisplay);
-  document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", showEarnings);
-  document.querySelector("#header-hidden-show-earnings-button").addEventListener("click", toggleEarningsDisplay);
+  document
+    .querySelector("#sales-actions")
+    .addEventListener("change", showFilterSales);
 
-  document.querySelector("#sales-actions").addEventListener("change", showFilterSales);
   // Header: vista administrador, cambio de usuarios
   document.querySelector("#text-current-view").style.display = "none";
   document
@@ -712,8 +722,9 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${loadingItem.amountPurchased * loadingItem.product.price
-        } USD</td>
+                    <td>${
+                      loadingItem.amountPurchased * loadingItem.product.price
+                    } USD</td>
                 </tr>`;
     }
   }
@@ -747,80 +758,96 @@ function toggleEarningsDisplay() {
   document.querySelector("#sales-list").style.display = "none";
 }
 
-
 function showFilterSales() {
-  let salesFilter = document.querySelector('#sales-actions').value;
+  let salesFilter = document.querySelector("#sales-actions").value;
   let HTMLtable = "";
 
   switch (salesFilter) {
-    case ('Aprobadas'):
-      let approved = mainApp.salesList.filter((Sale) => Sale.purchaseStatus === "Aprobada");
+    case "Aprobadas":
+      let approved = mainApp.salesList.filter(
+        (Sale) => Sale.purchaseStatus === "Aprobada"
+      );
       HTMLtable = "<table border='1' align='center'>";
       HTMLtable += `<tr>
-                    <th>Nombre comprador</th>
-                    <th>Nombre producto</th>
-                    <th>Unidades compradas</th>
-                    <th>Total</th>
-                </tr>`;
+                      <th>Nombre comprador</th>
+                      <th>Balance comprador</th>
+                      <th>Unidades</th>
+                      <th>Nombre producto</th>
+                      <th>Stock disponible</th>
+                      <th>Estado compra</th>
+                   </tr>`;
       for (let i = 0; i < approved.length; i++) {
         let loadingItem = approved[i];
         HTMLtable += `<tr>
-                      <td>${loadingItem.buyer.username}</td>
-                      <td>${loadingItem.product.name}</td>
-                      <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.amountPurchased * loadingItem.product.price} USD</td>
-                  </tr>`;
+                        <td>${loadingItem.buyer.username}</td>
+                        <td>${loadingItem.buyer.balance} USD</td>
+                        <td>${loadingItem.amountPurchased}</td>
+                        <td>${loadingItem.product.name}</td>
+                        <td>${loadingItem.product.stock}</td>
+                        <td>${loadingItem.purchaseStatus}</td>
+                      </tr>`;
       }
       HTMLtable += "</table>";
       document.querySelector("#sales-list").innerHTML = HTMLtable;
       break;
 
-    case ('Pendientes'):
-      let pending = mainApp.salesList.filter((Sale) => Sale.purchaseStatus === "Pendiente");
+    case "Pendientes":
+      let pending = mainApp.salesList.filter(
+        (Sale) => Sale.purchaseStatus === "Pendiente"
+      );
       HTMLtable = "<table border='1' align='center'>";
       HTMLtable += `<tr>
-                    <th>Nombre comprador</th>
-                    <th>Nombre producto</th>
-                    <th>Unidades compradas</th>
-                    <th>Total</th>
-                </tr>`;
+                      <th>Nombre comprador</th>
+                      <th>Balance comprador</th>
+                      <th>Unidades</th>
+                      <th>Nombre producto</th>
+                      <th>Stock disponible</th>
+                      <th>Estado compra</th>
+                    </tr>`;
       for (let i = 0; i < pending.length; i++) {
         let loadingItem = pending[i];
         HTMLtable += `<tr>
-                      <td>${loadingItem.buyer.username}</td>
-                      <td>${loadingItem.product.name}</td>
-                      <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.amountPurchased * loadingItem.product.price} USD</td>
-                  </tr>`;
+                        <td>${loadingItem.buyer.username}</td>
+                        <td>${loadingItem.buyer.balance} USD</td>
+                        <td>${loadingItem.amountPurchased}</td>
+                        <td>${loadingItem.product.name}</td>
+                        <td>${loadingItem.product.stock}</td>
+                        <td>${loadingItem.purchaseStatus}</td>
+                      </tr>`;
       }
       HTMLtable += "</table>";
       document.querySelector("#sales-list").innerHTML = HTMLtable;
       break;
 
-    case ('Canceladas'):
-      let canceled = mainApp.salesList.filter((Sale) => Sale.purchaseStatus === "Cancelada");
+    case "Canceladas":
+      let cancelled = mainApp.salesList.filter(
+        (Sale) => Sale.purchaseStatus === "Cancelada"
+      );
       HTMLtable = "<table border='1' align='center'>";
       HTMLtable += `<tr>
-                    <th>Nombre comprador</th>
-                    <th>Nombre producto</th>
-                    <th>Unidades compradas</th>
-                    <th>Total</th>
+                      <th>Nombre comprador</th>
+                      <th>Balance comprador</th>
+                      <th>Unidades</th>
+                      <th>Nombre producto</th>
+                      <th>Stock disponible</th>
+                      <th>Estado compra</th>
                 </tr>`;
-      for (let i = 0; i < canceled.length; i++) {
-        let loadingItem = canceled[i];
+      for (let i = 0; i < cancelled.length; i++) {
+        let loadingItem = cancelled[i];
         HTMLtable += `<tr>
-                      <td>${loadingItem.buyer.username}</td>
-                      <td>${loadingItem.product.name}</td>
-                      <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.amountPurchased * loadingItem.product.price} USD</td>
-                  </tr>`;
+                        <td>${loadingItem.buyer.username}</td>
+                        <td>${loadingItem.buyer.balance} USD</td>
+                        <td>${loadingItem.amountPurchased}</td>
+                        <td>${loadingItem.product.name}</td>
+                        <td>${loadingItem.product.stock}</td>
+                        <td>${loadingItem.purchaseStatus}</td>
+                      </tr>`;
       }
       HTMLtable += "</table>";
       document.querySelector("#sales-list").innerHTML = HTMLtable;
       break;
+      
     default:
       showSales();
-    }
-
+  }
 }
-

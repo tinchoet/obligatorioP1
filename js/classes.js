@@ -75,8 +75,7 @@ class App {
   }
 
   preloadProducts() {
-    let id = this.productList.id;
-    let preloadedProduct = new Product(
+      let preloadedProduct = new Product(
       "Air Zoom Pegasus",
       100,
       "Descripción del producto",
