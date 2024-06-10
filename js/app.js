@@ -451,11 +451,16 @@ function editProduct() {
   let productPosition = Number(buttonID.substring(4));
   let currentProduct = mainApp.productList[productPosition];
 
-  document.querySelector("#editing-product-name").placeholder = currentProduct.name;
-  document.querySelector("#editing-product-price").placeholder = currentProduct.price;
-  document.querySelector("#editing-product-description").placeholder = currentProduct.description;
-  document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
-  document.querySelector("#editing-product-name").checked = currentProduct.onSale;
+  document.querySelector("#editing-product-name").placeholder =
+    currentProduct.name;
+  document.querySelector("#editing-product-price").placeholder =
+    currentProduct.price;
+  document.querySelector("#editing-product-description").placeholder =
+    currentProduct.description;
+  document.querySelector("#editing-product-stock").placeholder =
+    currentProduct.stock;
+  document.querySelector("#editing-product-name").checked =
+    currentProduct.onSale;
 
   let editedName = document.querySelector("#editing-product-name").value;
   let editedPrice = document.querySelector("#editing-product-price").value;
@@ -483,11 +488,13 @@ function editProduct() {
   }
   currentProduct.onSale = editedOnSale;
 
-  document.querySelector("#finished-editing").addEventListener("click", () => {
-    document.querySelector("#edit-product-options").style.display = "none";
-    document.querySelector("#products-list").innerHTML = "";
-    productsTableAdmin();
-  });
+  document
+    .querySelector("#finished-editing")
+    .addEventListener("click", () => {
+      document.querySelector("#edit-product-options").style.display = "none";
+      document.querySelector("#products-list").innerHTML = "";
+      productsTableAdmin();
+    });
 }
 
 function productsTableUser() {
