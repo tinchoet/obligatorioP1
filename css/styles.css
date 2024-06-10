@@ -49,8 +49,7 @@ main {
   justify-content: center;
 }
 
-.login-flex-container
-.register-flex-container {
+.login-flex-container .register-flex-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +96,7 @@ main {
   margin-top: 10px;
 }
 
-.login-flex-container > input:last-of-type {
+.login-flex-container>input:last-of-type {
   margin-bottom: 1rem;
 }
 
@@ -164,4 +163,26 @@ table {
 
 #total-earnings {
   margin-top: 1rem;
+}
+
+.edit-product-options {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-product-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.edit-product-options input[type="text"],
+.edit-product-options input[type="password"],
+.edit-product-options input[type="number"],
+.edit-product-options textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 }

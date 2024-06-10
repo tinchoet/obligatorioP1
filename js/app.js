@@ -126,6 +126,7 @@ function logout() {
   document.querySelector("#register-container").style.display = "none";
   document.querySelector("#text-current-view").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
 
   // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
@@ -403,14 +404,14 @@ function productsTableAdmin() {
     }
 
     HTMLtable += `<tr>
-                  <td>${loadingItem.name}</td>
-                  <td>${loadingItem.price}</td>
-                  <td>${loadingItem.description}</td>
-                  <td><img src="../img/${loadingItem.image}"></td>
-                  <td>${loadingItemStatus}</td>
-                  <td>${loadingItem.stock}</td>    
-                  <td><input type='button' value='Cambiar' id='p${+i}'></td>
-              </tr>`;
+                    <td>${loadingItem.name}</td>
+                    <td>${loadingItem.price}</td>
+                    <td>${loadingItem.description}</td>
+                    <td><img src="../img/${loadingItem.image}"></td>
+                    <td>${loadingItemStatus}</td>
+                    <td>${loadingItem.stock}</td>    
+                    <td><input type='button' value='Cambiar estado' id='p${+i}'><br><br><input type='button' value='Editar producto' id='edit${+i}'></td>
+                  </tr>`;
   }
   HTMLtable += "</table>";
 
@@ -420,8 +421,11 @@ function productsTableAdmin() {
   for (let i = 0; i < mainApp.productList.length; i++) {
     let currentButton = document.querySelector("#p" + i);
     currentButton.addEventListener("click", changeStatus);
-    // De Martin para Martín: no puedo convertir esto a una arrow function porque
-    // Arrow functions in JavaScript do not have their own this context. They inherit this from the parent scope.
+  }
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let currentButton = document.querySelector("#edit" + i);
+    currentButton.addEventListener("click", editProduct);
   }
 }
 
@@ -436,6 +440,54 @@ function changeStatus() {
     currentProduct.status = true;
   }
   productsTableAdmin();
+}
+
+function editProduct() {
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "block";
+
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let productPosition = Number(buttonID.substring(4));
+  let currentProduct = mainApp.productList[productPosition];
+
+  document.querySelector("#editing-product-name").placeholder = currentProduct.name;
+  document.querySelector("#editing-product-price").placeholder = currentProduct.price;
+  document.querySelector("#editing-product-description").placeholder = currentProduct.description;
+  document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
+  document.querySelector("#editing-product-name").checked = currentProduct.onSale;
+
+  let editedName = document.querySelector("#editing-product-name").value;
+  let editedPrice = document.querySelector("#editing-product-price").value;
+  let editedDescription = document.querySelector(
+    "#editing-product-description"
+  ).value;
+  let editedImage = document.querySelector("#editing-product-image").value;
+  let editedStock = document.querySelector("#editing-product-stock").value;
+  let editedOnSale = document.querySelector("#editing-product-name").value;
+
+  if (!checkVoidInputs(editedName)) {
+    currentProduct.name = editedName;
+  }
+  if (!checkVoidInputs(editedPrice)) {
+    currentProduct.price = editedPrice;
+  }
+  if (!checkVoidInputs(editedDescription)) {
+    currentProduct.description = editedDescription;
+  }
+  if (!checkVoidInputs(editedImage)) {
+    currentProduct.image = getFileName(editedImage);
+  }
+  if (!checkVoidInputs(editedStock)) {
+    currentProduct.stock = editedStock;
+  }
+  currentProduct.onSale = editedOnSale;
+
+  document.querySelector("#finished-editing").addEventListener("click", () => {
+    document.querySelector("#edit-product-options").style.display = "none";
+    document.querySelector("#products-list").innerHTML = "";
+    productsTableAdmin();
+  });
 }
 
 function productsTableUser() {
@@ -722,8 +774,9 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${loadingItem.amountPurchased * loadingItem.product.price
-        } USD</td>
+                    <td>${
+                      loadingItem.amountPurchased * loadingItem.product.price
+                    } USD</td>
                 </tr>`;
     }
   }
@@ -741,8 +794,9 @@ function showEarnings() {
     }
   }
 
-  document.querySelector("#total-earnings").innerHTML =
-    `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
+  document.querySelector(
+    "#total-earnings"
+  ).innerHTML = `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
 }
 
 function toggleEarningsDisplay() {

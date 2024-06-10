@@ -81,7 +81,8 @@ class App {
       "Descripción del producto",
       "nike-air-zoom-pegasus.webp",
       7,
-      true
+      true,
+      false
     );
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
@@ -90,7 +91,8 @@ class App {
       "Descripción del producto",
       "nike-air-zoom-pegasus-shield.webp",
       4, // stock
-      true // apagado o prendido
+      true, // apagado o prendido
+      false // en descuento
     );
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
@@ -99,6 +101,7 @@ class App {
       "Descripción del producto",
       "nike-air-zoom-structure.webp",
       8,
+      false,
       false
     );
     this.productList.push(preloadedProduct);
@@ -108,6 +111,7 @@ class App {
       "Descripción del producto",
       "nike-legend-essential-3.webp",
       11,
+      false,
       false
     );
     this.productList.push(preloadedProduct);
@@ -117,6 +121,7 @@ class App {
       "Descripción del producto",
       "nike-quest-5.webp",
       21,
+      true,
       true
     );
     this.productList.push(preloadedProduct);
@@ -145,7 +150,9 @@ class App {
       pProductPrice,
       pProductDescription,
       pFilePath,
-      pProductStock
+      pProductStock,
+      true,
+      false
     );
     this.productList.push(newProduct);
   }
@@ -193,13 +200,14 @@ class User {
 }
 let productCounter = 1;
 class Product {
-  constructor(pName, pPrice, pDescription, pImage, pStock, pStatus) {
+  constructor(pName, pPrice, pDescription, pImage, pStock, pStatus, pOnSale) {
     this.name = pName;
     this.price = pPrice;
     this.description = pDescription;
     this.image = pImage;
     this.stock = pStock;
     this.status = pStatus;
+    this.onSale = pOnSale;
     this.id = "PROD_ID_" + productCounter;
     productCounter++;
   }

@@ -142,10 +142,21 @@
       </div>
     </div>
 
+    <!--   document.querySelector("#edit-product-options").style.display = "none"; -->
     <!-- Tabla con productos visible al usuario -->
     <div class="table-container">
-      <div class="hidden-list" id="products-list-user">
+      <div class="edit-product-options" id="edit-product-options" style="display: none;">
+        <input type="text" id="editing-product-name" placeholder="Nombre del producto"><br>
+        <input type="text" id="editing-product-price" placeholder="Precio del producto"><br>
+        <textarea id="editing-product-description" placeholder="Descripción del producto"></textarea><br>
+        <label for="editing-product-image">Imagen del producto</label>
+        <input type="file" id="editing-product-image"><br>
+        <input type="number" id="editing-product-stock" placeholder="Stock del producto"><br>
+        <label for="editing-product-onSale">En oferta</label>
+        <input type="checkbox" id="editing-product-onSale">
+        <input type="button" id="finished-editing" value="Guardar cambios">
       </div>
+      <div class="hidden-list" id="products-list-user"></div>
     </div>
 
     <div class="create-products-container" id="create-products-container" style="display: none;">
@@ -161,8 +172,7 @@
 
     <!-- Tabla con ventas visible al admin -->
     <div class="table-container">
-      <div class="hidden-list" id="sales-list">
-      </div>
+      <div class="hidden-list" id="sales-list"></div>
     </div>
 
     <div class="table-container" id="earnings-list-and-text">
