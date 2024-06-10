@@ -458,38 +458,38 @@ function editProduct() {
   document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; // Corregido el selector
 
   document.querySelector("#editing-product-name").addEventListener("input", () => {
-    if (!checkVoidInputs(this.value)) {
-      currentProduct.name = this.value;
+    if (!checkVoidInputs(document.querySelector("#editing-product-name").value)) {
+      currentProduct.name = document.querySelector("#editing-product-name").value;
     }
   });
 
   document.querySelector("#editing-product-price").addEventListener("input", () => {
-    if (!checkVoidInputs(this.value)) {
-      currentProduct.price = this.value;
-    }
-  });
-
-  document.querySelector("#editing-product-description").addEventListener("input", () => {
-    if (!checkVoidInputs(this.value)) {
-      currentProduct.description = this.value;
-    }
-  });
-
-  document.querySelector("#editing-product-image").addEventListener("input", () => {
-    if (!checkVoidInputs(this.value)) {
-      currentProduct.image = getFileName(this.value);
-    }
-  });
-
-  document.querySelector("#editing-product-stock").addEventListener("input", () => {
-    if (!checkVoidInputs(this.value)) {
-      currentProduct.stock = this.value;
-    }
-  });
-
-  document.querySelector("#editing-product-onSale").addEventListener("change", () => {
-    currentProduct.onSale = this.checked;
-  });
+    if (!checkVoidInputs(document.querySelector("#editing-product-price").value)) {
+        currentProduct.price = document.querySelector("#editing-product-price").value;
+      }
+    });
+  
+    document.querySelector("#editing-product-description").addEventListener("input", function() {
+      if (!checkVoidInputs(document.querySelector("#editing-product-description").value)) {
+        currentProduct.description = document.querySelector("#editing-product-description").value;
+      }
+    });
+  
+    document.querySelector("#editing-product-image").addEventListener("input", function() {
+      if (!checkVoidInputs(document.querySelector("#editing-product-image").value)) {
+        currentProduct.image = getFileName(document.querySelector("#editing-product-image").value);
+      }
+    });
+  
+    document.querySelector("#editing-product-stock").addEventListener("input", function() {
+      if (!checkVoidInputs(document.querySelector("#editing-product-stock").value)) {
+        currentProduct.stock = document.querySelector("#editing-product-stock").value;
+      }
+    });
+  
+    document.querySelector("#editing-product-onSale").addEventListener("change", function() {
+      currentProduct.onSale = document.querySelector("#editing-product-onSale").checked;
+    });
 
   document.querySelector("#finished-editing").addEventListener("click", () => {
     document.querySelector("#edit-product-options").style.display = "none";
