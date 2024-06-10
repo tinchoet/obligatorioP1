@@ -569,6 +569,7 @@ function showAndHideProducts() {
   document.querySelector("#create-products-container").style.display = "none";
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 function showAndHideProductsUser() {
@@ -591,6 +592,7 @@ function showAndHideCreateProducts() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 function createProduct() {
@@ -762,6 +764,7 @@ function toggleSalesListDisplay() {
   document.querySelector("#create-products-container").style.display = "none";
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
 }
 
 function showEarnings() {
@@ -818,6 +821,8 @@ function toggleEarningsDisplay() {
   document.querySelector("#create-products-container").style.display = "none";
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 function showFilterSales() {
