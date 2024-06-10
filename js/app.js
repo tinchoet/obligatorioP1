@@ -722,9 +722,8 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${
-                      loadingItem.amountPurchased * loadingItem.product.price
-                    } USD</td>
+                    <td>${loadingItem.amountPurchased * loadingItem.product.price
+        } USD</td>
                 </tr>`;
     }
   }
@@ -732,16 +731,18 @@ function showEarnings() {
   earningsListContainer.innerHTML = HTMLtable;
 
   let totalEarnings = 0;
+  let totalPurchase = 0;
   // Calcular y mostrar ganancias totales --> SEPARAR EN OTRA FUNCIÓN
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
     if (loadingItem.purchaseStatus === "Aprobada") {
       totalEarnings += loadingItem.amountPurchased * loadingItem.product.price;
+      totalPurchase += loadingItem.amountPurchased;
     }
   }
 
-  document.querySelector("#total-earnings").textContent =
-    "Ganancias totales: " + totalEarnings + " USD";
+  document.querySelector("#total-earnings").innerHTML =
+    `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
 }
 
 function toggleEarningsDisplay() {
@@ -846,7 +847,7 @@ function showFilterSales() {
       HTMLtable += "</table>";
       document.querySelector("#sales-list").innerHTML = HTMLtable;
       break;
-      
+
     default:
       showSales();
   }
