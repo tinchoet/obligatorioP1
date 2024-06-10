@@ -73,6 +73,9 @@ window.addEventListener("load", () => {
   document
     .querySelector("#user-hidden-logout-button")
     .addEventListener("click", logout); // logout
+  document
+    .querySelector("#user-hidden-show-purchases-button")
+    .addEventListener("click", showUserPurchases);
 
   // Crear producto
   document
@@ -127,6 +130,7 @@ function logout() {
   document.querySelector("#text-current-view").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 
   // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
@@ -142,7 +146,8 @@ function registerFunction() {
   let creditCard = document.querySelector("#register-card").value;
   let cvc = Number(document.querySelector("#register-cvc").value);
 
-  if (!checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
+  if (
+    !checkVoidInputs(firstName, lastName, username, password, creditCard, cvc)
     // SOLAMENTE si no hay espacios en blanco -> inicio la validación del registro
     // en caso de que todo se valide -> creo el usuario
   ) {
@@ -457,44 +462,87 @@ function editProduct() {
   let productPosition = Number(buttonID.substring(4));
   let currentProduct = mainApp.productList[productPosition];
 
-  document.querySelector("#editing-product-name").placeholder = currentProduct.name;
-  document.querySelector("#editing-product-price").placeholder = `Precio del producto: ${currentProduct.price}`;
-  document.querySelector("#editing-product-description").placeholder = currentProduct.description;
-  document.querySelector("#editing-product-stock").placeholder = `Stock del producto: ${currentProduct.stock}`;
-  document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; // Corregido el selector
+  document.querySelector("#editing-product-name").placeholder =
+    currentProduct.name;
+  document.querySelector(
+    "#editing-product-price"
+  ).placeholder = `Precio del producto: ${currentProduct.price}`;
+  document.querySelector("#editing-product-description").placeholder =
+    currentProduct.description;
+  document.querySelector(
+    "#editing-product-stock"
+  ).placeholder = `Stock del producto: ${currentProduct.stock}`;
+  document.querySelector("#editing-product-onSale").checked =
+    currentProduct.onSale; // Corregido el selector
 
-  document.querySelector("#editing-product-name").addEventListener("input", () => {
-    if (!checkVoidInputs(document.querySelector("#editing-product-name").value)) {
-      currentProduct.name = document.querySelector("#editing-product-name").value;
-    }
-  });
+  document
+    .querySelector("#editing-product-name")
+    .addEventListener("input", () => {
+      if (
+        !checkVoidInputs(document.querySelector("#editing-product-name").value)
+      ) {
+        currentProduct.name = document.querySelector(
+          "#editing-product-name"
+        ).value;
+      }
+    });
 
-  document.querySelector("#editing-product-price").addEventListener("input", () => {
-    if (!checkVoidInputs(document.querySelector("#editing-product-price").value)) {
-        currentProduct.price = document.querySelector("#editing-product-price").value;
+  document
+    .querySelector("#editing-product-price")
+    .addEventListener("input", () => {
+      if (
+        !checkVoidInputs(document.querySelector("#editing-product-price").value)
+      ) {
+        currentProduct.price = document.querySelector(
+          "#editing-product-price"
+        ).value;
       }
     });
-  
-    document.querySelector("#editing-product-description").addEventListener("input", function() {
-      if (!checkVoidInputs(document.querySelector("#editing-product-description").value)) {
-        currentProduct.description = document.querySelector("#editing-product-description").value;
+
+  document
+    .querySelector("#editing-product-description")
+    .addEventListener("input", function () {
+      if (
+        !checkVoidInputs(
+          document.querySelector("#editing-product-description").value
+        )
+      ) {
+        currentProduct.description = document.querySelector(
+          "#editing-product-description"
+        ).value;
       }
     });
-  
-    document.querySelector("#editing-product-image").addEventListener("input", function() {
-      if (!checkVoidInputs(document.querySelector("#editing-product-image").value)) {
-        currentProduct.image = getFileName(document.querySelector("#editing-product-image").value);
+
+  document
+    .querySelector("#editing-product-image")
+    .addEventListener("input", function () {
+      if (
+        !checkVoidInputs(document.querySelector("#editing-product-image").value)
+      ) {
+        currentProduct.image = getFileName(
+          document.querySelector("#editing-product-image").value
+        );
       }
     });
-  
-    document.querySelector("#editing-product-stock").addEventListener("input", function() {
-      if (!checkVoidInputs(document.querySelector("#editing-product-stock").value)) {
-        currentProduct.stock = document.querySelector("#editing-product-stock").value;
+
+  document
+    .querySelector("#editing-product-stock")
+    .addEventListener("input", function () {
+      if (
+        !checkVoidInputs(document.querySelector("#editing-product-stock").value)
+      ) {
+        currentProduct.stock = document.querySelector(
+          "#editing-product-stock"
+        ).value;
       }
     });
-  
-    document.querySelector("#editing-product-onSale").addEventListener("change", function() {
-      currentProduct.onSale = document.querySelector("#editing-product-onSale").checked;
+
+  document
+    .querySelector("#editing-product-onSale")
+    .addEventListener("change", function () {
+      currentProduct.onSale = document.querySelector(
+        "#editing-product-onSale"
+      ).checked;
     });
 
   document.querySelector("#finished-editing").addEventListener("click", () => {
@@ -576,6 +624,7 @@ function showAndHideProducts() {
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showAndHideProductsUser() {
@@ -585,6 +634,8 @@ function showAndHideProductsUser() {
   } else {
     document.querySelector("#products-list-user").style.display = "none";
   }
+
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showAndHideCreateProducts() {
@@ -599,6 +650,7 @@ function showAndHideCreateProducts() {
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function createProduct() {
@@ -771,6 +823,7 @@ function toggleSalesListDisplay() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showEarnings() {
@@ -791,8 +844,9 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${loadingItem.amountPurchased * loadingItem.product.price
-        } USD</td>
+                    <td>${
+                      loadingItem.amountPurchased * loadingItem.product.price
+                    } USD</td>
                 </tr>`;
     }
   }
@@ -829,6 +883,7 @@ function toggleEarningsDisplay() {
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showFilterSales() {
@@ -923,4 +978,54 @@ function showFilterSales() {
     default:
       showSales();
   }
+}
+
+function showUserPurchases() {
+  let showPurchasesContainer = document.querySelector("#user-purchases-list");
+
+  // Crear tabla
+  let HTMLtable = "<table border='1' align='center'>";
+  HTMLtable += `<tr>
+                  <th>Nombre producto</th>
+                  <th>Unidades</th>
+                  <th>Precio</th>
+                  <th>Estado compra</th>
+                  <th>Acción</th>
+              </tr>`;
+
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    let loadingItem = mainApp.salesList[i];
+    if (loadingItem.buyer.username == mainApp.loggedUser.username)
+      HTMLtable += `<tr>
+                    <td>${loadingItem.product.name}</td>
+                    <td>${loadingItem.amountPurchased}</td>
+                    <td>${
+                      loadingItem.product.price * loadingItem.amountPurchased
+                    }</td>
+                    <td>${loadingItem.purchaseStatus}</td>    
+                    <td><input type='button' value='Cancelar' id='cancelP${+i}'><br></td>
+                </tr>`;
+  }
+  HTMLtable += "</table>";
+  showPurchasesContainer.innerHTML = HTMLtable;
+
+  // Cancelar compras pendientes
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    let cancelButton = document.querySelector("#cancelP" + i);
+    if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
+      cancelButton.addEventListener("click", cancelPendingSale);
+    }
+  }
+}
+
+function cancelPendingSale() {
+  let clickedButton = this;
+  let buttonID = clickedButton.id;
+  let salePosition = Number(buttonID.substring(7));
+  let currentSale = mainApp.salesList[salePosition];
+
+  currentSale.purchaseStatus = "Cancelada";
+  clickedButton.disabled = true;
+
+  showUserPurchases();
 }

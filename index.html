@@ -57,6 +57,7 @@
     <div id="header-hidden-actions-user">
       <input type='button' id="user-hidden-logout-button" value="Cerrar Sesion" class="btn btn-danger  lg-3">
       <input type='button' id="user-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
+      <input type='button' id="user-hidden-show-purchases-button" value="Historial de compras" class="btn btn-primary lg-3">
     </div>
 
     <div class="arrow-container" id="arrow-container">
@@ -175,9 +176,15 @@
       <div class="hidden-list" id="sales-list"></div>
     </div>
 
+    <!-- Tabla con ganancias visible al admin -->
     <div class="table-container" id="earnings-list-and-text">
       <div class="hidden-list" id="earnings-list"></div>
       <p id="total-earnings"></p>
+    </div>
+    
+    <!-- Tabla con historial de compras visible al usuario -->
+    <div class="table-container">
+      <div class="hidden-list" id="user-purchases-list"></div>
     </div>
   </main>
 
