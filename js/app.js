@@ -457,37 +457,37 @@ function editProduct() {
   document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
   document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; // Corregido el selector
 
-  document.querySelector("#editing-product-name").addEventListener("input", function() {
+  document.querySelector("#editing-product-name").addEventListener("input", () => {
     if (!checkVoidInputs(this.value)) {
       currentProduct.name = this.value;
     }
   });
 
-  document.querySelector("#editing-product-price").addEventListener("input", function() {
+  document.querySelector("#editing-product-price").addEventListener("input", () => {
     if (!checkVoidInputs(this.value)) {
       currentProduct.price = this.value;
     }
   });
 
-  document.querySelector("#editing-product-description").addEventListener("input", function() {
+  document.querySelector("#editing-product-description").addEventListener("input", () => {
     if (!checkVoidInputs(this.value)) {
       currentProduct.description = this.value;
     }
   });
 
-  document.querySelector("#editing-product-image").addEventListener("input", function() {
+  document.querySelector("#editing-product-image").addEventListener("input", () => {
     if (!checkVoidInputs(this.value)) {
       currentProduct.image = getFileName(this.value);
     }
   });
 
-  document.querySelector("#editing-product-stock").addEventListener("input", function() {
+  document.querySelector("#editing-product-stock").addEventListener("input", () => {
     if (!checkVoidInputs(this.value)) {
       currentProduct.stock = this.value;
     }
   });
 
-  document.querySelector("#editing-product-onSale").addEventListener("change", function() {
+  document.querySelector("#editing-product-onSale").addEventListener("change", () => {
     currentProduct.onSale = this.checked;
   });
 
@@ -782,9 +782,8 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${
-                      loadingItem.amountPurchased * loadingItem.product.price
-                    } USD</td>
+                    <td>${loadingItem.amountPurchased * loadingItem.product.price
+        } USD</td>
                 </tr>`;
     }
   }
