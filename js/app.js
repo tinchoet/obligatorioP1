@@ -458,9 +458,9 @@ function editProduct() {
   let currentProduct = mainApp.productList[productPosition];
 
   document.querySelector("#editing-product-name").placeholder = currentProduct.name;
-  document.querySelector("#editing-product-price").placeholder = currentProduct.price;
+  document.querySelector("#editing-product-price").placeholder = `Precio del producto: ${currentProduct.price}`;
   document.querySelector("#editing-product-description").placeholder = currentProduct.description;
-  document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
+  document.querySelector("#editing-product-stock").placeholder = `Stock del producto: ${currentProduct.stock}`;
   document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; // Corregido el selector
 
   document.querySelector("#editing-product-name").addEventListener("input", () => {
