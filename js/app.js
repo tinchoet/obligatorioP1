@@ -455,33 +455,41 @@ function editProduct() {
   document.querySelector("#editing-product-price").placeholder = currentProduct.price;
   document.querySelector("#editing-product-description").placeholder = currentProduct.description;
   document.querySelector("#editing-product-stock").placeholder = currentProduct.stock;
-  document.querySelector("#editing-product-name").checked = currentProduct.onSale;
+  document.querySelector("#editing-product-onSale").checked = currentProduct.onSale; 
 
-  let editedName = document.querySelector("#editing-product-name").value;
-  let editedPrice = document.querySelector("#editing-product-price").value;
-  let editedDescription = document.querySelector(
-    "#editing-product-description"
-  ).value;
-  let editedImage = document.querySelector("#editing-product-image").value;
-  let editedStock = document.querySelector("#editing-product-stock").value;
-  let editedOnSale = document.querySelector("#editing-product-name").value;
+  document.querySelector("#editing-product-name").addEventListener("input", function() {
+    if (!checkVoidInputs(this.value)) {
+      currentProduct.name = this.value;
+    }
+  });
 
-  if (!checkVoidInputs(editedName)) {
-    currentProduct.name = editedName;
-  }
-  if (!checkVoidInputs(editedPrice)) {
-    currentProduct.price = editedPrice;
-  }
-  if (!checkVoidInputs(editedDescription)) {
-    currentProduct.description = editedDescription;
-  }
-  if (!checkVoidInputs(editedImage)) {
-    currentProduct.image = getFileName(editedImage);
-  }
-  if (!checkVoidInputs(editedStock)) {
-    currentProduct.stock = editedStock;
-  }
-  currentProduct.onSale = editedOnSale;
+  document.querySelector("#editing-product-price").addEventListener("input", function() {
+    if (!checkVoidInputs(this.value)) {
+      currentProduct.price = this.value;
+    }
+  });
+
+  document.querySelector("#editing-product-description").addEventListener("input", function() {
+    if (!checkVoidInputs(this.value)) {
+      currentProduct.description = this.value;
+    }
+  });
+
+  document.querySelector("#editing-product-image").addEventListener("input", function() {
+    if (!checkVoidInputs(this.value)) {
+      currentProduct.image = getFileName(this.value);
+    }
+  });
+
+  document.querySelector("#editing-product-stock").addEventListener("input", function() {
+    if (!checkVoidInputs(this.value)) {
+      currentProduct.stock = this.value;
+    }
+  });
+
+  document.querySelector("#editing-product-onSale").addEventListener("change", function() {
+    currentProduct.onSale = this.checked;
+  });
 
   document.querySelector("#finished-editing").addEventListener("click", () => {
     document.querySelector("#edit-product-options").style.display = "none";
