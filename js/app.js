@@ -92,7 +92,6 @@ function hideHeaderHiddenActions() {
 // Se ejecuta al inicio y al logout. Esconde el header de vista usuario
 function hideUserHiddenActions() {
   document.querySelector("#header-hidden-actions-user").style.display = "none";
-  document.querySelector("#header-sales-actions").style.display = "none";
 }
 
 // Al hacer login se muestra el header de administrador
@@ -587,7 +586,6 @@ function productsTableUser() {
 
   for (let i = 0; i < mainApp.productList.length; i++) {
     let purchaseButton = document.querySelector("#purchaseP" + i);
-    purchaseButton.addEventListener("click", buyProduct);
     if (purchaseButton) {
       purchaseButton.addEventListener("click", buyProduct);
     }
@@ -823,7 +821,7 @@ function toggleSalesListDisplay() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "block";
 }
 
 function showEarnings() {
@@ -844,9 +842,8 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${
-                      loadingItem.amountPurchased * loadingItem.product.price
-                    } USD</td>
+                    <td>${loadingItem.amountPurchased * loadingItem.product.price
+        } USD</td>
                 </tr>`;
     }
   }
@@ -997,14 +994,12 @@ function showUserPurchases() {
     let loadingItem = mainApp.salesList[i];
     if (loadingItem.buyer.username == mainApp.loggedUser.username)
       HTMLtable += `<tr>
-                    <td>${loadingItem.product.name}</td>
-                    <td>${loadingItem.amountPurchased}</td>
-                    <td>${
-                      loadingItem.product.price * loadingItem.amountPurchased
-                    }</td>
-                    <td>${loadingItem.purchaseStatus}</td>    
-                    <td><input type='button' value='Cancelar' id='cancelP${+i}'><br></td>
-                </tr>`;
+                      <td>${loadingItem.product.name}</td>
+                      <td>${loadingItem.amountPurchased}</td>
+                      <td>${loadingItem.product.price * loadingItem.amountPurchased}</td>
+                      <td>${loadingItem.purchaseStatus}</td>    
+                      <td><input type='button' value='Cancelar' id='cancelP${+i}'><br></td>
+                    </tr>`;
   }
   HTMLtable += "</table>";
   showPurchasesContainer.innerHTML = HTMLtable;
@@ -1012,7 +1007,7 @@ function showUserPurchases() {
   // Cancelar compras pendientes
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let cancelButton = document.querySelector("#cancelP" + i);
-    if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
+    if (cancelButton && mainApp.salesList[i].purchaseStatus === "Pendiente") {
       cancelButton.addEventListener("click", cancelPendingSale);
     }
   }
@@ -1024,8 +1019,9 @@ function cancelPendingSale() {
   let salePosition = Number(buttonID.substring(7));
   let currentSale = mainApp.salesList[salePosition];
 
-  currentSale.purchaseStatus = "Cancelada";
-  clickedButton.disabled = true;
-
-  showUserPurchases();
+  if (currentSale && currentSale.purchaseStatus === "Pendiente") {
+    currentSale.purchaseStatus = "Cancelado"
+    clickedButton.disabled = true;
+    showUserPurchases();
+  }
 }
