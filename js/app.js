@@ -821,7 +821,7 @@ function toggleSalesListDisplay() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "block";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showEarnings() {
@@ -979,6 +979,7 @@ function showFilterSales() {
 
 function showUserPurchases() {
   let showPurchasesContainer = document.querySelector("#user-purchases-list");
+  document.querySelector("#user-purchases-list").style.display = "block";
 
   // Crear tabla
   let HTMLtable = "<table border='1' align='center'>";
