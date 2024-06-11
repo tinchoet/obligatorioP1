@@ -76,6 +76,9 @@ window.addEventListener("load", () => {
   document
     .querySelector("#user-hidden-show-purchases-button")
     .addEventListener("click", showUserPurchases);
+  document
+    .querySelector("#user-hidden-show-purchases-button")
+    .addEventListener("click", toggleUserPurchases);
 
   // Crear producto
   document
@@ -632,8 +635,6 @@ function showAndHideProductsUser() {
   } else {
     document.querySelector("#products-list-user").style.display = "none";
   }
-
-  document.querySelector("#user-purchases-list").style.display = "none";
 }
 
 function showAndHideCreateProducts() {
@@ -842,8 +843,9 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${loadingItem.amountPurchased * loadingItem.product.price
-        } USD</td>
+                    <td>${
+                      loadingItem.amountPurchased * loadingItem.product.price
+                    } USD</td>
                 </tr>`;
     }
   }
@@ -979,7 +981,6 @@ function showFilterSales() {
 
 function showUserPurchases() {
   let showPurchasesContainer = document.querySelector("#user-purchases-list");
-  document.querySelector("#user-purchases-list").style.display = "block";
 
   // Crear tabla
   let HTMLtable = "<table border='1' align='center'>";
@@ -994,38 +995,66 @@ function showUserPurchases() {
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
     if (loadingItem.buyer.username == mainApp.loggedUser.username) {
-      let disabledAttribute = loadingItem.purchaseStatus === "Cancelada" ? "disabled" : "";
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.product.price * loadingItem.amountPurchased}</td>
+                      <td>${
+                        loadingItem.product.price * loadingItem.amountPurchased
+                      }</td>
                       <td>${loadingItem.purchaseStatus}</td>    
-                      <td><input type='button' value='Cancelar' id='cancelP${i}' ${disabledAttribute}><br></td>
+                      <td><input type='button' value='Cancelar' id='cancelP${i}'><br></td>
                     </tr>`;
     }
   }
   HTMLtable += "</table>";
   showPurchasesContainer.innerHTML = HTMLtable;
-}
 
-// Cancelar compras pendientes
-for (let i = 0; i < mainApp.salesList.length; i++) {
-  let cancelButton = document.querySelector("#cancelP" + i);
-  if (cancelButton && mainApp.salesList[i].purchaseStatus === "Pendiente") {
-    cancelButton.addEventListener("click", cancelPendingSale);
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    if (mainApp.salesList[i].buyer.username === mainApp.loggedUser.username) {
+      let cancelButton = document.querySelector("#cancelP" + i);
+
+      if (
+        mainApp.salesList[i].purchaseStatus === "Cancelada" ||
+        mainApp.salesList[i].purchaseStatus === "Aprobada"
+      ) {
+        cancelButton.disabled = true;
+      }
+
+      if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
+        cancelButton.addEventListener("click", cancelPendingSale);
+      }
+    }
   }
 }
 
-
 function cancelPendingSale() {
   let clickedButton = this;
+
   let buttonID = clickedButton.id;
   let salePosition = Number(buttonID.substring(7));
   let currentSale = mainApp.salesList[salePosition];
 
   if (currentSale.purchaseStatus === "Pendiente") {
     currentSale.purchaseStatus = "Cancelada";
-    clickedButton.disabled = true;
     showUserPurchases();
+    clickedButton.disabled = true;
+  } else {
+    clickedButton.disabled = false;
   }
+}
+
+function toggleUserPurchases() {
+  let userPurchasesContainer = document.getElementById("user-purchases-list");
+
+  if (userPurchasesContainer.style.display === "none") {
+    userPurchasesContainer.style.display = "block";
+  } else {
+    userPurchasesContainer.style.display = "none";
+  }
+
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
 }
