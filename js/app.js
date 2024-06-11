@@ -634,6 +634,7 @@ function showAndHideProductsUser() {
     productsTableUser();
   } else {
     document.querySelector("#products-list-user").style.display = "none";
+    document.querySelector('#user-purchases-list').style.display = 'none';
   }
 }
 
@@ -843,9 +844,8 @@ function showEarnings() {
                     <td>${loadingItem.buyer.username}</td>
                     <td>${loadingItem.product.name}</td>
                     <td>${loadingItem.amountPurchased}</td>
-                    <td>${
-                      loadingItem.amountPurchased * loadingItem.product.price
-                    } USD</td>
+                    <td>${loadingItem.amountPurchased * loadingItem.product.price
+        } USD</td>
                 </tr>`;
     }
   }
@@ -998,9 +998,8 @@ function showUserPurchases() {
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
-                      <td>${
-                        loadingItem.product.price * loadingItem.amountPurchased
-                      }</td>
+                      <td>${loadingItem.product.price * loadingItem.amountPurchased
+        }</td>
                       <td>${loadingItem.purchaseStatus}</td>    
                       <td><input type='button' value='Cancelar' id='cancelP${i}'><br></td>
                     </tr>`;
@@ -1054,6 +1053,7 @@ function toggleUserPurchases() {
 
   document.querySelector("#create-products-container").style.display = "none";
   document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
