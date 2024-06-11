@@ -993,26 +993,29 @@ function showUserPurchases() {
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
-    if (loadingItem.buyer.username == mainApp.loggedUser.username)
+    if (loadingItem.buyer.username == mainApp.loggedUser.username) {
+      let disabledAttribute = loadingItem.purchaseStatus === "Cancelada" ? "disabled" : "";
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
                       <td>${loadingItem.product.price * loadingItem.amountPurchased}</td>
                       <td>${loadingItem.purchaseStatus}</td>    
-                      <td><input type='button' value='Cancelar' id='cancelP${+i}'><br></td>
+                      <td><input type='button' value='Cancelar' id='cancelP${i}' ${disabledAttribute}><br></td>
                     </tr>`;
+    }
   }
   HTMLtable += "</table>";
   showPurchasesContainer.innerHTML = HTMLtable;
+}
 
-  // Cancelar compras pendientes
-  for (let i = 0; i < mainApp.salesList.length; i++) {
-    let cancelButton = document.querySelector("#cancelP" + i);
-    if (cancelButton && mainApp.salesList[i].purchaseStatus === "Pendiente") {
-      cancelButton.addEventListener("click", cancelPendingSale);
-    }
+// Cancelar compras pendientes
+for (let i = 0; i < mainApp.salesList.length; i++) {
+  let cancelButton = document.querySelector("#cancelP" + i);
+  if (cancelButton && mainApp.salesList[i].purchaseStatus === "Pendiente") {
+    cancelButton.addEventListener("click", cancelPendingSale);
   }
 }
+
 
 function cancelPendingSale() {
   let clickedButton = this;
@@ -1020,8 +1023,8 @@ function cancelPendingSale() {
   let salePosition = Number(buttonID.substring(7));
   let currentSale = mainApp.salesList[salePosition];
 
-  if (currentSale && currentSale.purchaseStatus === "Pendiente") {
-    currentSale.purchaseStatus = "Cancelado"
+  if (currentSale.purchaseStatus === "Pendiente") {
+    currentSale.purchaseStatus = "Cancelada";
     clickedButton.disabled = true;
     showUserPurchases();
   }
