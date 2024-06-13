@@ -133,6 +133,7 @@ function logout() {
   document.querySelector("#header-sales-actions").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#user-purchases-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
 
   // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
   showLogin();
