@@ -129,7 +129,7 @@ class App {
       "nike-air-zoom-pegasus-shield.webp",
       4, // stock
       true, // apagado o prendido
-      false // en descuento
+      false // false = no esta en descuento true = esta en descuento
     );
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
