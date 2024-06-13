@@ -518,11 +518,11 @@ function productsTableUser() {
 
   for (let i = 0; i < mainApp.productList.length; i++) {
     let loadingItem = mainApp.productList[i];
-
-    if (mainApp.productList[i].status && mainApp.productList[i].onSale) {
+    let loadingSale = loadingItem.onSale ? 'En Oferta' : '';
+    if (mainApp.productList[i].status) {
       HTMLtable += `<tr>
                   <td>${loadingItem.name}</td>
-                  <td>${loadingItem.price} <br> ${loadingItem.onSale}</td>
+                  <td>${loadingItem.price} <br> <span style="color: red;">${loadingSale}</span></td>
                   <td>${loadingItem.description}</td>
                   <td><img src="img/${loadingItem.image}"></td>
                   <td>${loadingItem.stock}</td>    
