@@ -713,16 +713,20 @@ function showSales() {
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let confirmButton = document.querySelector("#confirmP" + i);
     let cancelButton = document.querySelector("#cancelP" + i);
-    if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
-      confirmButton.addEventListener("click", confirmSale);
-    } else {
-      confirmButton.disabled = true;
-    }
 
-    if (mainApp.salesList[i].purchaseStatus === "Aprobada") {
+    if (mainApp.salesList[i].purchaseStatus === "Pendiente") {
+      confirmButton.disabled = false;
+      confirmButton.disabled = false;
+
+      confirmButton.addEventListener("click", confirmSale);
       cancelButton.addEventListener("click", cancelSale);
-    } else {
+
+    } else if (mainApp.salesList[i].purchaseStatus === "Aprobada"){
+      confirmButton.disabled = true;
       cancelButton.disabled = true;
+    }else if(mainApp.salesList[i].purchaseStatus === "Cancelada") {
+      confirmButton.disabled = true;
+      cancelButton.disabled = true;  
     }
   }
 }
@@ -951,8 +955,7 @@ function showUserPurchases() {
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.product.price * loadingItem.amountPurchased
-        }</td>
+                      <td>${loadingItem.product.price * loadingItem.amountPurchased}</td>
                       <td>${loadingItem.purchaseStatus}</td>    
                       <td><input type='button' value='Cancelar' id='cancelP${i}'><br></td>
                     </tr>`;
