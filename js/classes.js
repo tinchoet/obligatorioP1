@@ -18,6 +18,43 @@ class App {
     );
     this.userList.push(preloadedUser);
     preloadedUser = new User(
+      "Usuuario Administrador",
+      "",
+      "admin2",
+      "admin2",
+      "",
+      "",
+      true
+    );this.userList.push(preloadedUser);
+    preloadedUser = new User(
+      "Usuuario Administrador",
+      "",
+      "admin3",
+      "admin3",
+      "",
+      "",
+      true
+    );this.userList.push(preloadedUser);
+    preloadedUser = new User(
+      "Usuuario Administrador",
+      "",
+      "admin4",
+      "admin4",
+      "",
+      "",
+      true
+    );this.userList.push(preloadedUser);
+    preloadedUser = new User(
+      "Usuuario Administrador",
+      "",
+      "admin5",
+      "admin5",
+      "",
+      "",
+      true
+    );
+    this.userList.push(preloadedUser);
+    preloadedUser = new User(
       "Martin",
       "Leib",
       "mleib",
@@ -107,7 +144,7 @@ class App {
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
       "Legend Essential 3",
-      100,
+      200,
       "Descripción del producto",
       "nike-legend-essential-3.webp",
       11,
@@ -117,10 +154,60 @@ class App {
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
       "Quest 5",
-      100,
+      150,
       "Descripción del producto",
       "nike-quest-5.webp",
       21,
+      true,
+      true
+    );
+    this.productList.push(preloadedProduct);
+    preloadedProduct = new Product(
+      "Air Max",
+      200,
+      "Descripción del producto",
+      "nike1.jpg",
+      15,
+      true,
+      true
+    );
+    this.productList.push(preloadedProduct);
+    preloadedProduct = new Product(
+      "Air Max 2",
+      150,
+      "Descripción del producto",
+      "nike2.jpg",
+      5,
+      false,
+      true
+    );
+    this.productList.push(preloadedProduct);
+    preloadedProduct = new Product(
+      "LeBron 15 Low",
+      250,
+      "Descripción del producto",
+      "nike3.jpg",
+      8,
+      false,
+      true
+    );
+    this.productList.push(preloadedProduct);
+    preloadedProduct = new Product(
+      "Medias ",
+      50,
+      "Descripción del producto",
+      "medias_Nike2.jpg",
+      5,
+      true,
+      true
+    );
+    this.productList.push(preloadedProduct);
+    preloadedProduct = new Product(
+      "Medias Negras",
+      50,
+      "Descripción del producto",
+      "image.jpg",
+      10,
       true,
       true
     );
