@@ -124,7 +124,7 @@ footer {
 
 .table-container {
   width: 100%;
-  max-height: 800px;
+  max-height: 700px;
   overflow-x: auto;
   overflow-y: auto;
 }
@@ -141,7 +141,6 @@ table {
   padding: 2rem;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
-  word-break: break-word;
 }
 
 .hidden-list tr:nth-child(odd) {

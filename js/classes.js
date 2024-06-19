@@ -6,6 +6,7 @@ class App {
     this.loggedUser = null;
   }
 
+  // Precarga usuarios admin y compradores
   preloadUsers() {
     let preloadedUser = new User(
       "Usuario administrador",
@@ -111,6 +112,7 @@ class App {
     console.log(this.userList);
   }
 
+  // Precarga productos
   preloadProducts() {
       let preloadedProduct = new Product(
       "Air Zoom Pegasus",
@@ -214,6 +216,7 @@ class App {
     this.productList.push(preloadedProduct);
   }
 
+  // Precarga ventas
   preloadSales() {
     let preloadedSale = new Sale(this.userList[4], this.productList[0], 5, "Aprobada");
     this.salesList.push(preloadedSale);
@@ -229,6 +232,7 @@ class App {
     this.salesList.push(preloadedSale);
   }
 
+  // Función que pushea un producto al array al crearlo 
   productPush(
     pProductName,
     pProductPrice,
@@ -248,6 +252,7 @@ class App {
     this.productList.push(newProduct);
   }
 
+  // Función que pushea un usuario al array al crearlo ("crea" un usuario)
   createNewUser(firstName, lastName, username, password, creditCard, cvc) {
     let newUser = new User(
       firstName,
@@ -261,6 +266,7 @@ class App {
     this.userList.push(newUser);
   }
 
+  // Función que pushea una venta al array al crearlo ("crea" una venta)
   createSale(pBuyer, pProduct, pAmountPurchased) {
     let newSale = new Sale(pBuyer, pProduct, pAmountPurchased, "Pendiente");
     this.salesList.push(newSale);

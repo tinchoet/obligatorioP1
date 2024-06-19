@@ -1,11 +1,12 @@
 // Globals
-let productTableVisible = false;
-let productTableUserVisible = false;
-let showingAdminOrUsers = false; // la vista está como admin o como usuario?
-let createProductsVisible = false;
+let productTableVisible = false; // bool que guarda si se está mostrando la tabla de productos al admin como un true o false
+let productTableUserVisible = false; // bool que guarda si se está mostrando la tabla de productos al usuario como un true o false
+let showingAdminOrUsers = false; // bool que guarda si se está mostrando la vista de administrador o usuario como un true o false
+let createProductsVisible = false; // bool que guarda si se está mostrando la función de crear productos al admin como un true o false
+
 let mainApp = new App();
 
-// Init
+// Función de incio
 window.addEventListener("load", () => {
   mainApp.preloadUsers();
   mainApp.preloadProducts();
@@ -35,10 +36,6 @@ window.addEventListener("load", () => {
 
   document.querySelector("#sales-actions").addEventListener("change", showFilterSales);
 
-  // Header: vista administrador, cambio de usuarios
-  document.querySelector("#text-current-view").style.display = "none";
-  document.querySelector("#text-view-as-user").addEventListener("click", viewAsUser);
-
   // Header: vista usuario
   hideUserHiddenActions();
   document.querySelector("#user-hidden-show-products-button").addEventListener("click", showAndHideProductsUser);
@@ -50,25 +47,12 @@ window.addEventListener("load", () => {
   document.querySelector("#create-products-button").addEventListener("click", createProduct);
 });
 
-// Se ejecuta al inicio y al logout. Esconde el header de vista administrador
-function hideHeaderHiddenActions() {
-  document.querySelector("#header-hidden-actions").style.display = "none";
-  document.querySelector("#header-sales-actions").style.display = "none";
-}
-
-// Se ejecuta al inicio y al logout. Esconde el header de vista usuario
-function hideUserHiddenActions() {
-  document.querySelector("#header-hidden-actions-user").style.display = "none";
-}
-
-// Al hacer login se muestra el header de administrador
-function showAdminFunctions() {
-  document.querySelector("#header-hidden-actions").style.display = "block";
-  document.querySelector("#text-current-view").style.display = "flex";
-}
-
-function showUserFunctions() {
-  document.querySelector("#header-hidden-actions-user").style.display = "block";
+// Función de login
+function showLogin() {
+  document.querySelector("#login-container").style.display = "flex"; // Muestra login
+  document.querySelector("#register-container").style.display = "none"; // Display none al registro
+  document.querySelector("#arrow-container").style.display = "none"; // Display none a la flecha para ir hacia atrás
+  document.querySelector("#logo-container").style.display = "none"; // Display none al logo de la tienda
 }
 
 // Función de registro
@@ -79,21 +63,12 @@ function showRegister() {
   document.querySelector("#logo-container").style.display = "block"; // Muestra logo de la tienda
 }
 
-// Función de login
-function showLogin() {
-  document.querySelector("#login-container").style.display = "flex"; // Muestra login
-  document.querySelector("#register-container").style.display = "none"; // Display none al registro
-  document.querySelector("#arrow-container").style.display = "none"; // Display none a la flecha para ir hacia atrás
-  document.querySelector("#logo-container").style.display = "none"; // Display none al logo de la tienda
-}
-
 // Función de logout
 function logout() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#login-container").style.display = "flex";
   document.querySelector("#register-container").style.display = "none";
-  document.querySelector("#text-current-view").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#user-purchases-list").style.display = "none";
@@ -105,6 +80,10 @@ function logout() {
   hideUserHiddenActions();
 }
 
+// Validaciones
+
+
+// Función registro
 function registerFunction() {
   let firstName = document.querySelector("#register-name").value;
   let lastName = document.querySelector("#register-surname").value;
@@ -151,6 +130,7 @@ function registerFunction() {
   }
 }
 
+// Función login
 function loginFunction() {
   let username = document.querySelector("#login-username").value;
   let password = document.querySelector("#login-password").value;
@@ -186,6 +166,7 @@ function loginFunction() {
   }
 }
 
+// Validación de nombre
 function validateName(firstName, lastName) {
   let nameValidated = false;
   document.querySelector("#register-error-fullName").innerHTML = "";
@@ -223,6 +204,7 @@ function validateUsername(username) {
   return usernameExists;
 }
 
+// Validación de contraseña
 function validatePassword(password) {
   let passwordValidated = false;
   let passwordUppercaseCount = 0;
@@ -278,6 +260,7 @@ function validatePassword(password) {
   return passwordValidated;
 }
 
+// Validación de tarjeta de crédito
 function validateCard(creditCard) {
   let creditCardNoDashes = "";
 
@@ -324,6 +307,7 @@ function validateCard(creditCard) {
   return cardValidated;
 }
 
+// Validación de CVC
 function validateCVC(cvc) {
   let cvcValidated = false;
   let stringCVC = cvc.toString();
@@ -342,6 +326,7 @@ function validateCVC(cvc) {
   return cvcValidated;
 }
 
+// Checkear si hay inputs vacíos
 function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
   let voidInputs = false;
 
@@ -359,6 +344,18 @@ function checkVoidInputs(input1, input2, input3, input4, input5, input6) {
   return voidInputs;
 }
 
+// Función para extraer la url de la imagen sin el C:\fakepath\
+function getFileName(filename) {
+  let backslashPosition = -1;
+  for (let i = filename.length - 1; i >= 0 && backslashPosition == -1; i--) {
+    if (filename.charAt(i) == "\\") {
+      backslashPosition = i;
+    }
+  }
+  return filename.substring(backslashPosition + 1);
+}
+
+// Funciones del panel de control del admin
 // Tabla de productos admin
 function productsTableAdmin() {
   let HTMLtable = "<table border='1' align='center'>";
@@ -421,6 +418,7 @@ function productsTableAdmin() {
   }
 }
 
+// Marcar un producto como "en oferta"
 function offerProduct() {
   let clickedButton = this;
   let buttonID = clickedButton.id;
@@ -434,6 +432,7 @@ function offerProduct() {
   productsTableAdmin();
 }
 
+// Cambiar estado de una compra de activo a pausado y viceversa
 function changeStatus() {
   let clickedButton = this;
   let buttonID = clickedButton.id;
@@ -447,6 +446,7 @@ function changeStatus() {
   productsTableAdmin();
 }
 
+// Editar producto
 function editProduct() {
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "block";
@@ -503,105 +503,7 @@ function editProduct() {
   });
 }
 
-function productsTableUser() {
-  let HTMLtable = "<table border='1' align='center'>";
-
-  HTMLtable += `<tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripcion</th>
-                <th>Imagen</th>
-                <th>Stock</th>
-                <th>Unidades</th>
-                <th>Comprar</th>
-            </tr>`;
-
-  for (let i = 0; i < mainApp.productList.length; i++) {
-    let loadingItem = mainApp.productList[i];
-    let loadingSale = loadingItem.onSale ? 'En Oferta' : '';
-    if (mainApp.productList[i].status) {
-      HTMLtable += `<tr>
-                  <td>${loadingItem.name}</td>
-                  <td>${loadingItem.price} <br> <span style="color: red;">${loadingSale}</span></td>
-                  <td>${loadingItem.description}</td>
-                  <td><img src="img/${loadingItem.image}"></td>
-                  <td>${loadingItem.stock}</td>    
-                  <td><input type='number' id='products-list-stock${+i}' placeholder='Cantidad de unidades'></td>
-                  <td><input type='button' value='Comprar' id='purchaseP${+i}'></td>
-              </tr>`;
-    }
-  }
-  HTMLtable += "</table>";
-
-  document.querySelector("#products-list-user").innerHTML = HTMLtable;
-  document.querySelector("#products-list-user").style.display = "block";
-
-  for (let i = 0; i < mainApp.productList.length; i++) {
-    let purchaseButton = document.querySelector("#purchaseP" + i);
-    if (purchaseButton) {
-      purchaseButton.addEventListener("click", buyProduct);
-    }
-  }
-}
-
-function buyProduct() {
-  let clickedButton = this;
-
-  let buttonID = clickedButton.id;
-
-  let productPosition = Number(buttonID.substring(9));
-  let currentProduct = mainApp.productList[productPosition];
-  let amountPurchased = Number(
-    document.querySelector("#products-list-stock" + productPosition).value
-  );
-
-  if (currentProduct.stock >= 1) {
-    mainApp.createSale(mainApp.loggedUser, currentProduct, amountPurchased);
-  } else {
-    alert("No hay suficientes unidades como para realizar este pedido");
-  }
-  productsTableUser();
-}
-
-function showAndHideProducts() {
-  productTableVisible = !productTableVisible;
-  if (productTableVisible) {
-    productsTableAdmin();
-  } else {
-    document.querySelector("#products-list").style.display = "none";
-  }
-  document.querySelector("#create-products-container").style.display = "none";
-  document.querySelector("#sales-list").style.display = "none";
-  document.querySelector("#earnings-list-and-text").style.display = "none";
-  document.querySelector("#header-sales-actions").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "none";
-}
-
-function showAndHideProductsUser() {
-  productTableUserVisible = !productTableUserVisible;
-  if (productTableUserVisible) {
-    productsTableUser();
-  } else {
-    document.querySelector("#products-list-user").style.display = "none";
-    document.querySelector('#user-purchases-list').style.display = 'none';
-  }
-}
-
-function showAndHideCreateProducts() {
-  createProductsVisible = !createProductsVisible;
-  if (createProductsVisible) {
-    document.querySelector("#create-products-container").style.display =
-      "block";
-  } else {
-    document.querySelector("#create-products-container").style.display = "none";
-  }
-  document.querySelector("#products-list").style.display = "none";
-  document.querySelector("#sales-list").style.display = "none";
-  document.querySelector("#earnings-list-and-text").style.display = "none";
-  document.querySelector("#header-sales-actions").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "none";
-}
-
+// Función para crear producto
 function createProduct() {
   let productName = document.querySelector(
     "#create-products-product-name"
@@ -644,36 +546,7 @@ function createProduct() {
   }
 }
 
-function getFileName(filename) {
-  let backslashPosition = -1;
-  for (let i = filename.length - 1; i >= 0 && backslashPosition == -1; i--) {
-    if (filename.charAt(i) == "\\") {
-      backslashPosition = i;
-    }
-  }
-  return filename.substring(backslashPosition + 1);
-}
-
-function viewAsUser() {
-  hideHeaderHiddenActions();
-  showUserFunctions();
-
-  showingAdminOrUsers = !showingAdminOrUsers;
-  if (showingAdminOrUsers) {
-    showAdminFunctions();
-    hideUserHiddenActions();
-    document.querySelector("#text-view-as-admin").innerHTML =
-      "Viendo como administrador";
-    document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
-  } else {
-    hideHeaderHiddenActions();
-    showUserFunctions();
-    document.querySelector("#text-view-as-admin").innerHTML =
-      "Viendo como usuario";
-    document.querySelector("#text-view-as-user").innerHTML = "Cambiar vista";
-  }
-}
-
+// Mostrar tablas con ventas al admin
 function showSales() {
   document.querySelector("#header-sales-actions").style.display = "block";
   let salesListContainer = document.querySelector("#sales-list");
@@ -709,7 +582,7 @@ function showSales() {
   HTMLtable += "</table>";
   salesListContainer.innerHTML = HTMLtable;
 
-  // Confirmar compras pendientes
+  // Llamar a la función para confirmar o cancelar compras pendientes
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let confirmButton = document.querySelector("#confirmP" + i);
     let cancelButton = document.querySelector("#cancelP" + i);
@@ -731,6 +604,7 @@ function showSales() {
   }
 }
 
+// Confirmar compras pendientes
 function confirmSale() {
   let clickedButton = this;
   let buttonID = clickedButton.id;
@@ -750,6 +624,7 @@ function confirmSale() {
   showSales();
 }
 
+// Cancelar compras pendientes
 function cancelSale() {
   let clickedButton = this;
   let buttonID = clickedButton.id;
@@ -765,24 +640,7 @@ function cancelSale() {
   showSales();
 }
 
-function toggleSalesListDisplay() {
-  let salesContainer = document.getElementById("sales-list");
-  let salesActions = document.getElementById("header-sales-actions");
-
-  if (salesContainer.style.display === "block") {
-    salesActions.style.display = "none";
-    salesContainer.style.display = "none";
-  } else {
-    salesActions.style.display = "block";
-    salesContainer.style.display = "block";
-  }
-  document.querySelector("#create-products-container").style.display = "none";
-  document.querySelector("#products-list").style.display = "none";
-  document.querySelector("#earnings-list-and-text").style.display = "none";
-  document.querySelector("#edit-product-options").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "none";
-}
-
+// Genera la tabla con las ventas al hacer click en el botón de ver ganancias
 function generateEarningsTable(salesList) {
   let earningsListContainer = document.querySelector("#earnings-list");
   let HTMLtable = "<table border='1' align='center'>";
@@ -808,6 +666,7 @@ function generateEarningsTable(salesList) {
   earningsListContainer.innerHTML = HTMLtable;
 }
 
+// Hace el calculo de las ganancias totales al hacer click en el botón de ver ganancias
 function calculateTotalEarningsAndPurchases(salesList) {
   let totalEarnings = 0;
   let totalPurchase = 0;
@@ -821,30 +680,14 @@ function calculateTotalEarningsAndPurchases(salesList) {
   document.querySelector("#total-earnings").innerHTML = `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
 }
 
-// Función que llama las dos funciones anteriores
+// Función que llama las dos funciones anteriores y muestra ambas
 function showEarnings() {
   let salesList = mainApp.salesList;
   generateEarningsTable(salesList);
   calculateTotalEarningsAndPurchases(salesList);
 }
 
-function toggleEarningsDisplay() {
-  let earningsContainer = document.getElementById("earnings-list-and-text");
-
-  if (earningsContainer.style.display === "block") {
-    earningsContainer.style.display = "none";
-  } else {
-    earningsContainer.style.display = "block";
-  }
-
-  document.querySelector("#create-products-container").style.display = "none";
-  document.querySelector("#products-list").style.display = "none";
-  document.querySelector("#sales-list").style.display = "none";
-  document.querySelector("#edit-product-options").style.display = "none";
-  document.querySelector("#header-sales-actions").style.display = "none";
-  document.querySelector("#user-purchases-list").style.display = "none";
-}
-
+// Filtrar ventas según estado: vista administrador
 function showFilterSales() {
   let salesFilter = document.querySelector("#sales-actions").value;
   let HTMLtable = "";
@@ -939,6 +782,71 @@ function showFilterSales() {
   }
 }
 
+// Funciones del panel del usuario
+// Crear tabla con los productos visibles para el usuario
+function productsTableUser() {
+  let HTMLtable = "<table border='1' align='center'>";
+
+  HTMLtable += `<tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+                <th>Stock</th>
+                <th>Unidades</th>
+                <th>Comprar</th>
+            </tr>`;
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let loadingItem = mainApp.productList[i];
+    let loadingSale = loadingItem.onSale ? 'En Oferta' : '';
+    if (mainApp.productList[i].status) {
+      HTMLtable += `<tr>
+                  <td>${loadingItem.name}</td>
+                  <td>${loadingItem.price} <br> <span style="color: red;">${loadingSale}</span></td>
+                  <td>${loadingItem.description}</td>
+                  <td><img src="img/${loadingItem.image}"></td>
+                  <td>${loadingItem.stock}</td>    
+                  <td><input type='number' id='products-list-stock${+i}' placeholder='Cantidad de unidades'></td>
+                  <td><input type='button' value='Comprar' id='purchaseP${+i}'></td>
+              </tr>`;
+    }
+  }
+  HTMLtable += "</table>";
+
+  document.querySelector("#products-list-user").innerHTML = HTMLtable;
+  document.querySelector("#products-list-user").style.display = "block";
+
+  for (let i = 0; i < mainApp.productList.length; i++) {
+    let purchaseButton = document.querySelector("#purchaseP" + i);
+    if (purchaseButton) {
+      purchaseButton.addEventListener("click", buyProduct);
+    }
+  }
+}
+
+// Función crear orden de compra
+function buyProduct() {
+  let clickedButton = this;
+
+  let buttonID = clickedButton.id;
+
+  let productPosition = Number(buttonID.substring(9));
+  let currentProduct = mainApp.productList[productPosition];
+  let amountPurchased = Number(
+    document.querySelector("#products-list-stock" + productPosition).value
+  );
+
+  if (currentProduct.stock >= 1) {
+    mainApp.createSale(mainApp.loggedUser, currentProduct, amountPurchased);
+  } else {
+    alert("No hay suficientes unidades como para realizar este pedido");
+  }
+  productsTableUser();
+}
+
+
+// Mostrar historial de compras: vista usuario
 function showUserPurchases() {
   let showPurchasesContainer = document.querySelector("#user-purchases-list");
   let totalSpent = 0;
@@ -974,7 +882,7 @@ function showUserPurchases() {
   HTMLtable += `<tr>
                   <td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td>
                 </tr>`; showPurchasesContainer.innerHTML = HTMLtable;
-                
+
   let remainingBalance = mainApp.loggedUser.balance - totalSpent;
   HTMLtable += `<tr>
                   <td colspan="5" align="right">Saldo restante: ${remainingBalance}</td>
@@ -1001,9 +909,9 @@ function showUserPurchases() {
   }
 }
 
+// Cancelar compra pendiente: vista usuario (al hacer click en panel de historial compras)
 function cancelPendingSale() {
   let clickedButton = this;
-
   let buttonID = clickedButton.id;
   let salePosition = Number(buttonID.substring(7));
   let currentSale = mainApp.salesList[salePosition];
@@ -1017,6 +925,31 @@ function cancelPendingSale() {
   }
 }
 
+
+
+// Funciones de visibilidad
+// Se ejecuta al inicio y al logout. Esconde el header de vista administrador
+function hideHeaderHiddenActions() {
+  document.querySelector("#header-hidden-actions").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
+}
+
+// Se ejecuta al inicio y al logout. Esconde el header de vista usuario
+function hideUserHiddenActions() {
+  document.querySelector("#header-hidden-actions-user").style.display = "none";
+}
+
+// Al hacer login como admin se muestra el header y opciones  de administrador
+function showAdminFunctions() {
+  document.querySelector("#header-hidden-actions").style.display = "block";
+}
+
+// Al hacer login como usuario se muestra el header y opciones de usuario
+function showUserFunctions() {
+  document.querySelector("#header-hidden-actions-user").style.display = "block";
+}
+
+// Prende y apaga la vista de la lista de compras al usuario
 function toggleUserPurchases() {
   let userPurchasesContainer = document.getElementById("user-purchases-list");
 
@@ -1026,10 +959,98 @@ function toggleUserPurchases() {
     userPurchasesContainer.style.display = "none";
   }
 
+  // Oculta todos los paneles que el usuario pudiese haber tenido abiertos previamente para que no se abran los dos al mismo tiempo
   document.querySelector("#create-products-container").style.display = "none";
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#sales-list").style.display = "none";
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#header-sales-actions").style.display = "none";
+}
+
+// Prende y apaga la vista de la lista de productos al admin
+function showAndHideProducts() {
+  productTableVisible = !productTableVisible;
+  if (productTableVisible) {
+    productsTableAdmin();
+  } else {
+    document.querySelector("#products-list").style.display = "none";
+  }
+
+  // Oculta todos los paneles que el usuario pudiese haber tenido abiertos previamente para que no se abran los dos al mismo tiempo
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
+}
+
+// Prende y apaga la vista de la lista de productos al usuario
+function showAndHideProductsUser() {
+  productTableUserVisible = !productTableUserVisible;
+  if (productTableUserVisible) {
+    productsTableUser();
+  } else {
+    document.querySelector("#products-list-user").style.display = "none";
+  }
+
+  document.querySelector("#user-purchases-list").style.display = "none";
+}
+
+// Prende y apaga la vista de la lista de ventas al admin
+function toggleSalesListDisplay() {
+  let salesContainer = document.getElementById("sales-list");
+  let salesActions = document.getElementById("header-sales-actions");
+
+  if (salesContainer.style.display === "block") {
+    salesActions.style.display = "none";
+    salesContainer.style.display = "none";
+  } else {
+    salesActions.style.display = "block";
+    salesContainer.style.display = "block";
+  }
+
+  // Oculta todos los paneles que el usuario pudiese haber tenido abiertos previamente para que no se abran los dos al mismo tiempo
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
+}
+
+// Prende y apaga la vista de creación de productos al admin
+function showAndHideCreateProducts() {
+  createProductsVisible = !createProductsVisible;
+  if (createProductsVisible) {
+    document.querySelector("#create-products-container").style.display =
+      "block";
+  } else {
+    document.querySelector("#create-products-container").style.display = "none";
+  }
+
+  // Oculta todos los paneles que el usuario pudiese haber tenido abiertos previamente para que no se abran los dos al mismo tiempo
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#earnings-list-and-text").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
+}
+
+// Prende y apaga la vista de la lista con las ganancias al admin
+function toggleEarningsDisplay() {
+  let earningsContainer = document.getElementById("earnings-list-and-text");
+
+  if (earningsContainer.style.display === "block") {
+    earningsContainer.style.display = "none";
+  } else {
+    earningsContainer.style.display = "block";
+  }
+
+  // Oculta todos los paneles que el usuario pudiese haber tenido abiertos previamente para que no se abran los dos al mismo tiempo
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#products-list").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
+  document.querySelector("#edit-product-options").style.display = "none";
+  document.querySelector("#header-sales-actions").style.display = "none";
+  document.querySelector("#user-purchases-list").style.display = "none";
 }
