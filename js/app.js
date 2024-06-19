@@ -721,12 +721,12 @@ function showSales() {
       confirmButton.addEventListener("click", confirmSale);
       cancelButton.addEventListener("click", cancelSale);
 
-    } else if (mainApp.salesList[i].purchaseStatus === "Aprobada"){
+    } else if (mainApp.salesList[i].purchaseStatus === "Aprobada") {
       confirmButton.disabled = true;
       cancelButton.disabled = true;
-    }else if(mainApp.salesList[i].purchaseStatus === "Cancelada") {
+    } else if (mainApp.salesList[i].purchaseStatus === "Cancelada") {
       confirmButton.disabled = true;
-      cancelButton.disabled = true;  
+      cancelButton.disabled = true;
     }
   }
 }
@@ -783,46 +783,49 @@ function toggleSalesListDisplay() {
   document.querySelector("#user-purchases-list").style.display = "none";
 }
 
-function showEarnings() {
+function generateEarningsTable(salesList) {
   let earningsListContainer = document.querySelector("#earnings-list");
-
   let HTMLtable = "<table border='1' align='center'>";
   HTMLtable += `<tr>
                   <th>Nombre comprador</th>
                   <th>Nombre producto</th>
                   <th>Unidades compradas</th>
                   <th>Total</th>
-              </tr>`;
-
-  for (let i = 0; i < mainApp.salesList.length; i++) {
-    let loadingItem = mainApp.salesList[i];
-    if (loadingItem.purchaseStatus === "Aprobada") {
-      HTMLtable += `<tr>
-                    <td>${loadingItem.buyer.username}</td>
-                    <td>${loadingItem.product.name}</td>
-                    <td>${loadingItem.amountPurchased}</td>
-                    <td>${loadingItem.amountPurchased * loadingItem.product.price
-        } USD</td>
                 </tr>`;
+
+  for (let i = 0; i < salesList.length; i++) {
+    let saleItem = salesList[i];
+    if (saleItem.purchaseStatus === "Aprobada") {
+      HTMLtable += `<tr>
+                      <td>${saleItem.buyer.username}</td>
+                      <td>${saleItem.product.name}</td>
+                      <td>${saleItem.amountPurchased}</td>
+                      <td>${saleItem.amountPurchased * saleItem.product.price} USD</td>
+                    </tr>`;
     }
   }
   HTMLtable += "</table>";
   earningsListContainer.innerHTML = HTMLtable;
+}
 
+function calculateTotalEarningsAndPurchases(salesList) {
   let totalEarnings = 0;
   let totalPurchase = 0;
-  // Calcular y mostrar ganancias totales --> SEPARAR EN OTRA FUNCIÓN
-  for (let i = 0; i < mainApp.salesList.length; i++) {
-    let loadingItem = mainApp.salesList[i];
-    if (loadingItem.purchaseStatus === "Aprobada") {
-      totalEarnings += loadingItem.amountPurchased * loadingItem.product.price;
-      totalPurchase += loadingItem.amountPurchased;
+  for (let i = 0; i < salesList.length; i++) {
+    let saleItem = salesList[i];
+    if (saleItem.purchaseStatus === "Aprobada") {
+      totalEarnings += saleItem.amountPurchased * saleItem.product.price;
+      totalPurchase += saleItem.amountPurchased;
     }
   }
+  document.querySelector("#total-earnings").innerHTML = `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
+}
 
-  document.querySelector(
-    "#total-earnings"
-  ).innerHTML = `Ganancias totales: ${totalEarnings} USD <br> Unidades Compradas: ${totalPurchase}`;
+// Función que llama las dos funciones anteriores
+function showEarnings() {
+  let salesList = mainApp.salesList;
+  generateEarningsTable(salesList);
+  calculateTotalEarningsAndPurchases(salesList);
 }
 
 function toggleEarningsDisplay() {
@@ -938,6 +941,8 @@ function showFilterSales() {
 
 function showUserPurchases() {
   let showPurchasesContainer = document.querySelector("#user-purchases-list");
+  let totalSpent = 0;
+  let totalUnits = 0;
 
   // Crear tabla
   let HTMLtable = "<table border='1' align='center'>";
@@ -951,7 +956,12 @@ function showUserPurchases() {
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
+
     if (loadingItem.buyer.username == mainApp.loggedUser.username) {
+      let totalPrice = loadingItem.product.price * loadingItem.amountPurchased;
+      totalSpent += totalPrice;
+      totalUnits += loadingItem.amountPurchased;
+
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
@@ -961,6 +971,15 @@ function showUserPurchases() {
                     </tr>`;
     }
   }
+  HTMLtable += `<tr>
+                  <td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td>
+                </tr>`; showPurchasesContainer.innerHTML = HTMLtable;
+                
+  let remainingBalance = mainApp.loggedUser.balance - totalSpent;
+  HTMLtable += `<tr>
+                  <td colspan="5" align="right">Saldo restante: ${remainingBalance}</td>
+                </tr>`;
+
   HTMLtable += "</table>";
   showPurchasesContainer.innerHTML = HTMLtable;
 
