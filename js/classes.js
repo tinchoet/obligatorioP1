@@ -19,7 +19,7 @@ class App {
     );
     this.userList.push(preloadedUser);
     preloadedUser = new User(
-      "Usuuario Administrador",
+      "Usuario Administrador",
       "",
       "admin2",
       "admin2",
@@ -28,7 +28,7 @@ class App {
       true
     );this.userList.push(preloadedUser);
     preloadedUser = new User(
-      "Usuuario Administrador",
+      "Usuario Administrador",
       "",
       "admin3",
       "admin3",
@@ -37,7 +37,7 @@ class App {
       true
     );this.userList.push(preloadedUser);
     preloadedUser = new User(
-      "Usuuario Administrador",
+      "Usuario Administrador",
       "",
       "admin4",
       "admin4",
@@ -46,7 +46,7 @@ class App {
       true
     );this.userList.push(preloadedUser);
     preloadedUser = new User(
-      "Usuuario Administrador",
+      "Usuario Administrador",
       "",
       "admin5",
       "admin5",
