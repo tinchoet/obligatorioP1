@@ -65,6 +65,11 @@ function showRegister() {
 
 // Función de logout
 function logout() {
+  // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
+  showLogin();
+  hideHeaderHiddenActions();
+  hideUserHiddenActions();
+
   document.querySelector("#products-list").style.display = "none";
   document.querySelector("#products-list-user").style.display = "none";
   document.querySelector("#login-container").style.display = "flex";
@@ -73,11 +78,8 @@ function logout() {
   document.querySelector("#edit-product-options").style.display = "none";
   document.querySelector("#user-purchases-list").style.display = "none";
   document.querySelector("#earnings-list-and-text").style.display = "none";
-
-  // Al hacer logout muestra la pestaña de Login y esconde el header (opciones de administrador)
-  showLogin();
-  hideHeaderHiddenActions();
-  hideUserHiddenActions();
+  document.querySelector("#create-products-container").style.display = "none";
+  document.querySelector("#sales-list").style.display = "none";
 }
 
 // Validaciones
@@ -387,7 +389,7 @@ function productsTableAdmin() {
                     <td>${loadingItem.name}</td>
                     <td>${loadingItem.price}</td>
                     <td>${loadingItem.description}</td>
-                    <td><img src="../img/${loadingItem.image}"></td>
+                    <td><img src="./img/${loadingItem.image}"></td>
                     <td>${loadingItemStatus} <br> ${loadingItemOnSale}</td>
                     <td>${loadingItem.stock}</td>    
                     <td><input type='button' value='Cambiar estado' id='p${+i}'>
@@ -521,7 +523,7 @@ function createProduct() {
   let productImage = document.querySelector(
     "#create-products-product-image"
   ).value;
-  let newFilePath = "../img/" + getFileName(productImage);
+  let newFilePath = "./img/" + getFileName(productImage);
 
   if (
     !checkVoidInputs(
