@@ -117,7 +117,7 @@ class App {
       let preloadedProduct = new Product(
       "Air Zoom Pegasus",
       100,
-      "Descripción del producto",
+      "Championes comodos y livianos para correr.",
       "nike-air-zoom-pegasus.webp",
       7,
       true,
@@ -127,7 +127,7 @@ class App {
     preloadedProduct = new Product(
       "Air Zoom Pegasus Shield",
       100, // precio
-      "Descripción del producto",
+      "Championes ideales para correr en días de lluvia.",
       "nike-air-zoom-pegasus-shield.webp",
       4, // stock
       true, // apagado o prendido
@@ -137,7 +137,7 @@ class App {
     preloadedProduct = new Product(
       "Air Zoom Structure",
       100,
-      "Descripción del producto",
+      "Championes para correr con soporte en el arco del pie.",
       "nike-air-zoom-structure.webp",
       8,
       false,
@@ -147,7 +147,7 @@ class App {
     preloadedProduct = new Product(
       "Legend Essential 3",
       200,
-      "Descripción del producto",
+      "Championes para entrenamiento en el gimnasio.",
       "nike-legend-essential-3.webp",
       11,
       false,
@@ -157,7 +157,7 @@ class App {
     preloadedProduct = new Product(
       "Quest 5",
       150,
-      "Descripción del producto",
+      "Championes para correr con soporte en el talón.",
       "nike-quest-5.webp",
       21,
       true,
@@ -167,7 +167,7 @@ class App {
     preloadedProduct = new Product(
       "Air Max",
       200,
-      "Descripción del producto",
+      "Championes urbanos para el día a día.",
       "nike1.jpg",
       15,
       true,
@@ -177,7 +177,7 @@ class App {
     preloadedProduct = new Product(
       "Air Max 2",
       150,
-      "Descripción del producto",
+      "Championes urbanos para el día a día.",
       "nike2.jpg",
       5,
       false,
@@ -187,7 +187,7 @@ class App {
     preloadedProduct = new Product(
       "LeBron 15 Low",
       250,
-      "Descripción del producto",
+      "Championes de basquet para jugar en interiores.",
       "nike3.jpg",
       8,
       false,
@@ -195,9 +195,9 @@ class App {
     );
     this.productList.push(preloadedProduct);
     preloadedProduct = new Product(
-      "Medias ",
+      "Medias",
       50,
-      "Descripción del producto",
+      "Medias deportivas para correr.",
       "medias_Nike2.jpg",
       5,
       true,
@@ -207,7 +207,7 @@ class App {
     preloadedProduct = new Product(
       "Medias Negras",
       50,
-      "Descripción del producto",
+      "Medias deportivas para correr.",
       "image.jpg",
       10,
       true,

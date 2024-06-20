@@ -22,6 +22,7 @@
 
   <link rel="stylesheet" href="./css/styles.css">
 
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
   <script src="./js/classes.js"></script>
   <script src="./js/app.js"></script>
 
@@ -34,18 +35,18 @@
     <div id="header-hidden-actions">
       <input type='button' id="header-hidden-logout-button" value="Cerrar Sesion" class="btn btn-danger lg-3">
       <input type='button' id="header-hidden-create-products-button" value="Crear Producto"
-        class="btn btn-primary lg-3">
-      <input type='button' id="header-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
-      <input type='button' id="header-hidden-show-sales-button" value="Ver ventas" class="btn btn-primary lg-3">
-      <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-primary lg-3">
+        class="btn btn-dark lg-3">
+      <input type='button' id="header-hidden-show-products-button" value="Productos" class="btn btn-dark lg-3">
+      <input type='button' id="header-hidden-show-sales-button" value="Ver ventas" class="btn btn-dark lg-3">
+      <input type='button' id="header-hidden-show-earnings-button" value="Ver ganancias" class="btn btn-dark lg-3">
     </div>
 
     <!-- Header: visible al usuario -->
     <div id="header-hidden-actions-user">
       <input type='button' id="user-hidden-logout-button" value="Cerrar Sesion" class="btn btn-danger  lg-3">
-      <input type='button' id="user-hidden-show-products-button" value="Productos" class="btn btn-primary lg-3">
+      <input type='button' id="user-hidden-show-products-button" value="Productos" class="btn btn-dark lg-3">
       <input type='button' id="user-hidden-show-purchases-button" value="Historial de compras"
-        class="btn btn-primary lg-3">
+        class="btn btn-dark lg-3">
     </div>
 
     <!-- Filtrar ventas: visible al admin -->
@@ -137,17 +138,6 @@
 
     <!-- Tabla productos: visible al usuario -->
     <div class="table-container">
-      <div class="edit-product-options" id="edit-product-options" style="display: none;">
-        <input type="text" id="editing-product-name" placeholder="Nombre del producto"><br>
-        <input type="text" id="editing-product-price" placeholder="Precio del producto"><br>
-        <textarea id="editing-product-description" placeholder="Descripción del producto"></textarea><br>
-        <label for="editing-product-image">Imagen del producto</label>
-        <input type="file" id="editing-product-image"><br>
-        <input type="number" id="editing-product-stock" placeholder="Stock del producto"><br>
-        <label for="editing-product-onSale">En oferta</label>
-        <input type="checkbox" id="editing-product-onSale">
-        <input type="button" id="finished-editing" value="Guardar cambios">
-      </div>
       <div class="hidden-list" id="products-list-user"></div>
     </div>
 
@@ -160,6 +150,19 @@
     <div class="table-container">
       <div class="hidden-list" id="products-list">
       </div>
+    </div>
+
+    <!-- Tabla editar productos: visible al admin -->
+    <div class="edit-product-options" id="edit-product-options" style="display: none;">
+      <input type="text" id="editing-product-name" placeholder="Nombre del producto"><br>
+      <input type="text" id="editing-product-price" placeholder="Precio del producto"><br>
+      <textarea id="editing-product-description" placeholder="Descripción del producto"></textarea><br>
+      <label for="editing-product-image">Imagen del producto</label>
+      <input type="file" id="editing-product-image"><br>
+      <input type="number" id="editing-product-stock" placeholder="Stock del producto"><br>
+      <label for="editing-product-onSale">En oferta</label>
+      <input type="checkbox" id="editing-product-onSale">
+      <input type="button" id="finished-editing" value="Guardar cambios">
     </div>
 
     <!-- Crear productos: visible al admin -->

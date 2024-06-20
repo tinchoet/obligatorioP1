@@ -130,6 +130,11 @@ footer {
   overflow-y: auto;
 }
 
+.table-container td:nth-child(3) {
+  width: 10%;
+}
+
+
 table {
   width: 100%;
 }

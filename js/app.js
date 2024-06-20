@@ -151,6 +151,7 @@ function loginFunction() {
 
     if (foundUser) {
       document.querySelector("#login-container").style.display = "none";
+      document.querySelector("#login-messages").textContent = "";
       if (mainApp.loggedUser.power) {
         showAdminFunctions();
       } else {
