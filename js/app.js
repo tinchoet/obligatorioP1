@@ -631,9 +631,6 @@ function cancelSale() {
   let salePosition = Number(buttonID.substring(7));
   let currentSale = mainApp.salesList[salePosition];
 
-  currentSale.buyer.balance +=
-    currentSale.amountPurchased * currentSale.product.price;
-  currentSale.product.stock += currentSale.amountPurchased;
   currentSale.purchaseStatus = "Cancelada";
   clickedButton.disabled = true;
 
