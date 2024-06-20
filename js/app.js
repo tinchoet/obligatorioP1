@@ -852,6 +852,14 @@ function showUserPurchases() {
   let totalSpent = 0;
   let totalUnits = 0;
 
+  // Calcular total gastado por usuario + unidades compradas para mostrarlas posteriormente
+  for (let i = 0; i < mainApp.salesList.length; i++) {
+    if (mainApp.salesList[i].buyer.username === mainApp.loggedUser.username && mainApp.salesList[i].purchaseStatus === "Aprobada") {
+      totalUnits = totalUnits + mainApp.salesList[i].amountPurchased;
+      totalSpent = totalSpent + mainApp.salesList[i].amountPurchased * mainApp.salesList[i].product.price;
+    }
+  }
+
   // Crear tabla
   let HTMLtable = "<table border='1' align='center'>";
   HTMLtable += `<tr>
@@ -877,18 +885,14 @@ function showUserPurchases() {
                       <td>${loadingItem.purchaseStatus}</td>    
                       <td><input type='button' value='Cancelar' id='cancelP${i}'><br></td>
                     </tr>`;
+
+      HTMLtable += `<tr><td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td></tr>`;
+      HTMLtable += `<tr><td colspan="5" align="right">Saldo restante: ${mainApp.loggedUser.balance}</td></tr>`;
     }
   }
-  HTMLtable += `<tr>
-                  <td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td>
-                </tr>`; showPurchasesContainer.innerHTML = HTMLtable;
-
-  let remainingBalance = mainApp.loggedUser.balance - totalSpent;
-  HTMLtable += `<tr>
-                  <td colspan="5" align="right">Saldo restante: ${remainingBalance}</td>
-                </tr>`;
 
   HTMLtable += "</table>";
+
   showPurchasesContainer.innerHTML = HTMLtable;
 
   for (let i = 0; i < mainApp.salesList.length; i++) {

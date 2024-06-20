@@ -218,17 +218,17 @@ class App {
 
   // Precarga ventas
   preloadSales() {
-    let preloadedSale = new Sale(this.userList[4], this.productList[0], 5, "Aprobada");
+    let preloadedSale = new Sale(this.userList[6], this.productList[0], 5, "Aprobada");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[2], this.productList[2], 8, "Cancelada");
+    preloadedSale = new Sale(this.userList[7], this.productList[2], 8, "Cancelada");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[1], this.productList[0], 2, "Pendiente");
+    preloadedSale = new Sale(this.userList[8], this.productList[0], 2, "Pendiente");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[1], this.productList[0], 5, "Cancelada");
+    preloadedSale = new Sale(this.userList[9], this.productList[0], 5, "Cancelada");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[1], this.productList[0], 3, "Aprobada");
+    preloadedSale = new Sale(this.userList[6], this.productList[0], 3, "Aprobada");
     this.salesList.push(preloadedSale);
-    preloadedSale = new Sale(this.userList[3], this.productList[1], 5, "Pendiente");
+    preloadedSale = new Sale(this.userList[5], this.productList[1], 5, "Pendiente");
     this.salesList.push(preloadedSale);
   }
 

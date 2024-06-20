@@ -25,7 +25,8 @@ header {
   display: flex;
   justify-content: space-between;
   z-index: 999;
-  margin-top: 2rem;
+  padding-top: 0.1rem;
+  padding-left: 0.1rem;
 }
 
 header .arrow-container,
