@@ -851,12 +851,13 @@ function showUserPurchases() {
   let showPurchasesContainer = document.querySelector("#user-purchases-list");
   let totalSpent = 0;
   let totalUnits = 0;
+  let initialBalance = mainApp.loggedUser.balance; // Asumiendo que este es 3000 y no cambia
 
   // Calcular total gastado por usuario + unidades compradas para mostrarlas posteriormente
   for (let i = 0; i < mainApp.salesList.length; i++) {
     if (mainApp.salesList[i].buyer.username === mainApp.loggedUser.username && mainApp.salesList[i].purchaseStatus === "Aprobada") {
-      totalUnits = totalUnits + mainApp.salesList[i].amountPurchased;
-      totalSpent = totalSpent + mainApp.salesList[i].amountPurchased * mainApp.salesList[i].product.price;
+      totalUnits += mainApp.salesList[i].amountPurchased;
+      totalSpent += mainApp.salesList[i].amountPurchased * mainApp.salesList[i].product.price;
     }
   }
 
@@ -868,33 +869,36 @@ function showUserPurchases() {
                   <th>Precio</th>
                   <th>Estado compra</th>
                   <th>Acción</th>
-              </tr>`;
+                </tr>`;
 
   for (let i = 0; i < mainApp.salesList.length; i++) {
     let loadingItem = mainApp.salesList[i];
 
     if (loadingItem.buyer.username == mainApp.loggedUser.username) {
       let totalPrice = loadingItem.product.price * loadingItem.amountPurchased;
-      totalSpent += totalPrice;
-      totalUnits += loadingItem.amountPurchased;
 
       HTMLtable += `<tr>
                       <td>${loadingItem.product.name}</td>
                       <td>${loadingItem.amountPurchased}</td>
-                      <td>${loadingItem.product.price * loadingItem.amountPurchased}</td>
+                      <td>${totalPrice}</td>
                       <td>${loadingItem.purchaseStatus}</td>    
                       <td><input type='button' value='Cancelar' id='cancelP${i}'><br></td>
                     </tr>`;
-
-      HTMLtable += `<tr><td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td></tr>`;
-      HTMLtable += `<tr><td colspan="5" align="right">Saldo restante: ${mainApp.loggedUser.balance}</td></tr>`;
     }
   }
+
+  // Agregar total gastado y unidades compradas al final de la tabla
+  HTMLtable += `<tr><td colspan="5" align="right">Total gastado: ${totalSpent} - Unidades compradas: ${totalUnits}</td></tr>`;
+
+  // El saldo restante ahora se muestra como el saldo inicial ya que no se restan las compras precargadas
+  let remainingBalance = initialBalance; // Mostrar el saldo inicial como saldo restante
+  HTMLtable += `<tr><td colspan="5" align="right">Saldo restante: ${remainingBalance}</td></tr>`;
 
   HTMLtable += "</table>";
 
   showPurchasesContainer.innerHTML = HTMLtable;
 
+  // Agregar eventos a los botones de cancelar
   for (let i = 0; i < mainApp.salesList.length; i++) {
     if (mainApp.salesList[i].buyer.username === mainApp.loggedUser.username) {
       let cancelButton = document.querySelector("#cancelP" + i);
